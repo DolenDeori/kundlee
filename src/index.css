@@ -1,96 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Kundlee Brand Design System - Modern yet Traditional */
+
+@font-face {
+  font-family: 'Larken';
+  src: url('./assets/fonts/LarkenDEMO-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Larken';
+  src: url('./assets/fonts/LarkenDEMO-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Larken';
+  src: url('./assets/fonts/LarkenDEMO-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
+    /* Kundlee Brand Colors */
+    --saffron: 18 100% 56%; /* #FF6820 - Indian Saffron */
+    --saffron-light: 18 100% 70%;
+    --saffron-dark: 18 100% 45%;
+    
+    --teal: 180 82% 20%; /* #0D5B5B - Deep Teal */
+    --teal-light: 180 82% 30%;
+    --teal-dark: 180 82% 15%;
+    
+    --warm-white: 36 67% 99%; /* #FFFDFB - Warm White */
+    --charcoal: 0 0% 7%; /* #121212 - Charcoal Black */
+    --charcoal-soft: 0 0% 15%;
+    
+    /* Design System Tokens */
+    --background: var(--warm-white);
+    --foreground: var(--charcoal);
+    
+    --card: var(--warm-white);
+    --card-foreground: var(--charcoal);
+    
+    --primary: var(--saffron);
+    --primary-foreground: var(--warm-white);
+    
+    --secondary: var(--teal);
+    --secondary-foreground: var(--warm-white);
+    
+    --accent: var(--teal);
+    --accent-foreground: var(--warm-white);
+    
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: var(--saffron);
+    
+    /* Gradients */
+    --gradient-saffron: linear-gradient(135deg, hsl(var(--saffron)), hsl(var(--saffron-light)));
+    --gradient-teal: linear-gradient(135deg, hsl(var(--teal)), hsl(var(--teal-light)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--saffron) / 0.1), hsl(var(--teal) / 0.1));
+    --gradient-cosmic: radial-gradient(circle at 30% 70%, hsl(var(--saffron) / 0.2), transparent 50%), radial-gradient(circle at 80% 20%, hsl(var(--teal) / 0.15), transparent 50%);
+    
+    /* Shadows */
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--charcoal) / 0.1);
+    --shadow-saffron-glow: 0 0 40px hsl(var(--saffron) / 0.3);
+    --shadow-teal-glow: 0 0 40px hsl(var(--teal) / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
     --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
+}
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  h1, h2 {
+    @apply font-larken uppercase tracking-wide;
+  }
+}
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+@layer components {
+  /* Sunray Pattern - Subtle background element */
+  .sunray-pattern {
+    background-image: 
+      radial-gradient(circle at center, transparent 20%, hsl(var(--saffron) / 0.03) 21%, hsl(var(--saffron) / 0.03) 25%, transparent 26%),
+      conic-gradient(from 0deg, hsl(var(--saffron) / 0.05), transparent 10deg, hsl(var(--saffron) / 0.05) 20deg, transparent 30deg, hsl(var(--saffron) / 0.05) 40deg, transparent 50deg, hsl(var(--saffron) / 0.05) 60deg, transparent 70deg, hsl(var(--saffron) / 0.05) 80deg, transparent 90deg, hsl(var(--saffron) / 0.05) 100deg, transparent 110deg, hsl(var(--saffron) / 0.05) 120deg, transparent 130deg, hsl(var(--saffron) / 0.05) 140deg, transparent 150deg, hsl(var(--saffron) / 0.05) 160deg, transparent 170deg, hsl(var(--saffron) / 0.05) 180deg, transparent 190deg, hsl(var(--saffron) / 0.05) 200deg, transparent 210deg, hsl(var(--saffron) / 0.05) 220deg, transparent 230deg, hsl(var(--saffron) / 0.05) 240deg, transparent 250deg, hsl(var(--saffron) / 0.05) 260deg, transparent 270deg, hsl(var(--saffron) / 0.05) 280deg, transparent 290deg, hsl(var(--saffron) / 0.05) 300deg, transparent 310deg, hsl(var(--saffron) / 0.05) 320deg, transparent 330deg, hsl(var(--saffron) / 0.05) 340deg, transparent 350deg, hsl(var(--saffron) / 0.05));
+  }
+  
+  /* Loading Animation */
+  .logo-draw {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 2s ease-in-out forwards;
+  }
+  
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  /* Premium Button Styles */
+  .btn-primary {
+    @apply bg-gradient-to-r from-saffron to-saffron-light text-white font-medium px-8 py-4 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg focus:ring-4 focus:ring-saffron/20;
+  }
+  
+  .btn-secondary {
+    @apply bg-gradient-to-r from-teal to-teal-light text-white font-medium px-8 py-4 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg focus:ring-4 focus:ring-teal/20;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-teal text-teal font-medium px-8 py-4 rounded-full transform transition-all duration-300 hover:bg-teal hover:text-white hover:scale-105 focus:ring-4 focus:ring-teal/20;
+  }
+  
+  /* Service Card Hover Effects */
+  .service-card {
+    @apply bg-white/80 backdrop-blur-sm border border-border rounded-2xl p-8 transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:bg-white;
+  }
+  
+  .service-card:hover {
+    box-shadow: var(--shadow-elegant), 0 0 0 1px hsl(var(--saffron) / 0.1);
   }
 }
 
