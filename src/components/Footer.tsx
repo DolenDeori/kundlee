@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-charcoal text-warm-white relative overflow-hidden">
+    <footer className="bg-warm-white text-charcoal relative overflow-hidden">
       {/* Main Footer Content */}
       <div className="container mx-auto px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
                 {footerSections.brand.title}
               </h3>
             </div>
-            <p className="font-inter text-warm-white/80 text-sm leading-relaxed">
+            <p className="font-inter text-charcoal/80 text-sm leading-relaxed">
               {footerSections.brand.mission}
             </p>
           </motion.div>
@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="font-inter text-sm text-warm-white/70 hover:text-saffron transition-colors duration-200 hover:underline"
+                    className="font-inter text-sm text-charcoal/70 hover:text-saffron transition-colors duration-200 hover:underline"
                   >
                     {link.name}
                   </a>
@@ -107,7 +107,7 @@ const Footer: React.FC = () => {
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="font-inter text-sm text-warm-white/70 hover:text-teal transition-colors duration-200 hover:underline"
+                    className="font-inter text-sm text-charcoal/70 hover:text-teal transition-colors duration-200 hover:underline"
                   >
                     {link.name}
                   </a>
@@ -131,7 +131,7 @@ const Footer: React.FC = () => {
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="font-inter text-sm text-warm-white/70 hover:text-teal transition-colors duration-200 flex items-center space-x-2 hover:underline"
+                    className="font-inter text-sm text-charcoal/70 hover:text-teal transition-colors duration-200 flex items-center space-x-2 hover:underline"
                   >
                     <span>{link.icon}</span>
                     <span>{link.name}</span>
@@ -144,7 +144,7 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-warm-white/10">
+      <div className="border-t border-charcoal/10">
         <div className="container mx-auto px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <motion.p
@@ -152,7 +152,7 @@ const Footer: React.FC = () => {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="font-inter text-sm text-warm-white/60 mb-4 md:mb-0"
+              className="font-inter text-sm text-charcoal/60 mb-4 md:mb-0"
             >
               © {currentYear} Kundlee. All rights reserved. Made with cosmic wisdom.
             </motion.p>
@@ -164,7 +164,7 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               className="flex items-center space-x-4"
             >
-              <span className="font-inter text-xs text-warm-white/40">
+              <span className="font-inter text-xs text-charcoal/40">
                 Crafted for clarity and empowerment
               </span>
               <div className="w-2 h-2 bg-saffron rounded-full animate-pulse" />

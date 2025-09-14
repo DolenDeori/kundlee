@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingAnimation from '@/components/LoadingAnimation';
+import Navigation from '@/components/Navigation';
 import HeroCarousel from '@/components/HeroCarousel';
 import ServicesSection from '@/components/ServicesSection';
+import FAQSection from '@/components/FAQSection';
+import TestimonialSection from '@/components/TestimonialSection';
+import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 
 const KundleeHome: React.FC = () => {
@@ -52,23 +56,37 @@ const KundleeHome: React.FC = () => {
 
       <AnimatePresence>
         {showContent && (
-          <motion.main
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="relative"
-          >
-            {/* Hero Section */}
-            <HeroCarousel onCtaClick={handleCtaClick} />
+          <>
+            {/* Navigation */}
+            <Navigation />
+            
+            <motion.main
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="relative pt-16"
+            >
+              {/* Hero Section */}
+              <HeroCarousel onCtaClick={handleCtaClick} />
 
-            {/* Services Section */}
-            <div id="services">
-              <ServicesSection onServiceClick={handleServiceClick} />
-            </div>
+              {/* Services Section */}
+              <div id="services">
+                <ServicesSection onServiceClick={handleServiceClick} />
+              </div>
 
-            {/* Footer */}
-            <Footer />
-          </motion.main>
+              {/* FAQ Section */}
+              <FAQSection />
+
+              {/* Testimonials Section */}
+              <TestimonialSection />
+
+              {/* Contact Section */}
+              <ContactSection />
+
+              {/* Footer */}
+              <Footer />
+            </motion.main>
+          </>
         )}
       </AnimatePresence>
     </div>

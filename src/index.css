@@ -121,15 +121,15 @@
   
   /* Premium Button Styles */
   .btn-primary {
-    @apply bg-gradient-to-r from-saffron to-saffron-light text-white font-medium px-8 py-4 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg focus:ring-4 focus:ring-saffron/20;
+    @apply bg-teal text-white font-medium px-8 py-4 rounded-full transition-all duration-300 hover:bg-teal-dark focus:ring-4 focus:ring-teal/20;
   }
   
   .btn-secondary {
-    @apply bg-gradient-to-r from-teal to-teal-light text-white font-medium px-8 py-4 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg focus:ring-4 focus:ring-teal/20;
+    @apply bg-teal text-white font-medium px-8 py-4 rounded-full transition-all duration-300 hover:bg-teal-dark focus:ring-4 focus:ring-teal/20;
   }
   
   .btn-outline {
-    @apply border-2 border-teal text-teal font-medium px-8 py-4 rounded-full transform transition-all duration-300 hover:bg-teal hover:text-white hover:scale-105 focus:ring-4 focus:ring-teal/20;
+    @apply border-2 border-teal text-teal font-medium px-8 py-4 rounded-full transition-all duration-300 hover:bg-teal hover:text-white focus:ring-4 focus:ring-teal/20;
   }
   
   /* Service Card Hover Effects */
