@@ -1,3 +1,7 @@
+User-agent: *
+Allow: /
+
+# Enhanced for Kundlee SEO
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +14,19 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
-Allow: /
+# Sitemap
+Sitemap: https://kundlee.com/sitemap.xml
+
+# Crawl-delay for better server performance
+Crawl-delay: 1
+
+# Block access to sensitive areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: *.pdf$
+
+# Allow important pages for SEO
+Allow: /#services
+Allow: /#faq
+Allow: /#testimonials
+Allow: /#contact

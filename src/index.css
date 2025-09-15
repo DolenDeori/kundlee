@@ -5,6 +5,7 @@
 
 /* Kundlee Brand Design System - Modern yet Traditional */
 
+/* Custom Larken font faces - Optimized loading */
 @font-face {
   font-family: 'Larken';
   src: url('./assets/fonts/LarkenDEMO-Regular.otf') format('opentype');
@@ -26,6 +27,22 @@
   font-display: swap;
 }
 
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @layer base {
   :root {
     /* Kundlee Brand Colors */
@@ -33,9 +50,9 @@
     --saffron-light: 18 100% 70%;
     --saffron-dark: 18 100% 45%;
     
-    --teal: 180 82% 20%; /* #0D5B5B - Deep Teal */
-    --teal-light: 180 82% 30%;
-    --teal-dark: 180 82% 15%;
+    --teal: 180 82% 18%; /* #0D5B5B - Deep Teal */
+    --teal-light: 180 82% 25%;
+    --teal-dark: 180 82% 12%;
     
     --warm-white: 36 67% 99%; /* #FFFDFB - Warm White */
     --charcoal: 0 0% 7%; /* #121212 - Charcoal Black */
@@ -119,7 +136,7 @@
     }
   }
   
-  /* Premium Button Styles */
+  /* Premium Button Styles - Updated with plain teal */
   .btn-primary {
     @apply bg-teal text-white font-medium px-8 py-4 rounded-full transition-all duration-300 hover:bg-teal-dark focus:ring-4 focus:ring-teal/20;
   }
@@ -134,11 +151,60 @@
   
   /* Service Card Hover Effects */
   .service-card {
-    @apply bg-white/80 backdrop-blur-sm border border-border rounded-2xl p-8 transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:bg-white;
+    @apply bg-white/90 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:bg-white;
   }
   
   .service-card:hover {
     box-shadow: var(--shadow-elegant), 0 0 0 1px hsl(var(--saffron) / 0.1);
+  }
+  
+  /* Responsive Typography */
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm;
+  }
+  
+  .text-responsive-sm {
+    @apply text-sm sm:text-base;
+  }
+  
+  .text-responsive-base {
+    @apply text-base sm:text-lg;
+  }
+  
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+  
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+  
+  .text-responsive-2xl {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+  
+  .text-responsive-3xl {
+    @apply text-3xl sm:text-4xl lg:text-5xl;
+  }
+  
+  /* Container Responsive Padding */
+  .container-responsive {
+    @apply px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16;
+  }
+  
+  /* Image Optimization */
+  img {
+    @apply max-w-full h-auto;
+  }
+  
+  /* Lazy loading images */
+  img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  img[loading="lazy"].loaded {
+    opacity: 1;
   }
 }
 

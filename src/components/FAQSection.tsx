@@ -51,7 +51,7 @@ const FAQSection: React.FC = () => {
       {/* Background Pattern */}
       <div className="absolute top-0 left-0 w-full h-full sunray-pattern opacity-30 pointer-events-none" />
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

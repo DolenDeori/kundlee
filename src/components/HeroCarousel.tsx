@@ -68,7 +68,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
 
               {/* Content */}
               <div className="relative z-10 h-full flex items-center">
-                <div className="container mx-auto px-6 lg:px-8">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="max-w-3xl">
                     <motion.h1
                       initial={{ opacity: 0, y: 50 }}
@@ -95,7 +95,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
                     >
                       <button
                         onClick={onCtaClick}
-                        className="group bg-gradient-to-r from-teal to-teal-light text-white font-inter font-semibold px-8 py-4 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-teal-glow focus:ring-4 focus:ring-teal/30 flex items-center space-x-2"
+                        className="group bg-teal text-white font-inter font-semibold px-8 py-4 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-teal-glow focus:ring-4 focus:ring-teal/30 flex items-center space-x-2"
                       >
                         <span>{slide.cta}</span>
                         <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />

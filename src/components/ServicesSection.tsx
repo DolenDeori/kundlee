@@ -41,7 +41,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onServiceClick }) => 
   return (
     <section className="py-20 bg-gradient-cosmic relative overflow-hidden">
       {/* Section Header */}
-      <div className="container mx-auto px-6 lg:px-8 mb-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12 lg:mb-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -60,8 +60,8 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onServiceClick }) => 
       </div>
 
       {/* Services Grid */}
-      <div className="container mx-auto px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -103,7 +103,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onServiceClick }) => 
               </ul>
 
               {/* CTA Button */}
-              <button className="group/btn w-full bg-gradient-to-r from-teal to-teal-light text-white font-inter font-semibold px-6 py-3 rounded-full transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus:ring-4 focus:ring-teal/20 flex items-center justify-center space-x-2">
+              <button className="group/btn w-full bg-teal text-white font-inter font-semibold px-6 py-3 rounded-full transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus:ring-4 focus:ring-teal/20 flex items-center justify-center space-x-2">
                 <span>{service.cta}</span>
                 <ArrowRightIcon className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
               </button>
