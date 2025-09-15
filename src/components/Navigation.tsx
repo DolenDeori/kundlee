@@ -1,29 +1,57 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import kundleePrimaryLogo from '@/assets/kundlee-primary-logo.png';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import kundleePrimaryLogo from "@/assets/kundlee-primary-logo.png";
 
 const Navigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showNav, setShowNav] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const navLinks = [
-    { name: 'Service', href: '#services' },
-    { name: 'About', href: '#about' },
-    { name: 'FAQ', href: '#faq' },
-    { name: 'Testimonial', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' }
+    { name: "Service", href: "#services" },
+    { name: "About", href: "#about" },
+    { name: "FAQ", href: "#faq" },
+    { name: "Testimonial", href: "#testimonials" },
+    { name: "Contact", href: "#contact" },
   ];
 
   const handleNavClick = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setIsMobileMenuOpen(false);
   };
 
+  React.useEffect(() => {
+    const hero = document.querySelector("#hero");
+    const heroHeight = hero ? hero.getBoundingClientRect().height : 400;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollingDown = currentScrollY > lastScrollY;
+      const passedHero = currentScrollY > heroHeight;
+
+      if (passedHero) {
+        setShowNav(!scrollingDown);
+      } else {
+        setShowNav(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-warm-white/95 backdrop-blur-sm border-b border-border">
+    <motion.nav
+      initial={{ y: 0 }}
+      animate={{ y: showNav ? 0 : -80 }}
+      transition={{ type: "tween", duration: 0.4 }}
+      className="fixed top-0 left-0 right-0 z-50 bg-warm-white/95 backdrop-blur-sm border-b border-border"
+    >
       <div className="container mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -33,14 +61,7 @@ const Navigation: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="flex items-center"
           >
-            <img 
-              src={kundleePrimaryLogo} 
-              alt="Kundlee" 
-              className="w-8 h-8 mr-3"
-            />
-            <h1 className="font-larken text-xl font-bold text-charcoal uppercase tracking-wider">
-              Kundlee
-            </h1>
+            <img src={kundleePrimaryLogo} alt="Kundlee" className="h-8 mr-3" />
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -69,7 +90,7 @@ const Navigation: React.FC = () => {
             className="hidden md:block"
           >
             <button
-              onClick={() => handleNavClick('#services')}
+              onClick={() => handleNavClick("#services")}
               className="group bg-teal text-white font-inter font-medium px-6 py-2 rounded-full transition-all duration-300 hover:bg-teal-dark focus:ring-4 focus:ring-teal/20 flex items-center space-x-2"
             >
               <span>Get My Report</span>
@@ -82,7 +103,12 @@ const Navigation: React.FC = () => {
                 whileHover={{ x: 3 }}
                 transition={{ duration: 0.2 }}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </motion.svg>
             </button>
           </motion.div>
@@ -107,7 +133,7 @@ const Navigation: React.FC = () => {
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
             className="md:hidden border-t border-border bg-warm-white"
@@ -123,7 +149,7 @@ const Navigation: React.FC = () => {
                 </button>
               ))}
               <button
-                onClick={() => handleNavClick('#services')}
+                onClick={() => handleNavClick("#services")}
                 className="group bg-teal text-white font-inter font-medium px-6 py-2 rounded-full transition-all duration-300 hover:bg-teal-dark w-full flex items-center justify-center space-x-2"
               >
                 <span>Get My Report</span>
@@ -136,14 +162,19 @@ const Navigation: React.FC = () => {
                   whileHover={{ x: 3 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </motion.svg>
               </button>
             </div>
           </motion.div>
         )}
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import kundleeLogo from '@/assets/kundlee-secondary-logo.png';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import kundleeLogo from "@/assets/kundlee-secondary-logo.png";
 
 interface LoadingAnimationProps {
   onComplete: () => void;
@@ -54,19 +54,19 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = ({ onComplete }) => {
                 transition={{ duration: 2, ease: "easeInOut" }}
                 style={{
                   strokeDasharray: "251.32",
-                  strokeDashoffset: "251.32"
+                  strokeDashoffset: "251.32",
                 }}
               />
             </motion.svg>
-            
+
             {/* Logo Image */}
-            <div className="absolute inset-2 flex items-center justify-center">
+            {/* <div className="absolute inset-2 flex items-center justify-center">
               <img
                 src={kundleeLogo}
                 alt="Kundlee"
                 className="w-16 h-16 object-contain"
               />
-            </div>
+            </div> */}
           </div>
         </motion.div>
 
