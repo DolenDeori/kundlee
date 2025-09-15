@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { BsHeartFill, BsMap, BsArrowRight } from "react-icons/bs";
+import { PremiumButton } from "@/components/ui/PremiumButton";
 
 const services = [
   {
@@ -43,24 +44,22 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
   onServiceClick,
 }) => {
   return (
-    <section className="py-20 bg-gradient-cosmic relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden">
       {/* Section Header */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12 lg:mb-16">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto"
         >
-          <h2 className="font-larken text-4xl md:text-5xl font-bold text-charcoal mb-6 uppercase tracking-wide">
-            YOUR COSMIC GUIDANCE AWAITS
-          </h2>
-          <p className="font-inter text-lg text-charcoal/70 leading-relaxed">
-            Choose from our carefully crafted astrological reports, each
-            designed to provide deep insights and practical guidance for your
-            life's most important decisions.
+          <p className="font-inter font-semibold tracking-tighter  mb-4 text-saffron">
+            Our Services
           </p>
+          <h2 className="font-larken text-4xl md:text-5xl uppercase text-charcoal mb-6">
+            Astrology for Your Life's Big Questiosns
+          </h2>
         </motion.div>
       </div>
 
@@ -70,51 +69,54 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
               viewport={{ once: true }}
               className="service-card group cursor-pointer"
-              onClick={() => onServiceClick(service.id)}
             >
-              {/* Service Icon */}
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-saffron rounded-full flex items-center justify-center mr-4 group-hover:shadow-saffron-glow transition-shadow duration-300">
-                  <service.icon className="w-8 h-8 text-white" />
+              <div className="relative z-10">
+                {/* Service Icon */}
+                <div className="flex items-center mb-6">
+                  <div className="w-16 h-16 bg-gradient-saffron rounded-full flex items-center justify-center mr-4 group-hover:shadow-saffron-glow transition-shadow duration-300">
+                    <service.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-larken text-2xl font-bold text-charcoal uppercase tracking-wide">
+                      {service.title}
+                    </h3>
+                    <p className="font-inter text-sm text-saffron font-medium">
+                      {service.tagline}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-larken text-2xl font-bold text-charcoal uppercase tracking-wide">
-                    {service.title}
-                  </h3>
-                  <p className="font-inter text-sm text-saffron font-medium">
-                    {service.tagline}
-                  </p>
-                </div>
+
+                {/* Service Description */}
+                <p className="font-inter text-charcoal/80 leading-relaxed mb-6">
+                  {service.description}
+                </p>
+
+                {/* Service Features */}
+                <ul className="space-y-2 mb-8">
+                  {service.features.map((feature, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-center font-inter text-sm text-charcoal/70"
+                    >
+                      <div className="w-2 h-2 bg-saffron rounded-full mr-3 flex-shrink-0" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA Button */}
+                <PremiumButton
+                  label={service.cta}
+                  icon={<BsArrowRight className="w-4 h-4" />}
+                  variant="teal"
+                  onClick={() => onServiceClick(service.id)}
+                />
               </div>
-
-              {/* Service Description */}
-              <p className="font-inter text-charcoal/80 leading-relaxed mb-6">
-                {service.description}
-              </p>
-
-              {/* Service Features */}
-              <ul className="space-y-2 mb-8">
-                {service.features.map((feature, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-center font-inter text-sm text-charcoal/70"
-                  >
-                    <div className="w-2 h-2 bg-saffron rounded-full mr-3 flex-shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              {/* CTA Button */}
-              <button className="group/btn w-full bg-teal text-white font-inter font-medium px-6 py-3 rounded-full transform transition-all duration-300  hover:shadow-lg focus:ring-4 focus:ring-teal/20 flex items-center justify-center space-x-2">
-                <span>{service.cta}</span>
-                <BsArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
-              </button>
             </motion.div>
           ))}
         </div>

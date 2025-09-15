@@ -60,13 +60,9 @@ const FAQSection: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="font-larken text-4xl lg:text-5xl font-bold text-charcoal mb-6 uppercase tracking-wide">
-            Frequently Asked Questions
+          <h2 className="font-larken text-4xl lg:text-5xl text-charcoal uppercase tracking-wide">
+            FAQ's
           </h2>
-          <p className="font-inter text-lg text-charcoal/70 max-w-2xl mx-auto leading-relaxed">
-            Find answers to common questions about our services and the wisdom
-            of Vedic astrology
-          </p>
         </motion.div>
 
         {/* FAQ Accordion */}
@@ -84,7 +80,7 @@ const FAQSection: React.FC = () => {
                 value={`item-${index}`}
                 className="bg-white/80 backdrop-blur-sm border border-border rounded-2xl px-6 hover:bg-white transition-all duration-300"
               >
-                <AccordionTrigger className="font-inter text-left font-semibold text-charcoal transition-colors duration-200 py-6 text-lg hover:no-underline">
+                <AccordionTrigger className="font-inter text-left font-semibold text-charcoal transition-colors duration-200 py-4 text-lg hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="font-inter text-charcoal/80 leading-relaxed pb-6">

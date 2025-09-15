@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { BsChevronRight } from "react-icons/bs";
 import kundleePrimaryLogo from "@/assets/kundlee-primary-logo.png";
+import { PremiumButton } from "./ui/PremiumButton";
 
 const Navigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -76,7 +77,7 @@ const Navigation: React.FC = () => {
               <button
                 key={index}
                 onClick={() => handleNavClick(link.href)}
-                className="font-inter text-sm font-medium text-charcoal/80 hover:text-saffron transition-colors duration-200"
+                className="font-inter text-sm text-charcoal/80 hover:text-saffron transition-colors duration-200"
               >
                 {link.name}
               </button>
@@ -90,13 +91,12 @@ const Navigation: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="hidden md:block"
           >
-            <button
-              onClick={() => handleNavClick("#services")}
-              className="group text-sm bg-teal text-white font-inter px-6 py-2 rounded-full transition-all duration-300 hover:bg-teal-dark focus:ring-4 focus:ring-teal/20 flex items-center space-x-2"
-            >
-              <span>Get My Report</span>
-              <BsChevronRight className="font-bold" />
-            </button>
+            <PremiumButton
+              label="Get your report"
+              icon={<BsChevronRight />}
+              onClick={handleNavClick}
+              className="py-2 text-sm"
+            />
           </motion.div>
 
           {/* Mobile Menu Button */}

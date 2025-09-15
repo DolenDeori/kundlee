@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,22 +7,22 @@
 
 /* Custom Larken font faces - Optimized loading */
 @font-face {
-  font-family: 'Larken';
-  src: url('./assets/fonts/LarkenDEMO-Regular.otf') format('opentype');
+  font-family: "Larken";
+  src: url("./assets/fonts/LarkenDEMO-Regular.otf") format("opentype");
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Larken';
-  src: url('./assets/fonts/LarkenDEMO-Medium.otf') format('opentype');
+  font-family: "Larken";
+  src: url("./assets/fonts/LarkenDEMO-Medium.otf") format("opentype");
   font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Larken';
-  src: url('./assets/fonts/LarkenDEMO-Bold.otf') format('opentype');
+  font-family: "Larken";
+  src: url("./assets/fonts/LarkenDEMO-Bold.otf") format("opentype");
   font-weight: 700;
   font-display: swap;
 }
@@ -49,53 +49,74 @@
     --saffron: 18 100% 56%; /* #FF6820 - Indian Saffron */
     --saffron-light: 18 100% 70%;
     --saffron-dark: 18 100% 45%;
-    
+
     --teal: 180 82% 18%; /* #0D5B5B - Deep Teal */
     --teal-light: 180 82% 25%;
     --teal-dark: 180 82% 12%;
-    
+
     --warm-white: 36 67% 99%; /* #FFFDFB - Warm White */
     --charcoal: 0 0% 7%; /* #121212 - Charcoal Black */
     --charcoal-soft: 0 0% 15%;
-    
+
     /* Design System Tokens */
     --background: var(--warm-white);
     --foreground: var(--charcoal);
-    
+
     --card: var(--warm-white);
     --card-foreground: var(--charcoal);
-    
+
     --primary: var(--saffron);
     --primary-foreground: var(--warm-white);
-    
+
     --secondary: var(--teal);
     --secondary-foreground: var(--warm-white);
-    
+
     --accent: var(--teal);
     --accent-foreground: var(--warm-white);
-    
+
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
-    
+
     --border: 0 0% 90%;
     --input: 0 0% 90%;
     --ring: var(--saffron);
-    
+
     /* Gradients */
-    --gradient-saffron: linear-gradient(135deg, hsl(var(--saffron)), hsl(var(--saffron-light)));
-    --gradient-teal: linear-gradient(135deg, hsl(var(--teal)), hsl(var(--teal-light)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--saffron) / 0.1), hsl(var(--teal) / 0.1));
-    --gradient-cosmic: radial-gradient(circle at 30% 70%, hsl(var(--saffron) / 0.2), transparent 50%), radial-gradient(circle at 80% 20%, hsl(var(--teal) / 0.15), transparent 50%);
-    
+    --gradient-saffron: linear-gradient(
+      135deg,
+      hsl(var(--saffron)),
+      hsl(var(--saffron-light))
+    );
+    --gradient-teal: linear-gradient(
+      135deg,
+      hsl(var(--teal)),
+      hsl(var(--teal-light))
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(var(--saffron) / 0.1),
+      hsl(var(--teal) / 0.1)
+    );
+    --gradient-cosmic: radial-gradient(
+        circle at 30% 70%,
+        hsl(var(--saffron) / 0.2),
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        hsl(var(--teal) / 0.15),
+        transparent 50%
+      );
+
     /* Shadows */
     --shadow-elegant: 0 10px 30px -10px hsl(var(--charcoal) / 0.1);
     --shadow-saffron-glow: 0 0 40px hsl(var(--saffron) / 0.3);
     --shadow-teal-glow: 0 0 40px hsl(var(--teal) / 0.3);
-    
+
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    
+
     --radius: 0.5rem;
   }
 }
@@ -104,13 +125,14 @@
   * {
     @apply border-border;
   }
-  
+
   body {
     @apply bg-background text-foreground font-inter antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-  
-  h1, h2 {
+
+  h1,
+  h2 {
     @apply font-larken uppercase tracking-wide;
   }
 }
@@ -118,91 +140,135 @@
 @layer components {
   /* Sunray Pattern - Subtle background element */
   .sunray-pattern {
-    background-image: 
-      radial-gradient(circle at center, transparent 20%, hsl(var(--saffron) / 0.03) 21%, hsl(var(--saffron) / 0.03) 25%, transparent 26%),
-      conic-gradient(from 0deg, hsl(var(--saffron) / 0.05), transparent 10deg, hsl(var(--saffron) / 0.05) 20deg, transparent 30deg, hsl(var(--saffron) / 0.05) 40deg, transparent 50deg, hsl(var(--saffron) / 0.05) 60deg, transparent 70deg, hsl(var(--saffron) / 0.05) 80deg, transparent 90deg, hsl(var(--saffron) / 0.05) 100deg, transparent 110deg, hsl(var(--saffron) / 0.05) 120deg, transparent 130deg, hsl(var(--saffron) / 0.05) 140deg, transparent 150deg, hsl(var(--saffron) / 0.05) 160deg, transparent 170deg, hsl(var(--saffron) / 0.05) 180deg, transparent 190deg, hsl(var(--saffron) / 0.05) 200deg, transparent 210deg, hsl(var(--saffron) / 0.05) 220deg, transparent 230deg, hsl(var(--saffron) / 0.05) 240deg, transparent 250deg, hsl(var(--saffron) / 0.05) 260deg, transparent 270deg, hsl(var(--saffron) / 0.05) 280deg, transparent 290deg, hsl(var(--saffron) / 0.05) 300deg, transparent 310deg, hsl(var(--saffron) / 0.05) 320deg, transparent 330deg, hsl(var(--saffron) / 0.05) 340deg, transparent 350deg, hsl(var(--saffron) / 0.05));
+    background-image: radial-gradient(
+        circle at center,
+        transparent 20%,
+        hsl(var(--saffron) / 0.03) 21%,
+        hsl(var(--saffron) / 0.03) 25%,
+        transparent 26%
+      ),
+      conic-gradient(
+        from 0deg,
+        hsl(var(--saffron) / 0.05),
+        transparent 10deg,
+        hsl(var(--saffron) / 0.05) 20deg,
+        transparent 30deg,
+        hsl(var(--saffron) / 0.05) 40deg,
+        transparent 50deg,
+        hsl(var(--saffron) / 0.05) 60deg,
+        transparent 70deg,
+        hsl(var(--saffron) / 0.05) 80deg,
+        transparent 90deg,
+        hsl(var(--saffron) / 0.05) 100deg,
+        transparent 110deg,
+        hsl(var(--saffron) / 0.05) 120deg,
+        transparent 130deg,
+        hsl(var(--saffron) / 0.05) 140deg,
+        transparent 150deg,
+        hsl(var(--saffron) / 0.05) 160deg,
+        transparent 170deg,
+        hsl(var(--saffron) / 0.05) 180deg,
+        transparent 190deg,
+        hsl(var(--saffron) / 0.05) 200deg,
+        transparent 210deg,
+        hsl(var(--saffron) / 0.05) 220deg,
+        transparent 230deg,
+        hsl(var(--saffron) / 0.05) 240deg,
+        transparent 250deg,
+        hsl(var(--saffron) / 0.05) 260deg,
+        transparent 270deg,
+        hsl(var(--saffron) / 0.05) 280deg,
+        transparent 290deg,
+        hsl(var(--saffron) / 0.05) 300deg,
+        transparent 310deg,
+        hsl(var(--saffron) / 0.05) 320deg,
+        transparent 330deg,
+        hsl(var(--saffron) / 0.05) 340deg,
+        transparent 350deg,
+        hsl(var(--saffron) / 0.05)
+      );
   }
-  
+
   /* Loading Animation */
   .logo-draw {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     animation: draw 2s ease-in-out forwards;
   }
-  
+
   @keyframes draw {
     to {
       stroke-dashoffset: 0;
     }
   }
-  
+
   /* Premium Button Styles - Updated with plain teal */
   .btn-primary {
     @apply bg-teal text-white font-medium px-8 py-4 rounded-full transition-all duration-300 hover:bg-teal-dark focus:ring-4 focus:ring-teal/20;
   }
-  
+
   .btn-secondary {
     @apply bg-teal text-white font-medium px-8 py-4 rounded-full transition-all duration-300 hover:bg-teal-dark focus:ring-4 focus:ring-teal/20;
   }
-  
+
   .btn-outline {
     @apply border-2 border-teal text-teal font-medium px-8 py-4 rounded-full transition-all duration-300 hover:bg-teal hover:text-white focus:ring-4 focus:ring-teal/20;
   }
-  
+
   /* Service Card Hover Effects */
   .service-card {
     @apply bg-white/90 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:bg-white;
   }
-  
+
   .service-card:hover {
     box-shadow: var(--shadow-elegant), 0 0 0 1px hsl(var(--saffron) / 0.1);
   }
-  
+
   /* Responsive Typography */
   .text-responsive-xs {
     @apply text-xs sm:text-sm;
   }
-  
+
   .text-responsive-sm {
     @apply text-sm sm:text-base;
   }
-  
+
   .text-responsive-base {
     @apply text-base sm:text-lg;
   }
-  
+
   .text-responsive-lg {
     @apply text-lg sm:text-xl lg:text-2xl;
   }
-  
+
   .text-responsive-xl {
     @apply text-xl sm:text-2xl lg:text-3xl;
   }
-  
+
   .text-responsive-2xl {
     @apply text-2xl sm:text-3xl lg:text-4xl;
   }
-  
+
   .text-responsive-3xl {
     @apply text-3xl sm:text-4xl lg:text-5xl;
   }
-  
+
   /* Container Responsive Padding */
   .container-responsive {
     @apply px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16;
   }
-  
+
   /* Image Optimization */
   img {
     @apply max-w-full h-auto;
   }
-  
+
   /* Lazy loading images */
   img[loading="lazy"] {
     opacity: 0;
     transition: opacity 0.3s;
   }
-  
+
   img[loading="lazy"].loaded {
     opacity: 1;
   }
@@ -216,4 +282,51 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.premium-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.premium-btn::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -60%;
+  width: 220%;
+  height: 180%;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.25) 40%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.25) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 0;
+  transform: translateX(-40%) skewX(-20deg);
+  transition: opacity 0.8s, transform 1.4s cubic-bezier(0.4, 0, 0.15, 1);
+  z-index: 2;
+  mix-blend-mode: lighten;
+}
+
+.premium-btn:hover::before,
+.premium-btn:focus::before {
+  opacity: 1;
+  transform: translateX(60%) skewX(-20deg);
+}
+
+.premium-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23grain)'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  background-repeat: repeat;
 }

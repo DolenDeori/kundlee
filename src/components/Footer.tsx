@@ -10,7 +10,8 @@ import {
   HeartIcon,
 } from "@heroicons/react/24/outline";
 import kundleeSecondaryLogo from "@/assets/Secondary_logo_white.png";
-import kundleePrimaryLogo from "@/assets/kundlee-primary-logo.png";
+
+import { BsInstagram, BsTwitterX, BsFacebook, BsYoutube } from "react-icons/bs";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -55,28 +56,27 @@ const Footer: React.FC = () => {
         { text: "hello@kundlee.com", icon: EnvelopeIcon },
         { text: "+91 9876543210", icon: PhoneIcon },
         { text: "Mumbai, India", icon: MapPinIcon },
-        { text: "WhatsApp Support", icon: ChatBubbleLeftRightIcon },
       ],
       social: [
         {
           name: "Instagram",
           href: "https://instagram.com/kundlee",
-          icon: GlobeAltIcon,
+          icon: BsInstagram,
         },
         {
           name: "Facebook",
           href: "https://facebook.com/kundlee",
-          icon: GlobeAltIcon,
+          icon: BsFacebook,
         },
         {
           name: "Twitter",
           href: "https://twitter.com/kundlee",
-          icon: GlobeAltIcon,
+          icon: BsTwitterX,
         },
         {
           name: "YouTube",
           href: "https://youtube.com/kundlee",
-          icon: DevicePhoneMobileIcon,
+          icon: BsYoutube,
         },
       ],
     },
@@ -212,7 +212,7 @@ const Footer: React.FC = () => {
                   className="w-10 h-10 bg-saffron/10 hover:bg-saffron/20 rounded-full flex items-center justify-center transition-colors duration-200 group"
                   aria-label={social.name}
                 >
-                  <social.icon className="w-5 h-5 text-saffron group-hover:scale-110 transition-transform duration-200" />
+                  <social.icon className="w-4 h-4 text-saffron group-hover:scale-110 transition-transform duration-200" />
                 </a>
               ))}
             </div>
