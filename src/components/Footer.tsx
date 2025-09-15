@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import kundleeSecondaryLogo from "@/assets/kundlee-secondary-logo.png";
+import kundleeSecondaryLogo from "@/assets/Secondary_logo_white.png";
 import kundleePrimaryLogo from "@/assets/kundlee-primary-logo.png";
 
 const Footer: React.FC = () => {
@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
       title: "KUNDLEE",
       mission:
         "Making the profound wisdom of Vedic astrology accessible, understandable, and empowering for the modern seeker.",
-      logo: kundleePrimaryLogo,
+      logo: kundleeSecondaryLogo,
     },
     services: {
       title: "Services",
@@ -59,15 +59,9 @@ const Footer: React.FC = () => {
               <img
                 src={footerSections.brand.logo}
                 alt="Kundlee"
-                className="h-10 mr-3"
+                className="w-40 mr-3"
               />
             </div>
-            <h3 className="font-larken text-xl font-bold uppercase tracking-wider text-white">
-              {footerSections.brand.title}
-            </h3>
-            <p className="font-inter text-white/80 text-sm leading-relaxed">
-              {footerSections.brand.mission}
-            </p>
           </motion.div>
 
           {/* Services Column */}
@@ -77,7 +71,7 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h4 className="font-larken text-lg font-bold uppercase tracking-wide mb-4 text-saffron">
+            <h4 className="font-inter text-lg font-bold uppercase tracking-wide mb-4 text-saffron">
               {footerSections.services.title}
             </h4>
             <ul className="space-y-3">
@@ -101,7 +95,7 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h4 className="font-larken text-lg font-bold uppercase tracking-wide mb-4 text-saffron">
+            <h4 className="font-inter text-lg font-bold uppercase tracking-wide mb-4 text-saffron">
               {footerSections.legal.title}
             </h4>
             <ul className="space-y-3">
@@ -125,7 +119,7 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            <h4 className="font-larken text-lg font-bold uppercase tracking-wide mb-4 text-saffron">
+            <h4 className="font-inter text-lg font-bold uppercase tracking-wide mb-4 text-saffron">
               {footerSections.social.title}
             </h4>
             <ul className="space-y-3">
