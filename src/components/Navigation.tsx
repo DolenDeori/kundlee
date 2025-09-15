@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { BsChevronRight } from "react-icons/bs";
 import kundleePrimaryLogo from "@/assets/kundlee-primary-logo.png";
 
 const Navigation: React.FC = () => {
@@ -91,25 +92,10 @@ const Navigation: React.FC = () => {
           >
             <button
               onClick={() => handleNavClick("#services")}
-                        className="group bg-teal text-white font-inter font-medium px-6 py-2 rounded-full transition-all duration-300 hover:bg-teal-dark focus:ring-4 focus:ring-teal/20 flex items-center space-x-2"
+              className="group text-sm bg-teal text-white font-inter px-6 py-2 rounded-full transition-all duration-300 hover:bg-teal-dark focus:ring-4 focus:ring-teal/20 flex items-center space-x-2"
             >
               <span>Get My Report</span>
-              <motion.svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                animate={{ x: 0 }}
-                whileHover={{ x: 3 }}
-                transition={{ duration: 0.2 }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </motion.svg>
+              <BsChevronRight className="font-bold" />
             </button>
           </motion.div>
 
