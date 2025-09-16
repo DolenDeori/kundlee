@@ -175,12 +175,13 @@ const TestimonialSection: React.FC = () => {
               768: { slidesPerView: 2 },
               1024: { slidesPerView: 3 },
             }}
-            className="pb-16 flex items-stretch"
+            className="pb-16"
+            style={{ display: 'flex', alignItems: 'stretch' }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
           >
             {testimonials.map((testimonial) => (
-              <SwiperSlide key={testimonial.id}>
+              <SwiperSlide key={testimonial.id} className="h-auto">
                 <div className="bg-white/90 backdrop-blur-sm border border-border rounded-2xl p-8 h-full flex flex-col shadow-elegant hover:shadow-xl transition-all duration-300">
                   {/* Rating */}
                   <div className="flex items-center mb-4">

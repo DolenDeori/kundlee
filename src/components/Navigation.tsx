@@ -94,7 +94,7 @@ const Navigation: React.FC = () => {
             <PremiumButton
               label="Get your report"
               icon={<BsChevronRight />}
-              onClick={handleNavClick}
+              onClick={() => handleNavClick("#contact")}
               className="py-2 text-sm"
             />
           </motion.div>
