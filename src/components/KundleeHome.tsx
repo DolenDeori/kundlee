@@ -4,6 +4,7 @@ import LoadingAnimation from '@/components/LoadingAnimation';
 import Navigation from '@/components/Navigation';
 import HeroCarousel from '@/components/HeroCarousel';
 import ServicesSection from '@/components/ServicesSection';
+import ServiceDetailSheet from '@/components/ServiceDetailSheet';
 import FAQSection from '@/components/FAQSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import ContactSection from '@/components/ContactSection';
@@ -12,6 +13,8 @@ import Footer from '@/components/Footer';
 const KundleeHome: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
+  const [selectedService, setSelectedService] = useState<string | null>(null);
+  const [isServiceSheetOpen, setIsServiceSheetOpen] = useState(false);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
@@ -27,10 +30,21 @@ const KundleeHome: React.FC = () => {
   };
 
   const handleServiceClick = (serviceId: string) => {
-    // Handle service selection - this could navigate to a detailed page
-    console.log(`Service selected: ${serviceId}`);
-    // For now, show an alert - in production, this would navigate to the service page
-    alert(`Redirecting to ${serviceId} report page...`);
+    setSelectedService(serviceId);
+    setIsServiceSheetOpen(true);
+  };
+
+  const handleCloseServiceSheet = () => {
+    setIsServiceSheetOpen(false);
+    setSelectedService(null);
+  };
+
+  const handleBookService = (serviceId: string) => {
+    // Handle booking logic here
+    console.log(`Booking service: ${serviceId}`);
+    // For now, show an alert - in production, this would integrate with payment system
+    alert(`Proceeding to book ${serviceId} report...`);
+    handleCloseServiceSheet();
   };
 
   // Prevent scrolling when loading
@@ -86,6 +100,14 @@ const KundleeHome: React.FC = () => {
               {/* Footer */}
               <Footer />
             </motion.main>
+
+            {/* Service Detail Sheet */}
+            <ServiceDetailSheet
+              serviceId={selectedService}
+              isOpen={isServiceSheetOpen}
+              onClose={handleCloseServiceSheet}
+              onBookService={handleBookService}
+            />
           </>
         )}
       </AnimatePresence>

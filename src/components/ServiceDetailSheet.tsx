@@ -1,0 +1,355 @@
+import React from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetClose,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { PremiumButton } from "@/components/ui/PremiumButton";
+import { XMarkIcon, CheckIcon, StarIcon } from "@heroicons/react/24/outline";
+import { StarIcon as StarIconSolid } from "@heroicons/react/24/solid";
+import jeevansatheeHero from "@/assets/jeevan-sathee-hero.jpg";
+import jeevamargHero from "@/assets/jeevan-marg-hero.jpg";
+
+interface ServiceDetail {
+  id: string;
+  title: string;
+  tagline: string;
+  description: string;
+  longDescription: string;
+  heroImage: string;
+  price: {
+    original: number;
+    discounted: number;
+    currency: string;
+  };
+  deliveryTime: string;
+  rating: number;
+  reviews: number;
+  features: string[];
+  detailedOfferings: Array<{
+    title: string;
+    description: string;
+    included: boolean;
+  }>;
+  testimonial?: {
+    text: string;
+    author: string;
+    location: string;
+  };
+}
+
+const serviceDetails: Record<string, ServiceDetail> = {
+  "jeevan-sathee": {
+    id: "jeevan-sathee",
+    title: "Jeevan Sathee",
+    tagline: "Clarity for your Cosmic Connection",
+    description: "A comprehensive relationship compatibility analysis that examines the celestial dynamics between partners.",
+    longDescription: "Discover the sacred bond that connects you and your partner through ancient Vedic wisdom. Our Jeevan Sathee report provides deep insights into your relationship's cosmic blueprint, helping you understand the karmic patterns that brought you together and guiding you toward lasting harmony.",
+    heroImage: jeevansatheeHero,
+    price: {
+      original: 2999,
+      discounted: 1999,
+      currency: "₹",
+    },
+    deliveryTime: "48 hours",
+    rating: 4.8,
+    reviews: 127,
+    features: [
+      "Compatibility Analysis",
+      "Relationship Dynamics",
+      "Timing for Important Decisions",
+      "Conflict Resolution Guidance",
+    ],
+    detailedOfferings: [
+      {
+        title: "Comprehensive Compatibility Score",
+        description: "Detailed analysis of your astrological compatibility across 12 key areas of life",
+        included: true,
+      },
+      {
+        title: "Relationship Timeline Predictions",
+        description: "Favorable periods for major relationship milestones and decisions",
+        included: true,
+      },
+      {
+        title: "Conflict Resolution Strategies",
+        description: "Personalized guidance on navigating challenges based on your cosmic dynamics",
+        included: true,
+      },
+      {
+        title: "Marriage Timing Analysis",
+        description: "Astrological guidance on the most auspicious time for marriage",
+        included: true,
+      },
+      {
+        title: "Personal Consultation Call",
+        description: "30-minute consultation with our expert astrologer",
+        included: false,
+      },
+    ],
+    testimonial: {
+      text: "The insights from my Jeevan Sathee report helped us understand each other better and strengthen our bond. Highly recommended!",
+      author: "Priya & Arjun",
+      location: "Mumbai",
+    },
+  },
+  "jeevan-marg": {
+    id: "jeevan-marg",
+    title: "Jeevan Marg",
+    tagline: "Navigate your Life with Confidence",
+    description: "Your complete life path report providing deep insights into career, purpose, and life direction.",
+    longDescription: "Embark on a journey of self-discovery with our comprehensive Jeevan Marg report. Rooted in ancient Vedic traditions, this analysis reveals your dharmic path, innate talents, and the cosmic influences shaping your destiny. Make informed decisions about your career, relationships, and spiritual growth.",
+    heroImage: jeevamargHero,
+    price: {
+      original: 3499,
+      discounted: 2499,
+      currency: "₹",
+    },
+    deliveryTime: "72 hours",
+    rating: 4.9,
+    reviews: 203,
+    features: [
+      "Career & Purpose Analysis",
+      "Life Timeline Predictions",
+      "Strengths & Challenges",
+      "Spiritual Growth Path",
+    ],
+    detailedOfferings: [
+      {
+        title: "Life Purpose & Dharma Analysis",
+        description: "Discover your soul's purpose and the path you're meant to walk in this lifetime",
+        included: true,
+      },
+      {
+        title: "Career & Finance Predictions",
+        description: "Detailed insights into your professional journey and financial prospects",
+        included: true,
+      },
+      {
+        title: "Health & Wellness Guidance",
+        description: "Astrological health insights and preventive care recommendations",
+        included: true,
+      },
+      {
+        title: "Spiritual Growth Roadmap",
+        description: "Personalized guidance for your spiritual evolution and inner development",
+        included: true,
+      },
+      {
+        title: "Yearly Forecast",
+        description: "Comprehensive predictions for the next 12 months",
+        included: true,
+      },
+      {
+        title: "Gemstone & Remedy Suggestions",
+        description: "Personalized recommendations for gemstones and Vedic remedies",
+        included: false,
+      },
+    ],
+    testimonial: {
+      text: "My Jeevan Marg report gave me the clarity I needed to make important life decisions. The predictions have been remarkably accurate.",
+      author: "Rahul Sharma",
+      location: "Delhi",
+    },
+  },
+};
+
+interface ServiceDetailSheetProps {
+  serviceId: string | null;
+  isOpen: boolean;
+  onClose: () => void;
+  onBookService: (serviceId: string) => void;
+}
+
+const ServiceDetailSheet: React.FC<ServiceDetailSheetProps> = ({
+  serviceId,
+  isOpen,
+  onClose,
+  onBookService,
+}) => {
+  if (!serviceId || !serviceDetails[serviceId]) {
+    return null;
+  }
+
+  const service = serviceDetails[serviceId];
+  const discountPercentage = Math.round(
+    ((service.price.original - service.price.discounted) / service.price.original) * 100
+  );
+
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, i) => {
+      const filled = i < Math.floor(rating);
+      const halfFilled = i === Math.floor(rating) && rating % 1 !== 0;
+      
+      return (
+        <div key={i} className="relative">
+          {filled ? (
+            <StarIconSolid className="w-4 h-4 text-yellow-500" />
+          ) : halfFilled ? (
+            <>
+              <StarIcon className="w-4 h-4 text-gray-300" />
+              <StarIconSolid className="w-4 h-4 text-yellow-500 absolute top-0 left-0" style={{ clipPath: 'inset(0 50% 0 0)' }} />
+            </>
+          ) : (
+            <StarIcon className="w-4 h-4 text-gray-300" />
+          )}
+        </div>
+      );
+    });
+  };
+
+  return (
+    <Sheet open={isOpen} onOpenChange={onClose}>
+      <SheetContent className="w-full sm:max-w-2xl overflow-y-auto bg-background">
+        <SheetHeader className="space-y-0 pb-6">
+          <div className="flex items-center justify-between">
+            <SheetTitle className="sr-only">Service Details</SheetTitle>
+            <SheetClose asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <XMarkIcon className="h-4 w-4" />
+              </Button>
+            </SheetClose>
+          </div>
+        </SheetHeader>
+
+        <div className="space-y-6">
+          {/* Hero Image */}
+          <div className="relative overflow-hidden rounded-xl">
+            <img
+              src={service.heroImage}
+              alt={service.title}
+              className="w-full h-64 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute bottom-4 left-4 text-white">
+              <h2 className="font-larken text-2xl font-bold uppercase tracking-wide">
+                {service.title}
+              </h2>
+              <p className="font-inter text-sm opacity-90">{service.tagline}</p>
+            </div>
+          </div>
+
+          {/* Rating & Reviews */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1">
+              {renderStars(service.rating)}
+            </div>
+            <span className="font-inter text-sm text-muted-foreground">
+              {service.rating} ({service.reviews} reviews)
+            </span>
+            <span className="font-inter text-sm text-saffron font-medium">
+              Delivered in {service.deliveryTime}
+            </span>
+          </div>
+
+          {/* Description */}
+          <div>
+            <p className="font-inter text-foreground/80 leading-relaxed">
+              {service.longDescription}
+            </p>
+          </div>
+
+          {/* Pricing */}
+          <div className="bg-gradient-to-r from-saffron/10 to-teal/10 rounded-xl p-6 border">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="flex items-center gap-3">
+                  <span className="font-larken text-3xl font-bold text-foreground">
+                    {service.price.currency}{service.price.discounted}
+                  </span>
+                  <span className="font-inter text-lg text-muted-foreground line-through">
+                    {service.price.currency}{service.price.original}
+                  </span>
+                  <span className="bg-saffron text-white text-xs font-medium px-2 py-1 rounded-full">
+                    {discountPercentage}% OFF
+                  </span>
+                </div>
+                <p className="font-inter text-sm text-muted-foreground mt-1">
+                  Limited time offer - Save {service.price.currency}{service.price.original - service.price.discounted}
+                </p>
+              </div>
+            </div>
+            
+            <PremiumButton
+              label="Get Your Report Now"
+              onClick={() => onBookService(service.id)}
+              className="w-full font-medium"
+              variant="saffron"
+            />
+          </div>
+
+          {/* What's Included */}
+          <div>
+            <h3 className="font-larken text-xl font-bold text-foreground mb-4 uppercase tracking-wide">
+              What's Included
+            </h3>
+            <div className="space-y-3">
+              {service.detailedOfferings.map((offering, index) => (
+                <div
+                  key={index}
+                  className={`flex gap-3 p-3 rounded-lg ${
+                    offering.included
+                      ? "bg-background border"
+                      : "bg-muted/50 opacity-60"
+                  }`}
+                >
+                  <div className="flex-shrink-0 mt-0.5">
+                    <CheckIcon
+                      className={`w-5 h-5 ${
+                        offering.included ? "text-teal" : "text-muted-foreground"
+                      }`}
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-inter font-medium text-foreground">
+                      {offering.title}
+                      {!offering.included && (
+                        <span className="text-xs text-muted-foreground ml-2">
+                          (Premium Add-on)
+                        </span>
+                      )}
+                    </h4>
+                    <p className="font-inter text-sm text-muted-foreground">
+                      {offering.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Testimonial */}
+          {service.testimonial && (
+            <div className="bg-background border rounded-xl p-6">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-gradient-saffron rounded-full flex items-center justify-center">
+                    <StarIconSolid className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <p className="font-inter text-foreground/80 italic mb-2">
+                    "{service.testimonial.text}"
+                  </p>
+                  <div className="font-inter text-sm">
+                    <span className="font-medium text-foreground">
+                      {service.testimonial.author}
+                    </span>
+                    <span className="text-muted-foreground ml-1">
+                      from {service.testimonial.location}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+};
+
+export default ServiceDetailSheet;
