@@ -7,8 +7,7 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { PremiumButton } from "@/components/ui/PremiumButton";
-import { XMarkIcon, CheckIcon, StarIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon, CheckIcon, StarIcon, ClockIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { StarIcon as StarIconSolid } from "@heroicons/react/24/solid";
 import jeevansatheeHero from "@/assets/jeevan-sathee-hero.jpg";
 import jeevamargHero from "@/assets/jeevan-marg-hero.jpg";
@@ -203,149 +202,158 @@ const ServiceDetailSheet: React.FC<ServiceDetailSheetProps> = ({
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="w-full sm:max-w-2xl overflow-y-auto bg-background">
-        <SheetHeader className="space-y-0 pb-6">
-          <div className="flex items-center justify-between">
-            <SheetTitle className="sr-only">Service Details</SheetTitle>
-            <SheetClose asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8">
-                <XMarkIcon className="h-4 w-4" />
-              </Button>
-            </SheetClose>
-          </div>
+      <SheetContent className="w-full sm:max-w-2xl p-0 bg-background flex flex-col max-h-screen">
+        <SheetHeader className="relative p-6 pb-0 flex-shrink-0">
+          <SheetTitle className="sr-only">Service Details</SheetTitle>
+          <SheetClose asChild>
+            <Button variant="ghost" size="icon" className="absolute top-4 right-4 h-8 w-8 z-10 bg-background/80 backdrop-blur-sm hover:bg-background">
+              <XMarkIcon className="h-4 w-4" />
+            </Button>
+          </SheetClose>
         </SheetHeader>
 
-        <div className="space-y-6">
-          {/* Hero Image */}
-          <div className="relative overflow-hidden rounded-xl">
-            <img
-              src={service.heroImage}
-              alt={service.title}
-              className="w-full h-64 object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 text-white">
-              <h2 className="font-larken text-2xl font-bold uppercase tracking-wide">
-                {service.title}
-              </h2>
-              <p className="font-inter text-sm opacity-90">{service.tagline}</p>
-            </div>
-          </div>
-
-          {/* Rating & Reviews */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              {renderStars(service.rating)}
-            </div>
-            <span className="font-inter text-sm text-muted-foreground">
-              {service.rating} ({service.reviews} reviews)
-            </span>
-            <span className="font-inter text-sm text-saffron font-medium">
-              Delivered in {service.deliveryTime}
-            </span>
-          </div>
-
-          {/* Description */}
-          <div>
-            <p className="font-inter text-foreground/80 leading-relaxed">
-              {service.longDescription}
-            </p>
-          </div>
-
-          {/* Pricing */}
-          <div className="bg-gradient-to-r from-saffron/10 to-teal/10 rounded-xl p-6 border">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <div className="flex items-center gap-3">
-                  <span className="font-larken text-3xl font-bold text-foreground">
-                    {service.price.currency}{service.price.discounted}
-                  </span>
-                  <span className="font-inter text-lg text-muted-foreground line-through">
-                    {service.price.currency}{service.price.original}
-                  </span>
-                  <span className="bg-saffron text-white text-xs font-medium px-2 py-1 rounded-full">
-                    {discountPercentage}% OFF
-                  </span>
-                </div>
-                <p className="font-inter text-sm text-muted-foreground mt-1">
-                  Limited time offer - Save {service.price.currency}{service.price.original - service.price.discounted}
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto px-6">
+          <div className="space-y-6 pb-32">
+            {/* Hero Image */}
+            <div className="relative overflow-hidden rounded-2xl -mx-6">
+              <img
+                src={service.heroImage}
+                alt={service.title}
+                className="w-full h-80 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute bottom-6 left-6 text-white">
+                <h2 className="font-larken text-3xl font-bold uppercase tracking-wide mb-2">
+                  {service.title}
+                </h2>
+                <p className="font-inter text-saffron-light font-medium uppercase tracking-wider">
+                  {service.tagline}
                 </p>
               </div>
             </div>
-            
-            <PremiumButton
-              label="Get Your Report Now"
-              onClick={() => onBookService(service.id)}
-              className="w-full font-medium"
-              variant="saffron"
-            />
-          </div>
 
-          {/* What's Included */}
-          <div>
-            <h3 className="font-larken text-xl font-bold text-foreground mb-4 uppercase tracking-wide">
-              What's Included
-            </h3>
-            <div className="space-y-3">
-              {service.detailedOfferings.map((offering, index) => (
-                <div
-                  key={index}
-                  className={`flex gap-3 p-3 rounded-lg ${
-                    offering.included
-                      ? "bg-background border"
-                      : "bg-muted/50 opacity-60"
-                  }`}
-                >
-                  <div className="flex-shrink-0 mt-0.5">
-                    <CheckIcon
-                      className={`w-5 h-5 ${
-                        offering.included ? "text-teal" : "text-muted-foreground"
-                      }`}
-                    />
-                  </div>
-                  <div>
-                    <h4 className="font-inter font-medium text-foreground">
-                      {offering.title}
-                      {!offering.included && (
-                        <span className="text-xs text-muted-foreground ml-2">
-                          (Premium Add-on)
-                        </span>
-                      )}
-                    </h4>
-                    <p className="font-inter text-sm text-muted-foreground">
-                      {offering.description}
-                    </p>
-                  </div>
+            {/* Rating & Reviews */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1">
+                  {renderStars(service.rating)}
                 </div>
-              ))}
+                <span className="font-inter text-sm text-muted-foreground">
+                  {service.rating} • {service.reviews} reviews
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <ClockIcon className="w-4 h-4" />
+                <span>{service.deliveryTime}</span>
+              </div>
             </div>
-          </div>
 
-          {/* Testimonial */}
-          {service.testimonial && (
-            <div className="bg-background border rounded-xl p-6">
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 bg-gradient-saffron rounded-full flex items-center justify-center">
-                    <StarIconSolid className="w-5 h-5 text-white" />
+            {/* Description */}
+            <div className="bg-muted/30 rounded-2xl p-6 border border-border/50">
+              <h3 className="font-larken text-lg font-bold text-foreground mb-3 uppercase tracking-wide">
+                About This Service
+              </h3>
+              <p className="font-inter text-foreground/80 leading-relaxed">
+                {service.longDescription}
+              </p>
+            </div>
+
+            {/* What's Included */}
+            <div>
+              <h3 className="font-larken text-xl font-bold text-foreground mb-6 uppercase tracking-wide">
+                What's Included
+              </h3>
+              <div className="space-y-4">
+                {service.detailedOfferings.map((offering, index) => (
+                  <div
+                    key={index}
+                    className={`flex gap-4 p-4 rounded-2xl border transition-all duration-300 ${
+                      offering.included
+                        ? "bg-card border-border/50 hover:border-teal/30"
+                        : "bg-muted/30 border-border/30 opacity-70"
+                    }`}
+                  >
+                    <div className="flex-shrink-0 mt-1">
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                        offering.included ? "bg-teal" : "bg-muted-foreground"
+                      }`}>
+                        <CheckIcon className={`w-3 h-3 text-white`} />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-inter font-semibold text-foreground mb-1">
+                        {offering.title}
+                        {!offering.included && (
+                          <span className="text-xs text-saffron ml-2 font-medium uppercase">
+                            Premium Add-on
+                          </span>
+                        )}
+                      </h4>
+                      <p className="font-inter text-sm text-muted-foreground leading-relaxed">
+                        {offering.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <p className="font-inter text-foreground/80 italic mb-2">
-                    "{service.testimonial.text}"
-                  </p>
-                  <div className="font-inter text-sm">
-                    <span className="font-medium text-foreground">
-                      {service.testimonial.author}
-                    </span>
-                    <span className="text-muted-foreground ml-1">
-                      from {service.testimonial.location}
-                    </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Testimonial */}
+            {service.testimonial && (
+              <div className="bg-gradient-to-r from-saffron/5 to-teal/5 border border-border/50 rounded-2xl p-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-teal rounded-full flex items-center justify-center shadow-lg">
+                      <StarIconSolid className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-inter text-foreground/90 italic mb-3 text-lg leading-relaxed">
+                      "{service.testimonial.text}"
+                    </p>
+                    <div className="font-inter text-sm">
+                      <span className="font-semibold text-foreground">
+                        {service.testimonial.author}
+                      </span>
+                      <span className="text-muted-foreground ml-2">
+                        • {service.testimonial.location}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
+            )}
+          </div>
+        </div>
+
+        {/* Fixed Bottom CTA */}
+        <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-lg border-t border-border/50 p-6 shadow-elegant">
+          <div className="max-w-2xl mx-auto flex items-center justify-between gap-4">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-1">
+                <span className="font-larken text-2xl font-bold text-foreground">
+                  {service.price.currency}{service.price.discounted}
+                </span>
+                <span className="font-inter text-lg text-muted-foreground line-through">
+                  {service.price.currency}{service.price.original}
+                </span>
+                <span className="bg-saffron text-white text-xs font-medium px-2 py-1 rounded-full uppercase">
+                  {discountPercentage}% OFF
+                </span>
+              </div>
+              <p className="font-inter text-xs text-muted-foreground">
+                Limited time offer • Save {service.price.currency}{service.price.original - service.price.discounted}
+              </p>
             </div>
-          )}
+            <button
+              onClick={() => onBookService(service.id)}
+              className="bg-gradient-teal text-white font-medium py-3 px-8 rounded-full transition-all duration-300 hover:shadow-teal-glow hover:scale-105 flex items-center gap-2"
+            >
+              <span>Get Your Report</span>
+              <ArrowRightIcon className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </SheetContent>
     </Sheet>
