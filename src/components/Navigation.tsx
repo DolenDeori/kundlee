@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { BsChevronRight } from "react-icons/bs";
 import kundleePrimaryLogo from "@/assets/kundlee-primary-logo.png";
@@ -94,7 +94,7 @@ const Navigation: React.FC = () => {
             <PremiumButton
               label="Get your report"
               icon={<BsChevronRight />}
-              onClick={() => handleNavClick("#contact")}
+              onClick={() => handleNavClick("#services")}
               className="py-2 text-sm"
             />
           </motion.div>
@@ -116,49 +116,46 @@ const Navigation: React.FC = () => {
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden border-t border-border bg-warm-white"
-          >
-            <div className="py-4 space-y-3">
-              {navLinks.map((link, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleNavClick(link.href)}
-                  className="block w-full text-left font-inter text-sm font-medium text-charcoal/80 hover:text-saffron transition-colors duration-200 py-2"
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden border-t border-border overflow-hidden"
+            >
+              <div className="py-4 space-y-3">
+                {navLinks.map((link, index) => (
+                  <motion.button
+                    key={index}
+                    onClick={() => handleNavClick(link.href)}
+                    className="block w-full text-left font-inter text-sm font-medium text-charcoal/80 hover:text-saffron transition-colors duration-200 py-2"
+                    initial={{ opacity: 0, y: 0 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.2 + index * 0.12 }}
+                  >
+                    {link.name}
+                  </motion.button>
+                ))}
+                <motion.button
+                  initial={{ opacity: 0, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.2 + navLinks.length * 0.12,
+                  }}
+                  onClick={() => handleNavClick("#services")}
+                  className="group bg-teal text-sm text-white font-inter px-6 py-2 rounded-full transition-all duration-300 hover:bg-teal-dark w-full flex items-center justify-center space-x-2"
                 >
-                  {link.name}
-                </button>
-              ))}
-              <button
-                onClick={() => handleNavClick("#services")}
-                className="group bg-teal text-white font-inter font-medium px-6 py-2 rounded-full transition-all duration-300 hover:bg-teal-dark w-full flex items-center justify-center space-x-2"
-              >
-                <span>Get My Report</span>
-                <motion.svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  animate={{ x: 0 }}
-                  whileHover={{ x: 3 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </motion.svg>
-              </button>
-            </div>
-          </motion.div>
-        )}
+                  <span>Get My Report</span>
+                  <BsChevronRight className="w-4 h-4" />
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.nav>
   );

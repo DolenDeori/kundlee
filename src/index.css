@@ -308,7 +308,7 @@
   );
   opacity: 0;
   transform: translateX(-40%) skewX(-20deg);
-  transition: opacity 0.8s, transform 1.4s cubic-bezier(0.4, 0, 0.15, 1);
+  transition: opacity 0.2s, transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2;
   mix-blend-mode: lighten;
 }
@@ -317,6 +317,12 @@
 .premium-btn:focus::before {
   opacity: 1;
   transform: translateX(60%) skewX(-20deg);
+}
+
+.premium-btn:not(:hover):not(:focus)::before {
+  /* This selector is for clarity, but not needed if you use the above transition */
+  opacity: 0;
+  /* transform will animate back smoothly */
 }
 
 .premium-btn::after {

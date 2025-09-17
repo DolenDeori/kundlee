@@ -134,9 +134,13 @@ const TestimonialSection: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="font-inter font-semibold tracking-tighter  mb-4 text-saffron">
-            Testimonials
-          </p>
+          <div className="inline-flex items-center gap-3 mb-6">
+            <div className="w-8 h-px bg-gradient-to-r from-transparent via-saffron to-transparent" />
+            <p className="font-inter font-medium uppercase text-sm text-saffron tracking-wide">
+              Testimonials
+            </p>
+            <div className="w-8 h-px bg-gradient-to-r from-transparent via-saffron to-transparent" />
+          </div>
           <h2 className="font-larken text-4xl lg:text-5xl text-charcoal mb-6 uppercase">
             What People Say
           </h2>
@@ -176,7 +180,7 @@ const TestimonialSection: React.FC = () => {
               1024: { slidesPerView: 3 },
             }}
             className="pb-16"
-            style={{ display: 'flex', alignItems: 'stretch' }}
+            style={{ display: "flex", alignItems: "stretch" }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
           >
