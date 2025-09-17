@@ -5,6 +5,7 @@ import Navigation from '@/components/Navigation';
 import HeroCarousel from '@/components/HeroCarousel';
 import ServicesSection from '@/components/ServicesSection';
 import ServiceDetailSheet from '@/components/ServiceDetailSheet';
+import HowItWorksSection from '@/components/HowItWorksSection';
 import FAQSection from '@/components/FAQSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import ContactSection from '@/components/ContactSection';
@@ -87,6 +88,9 @@ const KundleeHome: React.FC = () => {
               <div id="services">
                 <ServicesSection onServiceClick={handleServiceClick} />
               </div>
+
+              {/* How It Works Section */}
+              <HowItWorksSection />
 
               {/* FAQ Section */}
               <FAQSection />
