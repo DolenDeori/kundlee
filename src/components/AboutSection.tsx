@@ -1,13 +1,19 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { ArrowRightIcon, SparklesIcon, ShieldCheckIcon, HeartIcon } from '@heroicons/react/24/outline';
+import React from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import {
+  ArrowRightIcon,
+  SparklesIcon,
+  ShieldCheckIcon,
+  HeartIcon,
+} from "@heroicons/react/24/outline";
+import { PremiumButton } from "./ui/PremiumButton";
 
 const AboutSection: React.FC = () => {
   const handleDiscoverReports = () => {
-    const servicesSection = document.getElementById('services');
+    const servicesSection = document.getElementById("services");
     if (servicesSection) {
-      servicesSection.scrollIntoView({ behavior: 'smooth' });
+      servicesSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -15,18 +21,18 @@ const AboutSection: React.FC = () => {
     {
       icon: SparklesIcon,
       title: "Ancient Wisdom",
-      description: "Authentic Vedic astrology rooted in centuries of tradition"
+      description: "Authentic Vedic astrology rooted in centuries of tradition",
     },
     {
       icon: ShieldCheckIcon,
       title: "Modern Clarity",
-      description: "Clear, actionable insights free from complex jargon"
+      description: "Clear, actionable insights free from complex jargon",
     },
     {
       icon: HeartIcon,
       title: "Personal Empowerment",
-      description: "Guidance that helps you make informed life decisions"
-    }
+      description: "Guidance that helps you make informed life decisions",
+    },
   ];
 
   return (
@@ -35,7 +41,7 @@ const AboutSection: React.FC = () => {
       <div className="absolute inset-0 opacity-5">
         <div className="sunray-pattern"></div>
       </div>
-      
+
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
         {/* Header */}
         <motion.div
@@ -46,19 +52,19 @@ const AboutSection: React.FC = () => {
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-8 h-[1px] bg-saffron-600"></div>
-            <span className="text-sm font-medium text-saffron-600 tracking-wider uppercase">About Kundlee</span>
-            <div className="w-8 h-[1px] bg-saffron-600"></div>
+            <div className="w-8 h-px bg-gradient-to-r from-transparent via-saffron to-transparent" />
+            <p className="font-inter font-medium uppercase text-sm text-saffron tracking-wide">
+              About Us
+            </p>
+            <div className="w-8 h-px bg-gradient-to-r from-transparent via-saffron to-transparent" />
           </div>
-          <h2 className="font-larken text-4xl md:text-5xl text-charcoal font-bold uppercase tracking-wide mb-6">
+          <h2 className="font-larken text-4xl md:text-5xl text-charcoal uppercase tracking-wide mb-4">
             Bridging Ancient Wisdom <br />
-            <span className="text-transparent bg-gradient-to-r from-saffron-600 to-teal-600 bg-clip-text">
-              With Modern Life
-            </span>
+            <span className="text-teal bg-clip-text">With Modern Life</span>
           </h2>
           <p className="text-lg text-charcoal/70 max-w-3xl mx-auto leading-relaxed">
-            We transform traditional Vedic astrology into practical guidance, making ancient wisdom 
-            accessible and actionable for today's seekers.
+            We transform traditional Vedic astrology into practical guidance,
+            making ancient wisdomaccessible and actionable for today's seekers.
           </p>
         </motion.div>
 
@@ -79,11 +85,11 @@ const AboutSection: React.FC = () => {
               viewport={{ once: true }}
               className="group text-center"
             >
-              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-saffron/10 group-hover:border-saffron/20">
+              <div className="p-8">
                 <div className="w-16 h-16 bg-gradient-to-br from-saffron/10 to-teal/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <feature.icon className="w-8 h-8 text-saffron-600" />
                 </div>
-                <h3 className="font-larken text-xl font-semibold text-charcoal mb-3 uppercase tracking-wide">
+                <h3 className="font-larken text-xl text-charcoal uppercase font-light">
                   {feature.title}
                 </h3>
                 <p className="text-charcoal/70 leading-relaxed">
@@ -100,21 +106,22 @@ const AboutSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-r from-saffron/5 via-warm-white to-teal/5 rounded-3xl p-12 border border-saffron/10 shadow-lg text-center"
+          className=""
         >
           <div className="max-w-4xl mx-auto space-y-8">
-            <motion.p
+            {/* <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.6 }}
               viewport={{ once: true }}
               className="text-lg text-charcoal/80 leading-relaxed"
             >
-              At Kundlee, we believe that true wisdom empowers you to chart your own course. 
-              Our meticulously crafted reports offer insights that are both authentic to Vedic traditions 
-              and incredibly relevant to today's challenges.
+              At Kundlee, we believe that true wisdom empowers you to chart your
+              own course. Our meticulously crafted reports offer insights that
+              are both authentic to Vedic traditions and incredibly relevant to
+              today's challenges.
             </motion.p>
-            
+
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -122,9 +129,10 @@ const AboutSection: React.FC = () => {
               viewport={{ once: true }}
               className="text-base text-charcoal/70 leading-relaxed"
             >
-              We stand for precision, professionalism, and providing a guiding light that helps you 
-              navigate relationships, career, and life's purpose with newfound confidence.
-            </motion.p>
+              We stand for precision, professionalism, and providing a guiding
+              light that helps you navigate relationships, career, and life's
+              purpose with newfound confidence.
+            </motion.p> */}
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -133,13 +141,11 @@ const AboutSection: React.FC = () => {
               viewport={{ once: true }}
               className="pt-6"
             >
-              <Button
+              <PremiumButton
                 onClick={handleDiscoverReports}
-                className="group bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-              >
-                Start Your Journey
-                <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-              </Button>
+                icon={<ArrowRightIcon className="w-5 h-5" />}
+                label="Discover Our Reports"
+              />
             </motion.div>
           </div>
         </motion.div>

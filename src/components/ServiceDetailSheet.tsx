@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react"; // Added useState import
 import {
   Sheet,
   SheetContent,
@@ -18,6 +18,12 @@ import { StarIcon as StarIconSolid } from "@heroicons/react/24/solid";
 import jeevansatheeHero from "@/assets/jeevan-sathee-hero.jpg";
 import jeevamargHero from "@/assets/jeevan-marg-hero.jpg";
 import { PremiumButton } from "./ui/PremiumButton";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"; // Added Dialog imports
 
 interface ServiceDetail {
   id: string;
@@ -189,6 +195,8 @@ const ServiceDetailSheet: React.FC<ServiceDetailSheetProps> = ({
   onClose,
   onBookService,
 }) => {
+  const [isZohoFormOpen, setIsZohoFormOpen] = useState(false); // Added state for modal
+
   if (!serviceId || !serviceDetails[serviceId]) {
     return null;
   }
@@ -226,170 +234,203 @@ const ServiceDetailSheet: React.FC<ServiceDetailSheetProps> = ({
   };
 
   return (
-    <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="w-full sm:max-w-2xl p-0 bg-background flex flex-col max-h-screen">
-        <SheetHeader className="relative p-6 flex-shrink-0">
-          <SheetClose asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-4 left-4 h-8 w-8 z-10 backdrop-blur-sm hover:bg-teal/70 bg-warm-white text-charcoal"
-            >
-              <XMarkIcon className="h-4 w-4" />
-            </Button>
-          </SheetClose>
-        </SheetHeader>
+    <>
+      <Sheet open={isOpen} onOpenChange={onClose}>
+        <SheetContent className="w-full sm:max-w-2xl p-0 bg-background flex flex-col max-h-screen">
+          <SheetHeader className="relative p-6 flex-shrink-0">
+            <SheetClose asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-4 left-4 h-8 w-8 z-10 backdrop-blur-sm hover:bg-teal/70 bg-warm-white text-charcoal"
+              >
+                <XMarkIcon className="h-4 w-4" />
+              </Button>
+            </SheetClose>
+          </SheetHeader>
 
-        {/* Scrollable Content */}
-        <div className="overflow-y-auto px-6 flex-1">
-          <div className="space-y-6 pb-8">
-            {/* Hero Image */}
-            <div className="relative overflow-hidden rounded-2xl">
-              <img
-                src={service.heroImage}
-                alt={service.title}
-                className="w-full h-80 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <div className="absolute bottom-6 left-6 text-white">
-                <h2 className="font-larken text-3xl uppercase tracking-wide">
-                  {service.title}
-                </h2>
-                <p className="font-inter text-saffron-light font-medium text-sm">
-                  {service.tagline}
+          {/* Scrollable Content */}
+          <div className="overflow-y-auto px-6 flex-1">
+            <div className="space-y-6 pb-8">
+              {/* Hero Image */}
+              <div className="relative overflow-hidden rounded-2xl">
+                <img
+                  src={service.heroImage}
+                  alt={service.title}
+                  className="w-full h-80 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute bottom-6 left-6 text-white">
+                  <h2 className="font-larken text-3xl uppercase tracking-wide">
+                    {service.title}
+                  </h2>
+                  <p className="font-inter text-saffron-light font-medium text-sm">
+                    {service.tagline}
+                  </p>
+                </div>
+              </div>
+
+              {/* Rating & Reviews */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1">
+                    {renderStars(service.rating)}
+                  </div>
+                  <span className="font-inter text-sm text-muted-foreground">
+                    {service.rating} • {service.reviews} reviews
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <ClockIcon className="w-4 h-4" />
+                  <span>{service.deliveryTime}</span>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="pt-6">
+                <h3 className="font-larken text-xl text-foreground mb-3 uppercase tracking-wide">
+                  About This Service
+                </h3>
+                <p className="font-inter text-foreground/80 leading-relaxed">
+                  {service.longDescription}
                 </p>
               </div>
-            </div>
 
-            {/* Rating & Reviews */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1">
-                  {renderStars(service.rating)}
+              {/* What's Included */}
+              <div>
+                <h3 className="font-larken text-xl text-foreground mb-6 uppercase tracking-wide">
+                  What's Included
+                </h3>
+                <div className="space-y-4">
+                  {service.detailedOfferings.map((offering, index) => (
+                    <div
+                      key={index}
+                      className={`flex gap-4 p-4 rounded-2xl border transition-all duration-300 ${
+                        offering.included
+                          ? "bg-card border-border/50 hover:border-teal/30"
+                          : "bg-muted/30 border-border/30 opacity-70"
+                      }`}
+                    >
+                      <div className="flex-shrink-0 mt-1">
+                        <div
+                          className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                            offering.included
+                              ? "bg-teal"
+                              : "bg-muted-foreground"
+                          }`}
+                        >
+                          <CheckIcon className={`w-3 h-3 text-white`} />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-inter font-semibold text-foreground mb-1">
+                          {offering.title}
+                          {!offering.included && (
+                            <span className="text-xs text-saffron ml-2 font-medium uppercase">
+                              Premium Add-on
+                            </span>
+                          )}
+                        </h4>
+                        <p className="font-inter text-sm text-muted-foreground leading-relaxed">
+                          {offering.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <span className="font-inter text-sm text-muted-foreground">
-                  {service.rating} • {service.reviews} reviews
-                </span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <ClockIcon className="w-4 h-4" />
-                <span>{service.deliveryTime}</span>
-              </div>
-            </div>
 
-            {/* Description */}
-            <div className="pt-6">
-              <h3 className="font-larken text-xl text-foreground mb-3 uppercase tracking-wide">
-                About This Service
-              </h3>
-              <p className="font-inter text-foreground/80 leading-relaxed">
-                {service.longDescription}
-              </p>
-            </div>
-
-            {/* What's Included */}
-            <div>
-              <h3 className="font-larken text-xl text-foreground mb-6 uppercase tracking-wide">
-                What's Included
-              </h3>
-              <div className="space-y-4">
-                {service.detailedOfferings.map((offering, index) => (
-                  <div
-                    key={index}
-                    className={`flex gap-4 p-4 rounded-2xl border transition-all duration-300 ${
-                      offering.included
-                        ? "bg-card border-border/50 hover:border-teal/30"
-                        : "bg-muted/30 border-border/30 opacity-70"
-                    }`}
-                  >
-                    <div className="flex-shrink-0 mt-1">
-                      <div
-                        className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                          offering.included ? "bg-teal" : "bg-muted-foreground"
-                        }`}
-                      >
-                        <CheckIcon className={`w-3 h-3 text-white`} />
+              {/* Testimonial */}
+              {service.testimonial && (
+                <div className="bg-gradient-to-r from-saffron/5 to-teal/5 border border-border/50 rounded-2xl p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 bg-gradient-teal rounded-full flex items-center justify-center shadow-lg">
+                        <StarIconSolid className="w-6 h-6 text-white" />
                       </div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-inter font-semibold text-foreground mb-1">
-                        {offering.title}
-                        {!offering.included && (
-                          <span className="text-xs text-saffron ml-2 font-medium uppercase">
-                            Premium Add-on
-                          </span>
-                        )}
-                      </h4>
-                      <p className="font-inter text-sm text-muted-foreground leading-relaxed">
-                        {offering.description}
+                      <p className="font-inter text-foreground/90 italic mb-3 text-lg leading-relaxed">
+                        "{service.testimonial.text}"
                       </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Testimonial */}
-            {service.testimonial && (
-              <div className="bg-gradient-to-r from-saffron/5 to-teal/5 border border-border/50 rounded-2xl p-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-gradient-teal rounded-full flex items-center justify-center shadow-lg">
-                      <StarIconSolid className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-inter text-foreground/90 italic mb-3 text-lg leading-relaxed">
-                      "{service.testimonial.text}"
-                    </p>
-                    <div className="font-inter text-sm">
-                      <span className="font-semibold text-foreground">
-                        {service.testimonial.author}
-                      </span>
-                      <span className="text-muted-foreground ml-2">
-                        • {service.testimonial.location}
-                      </span>
+                      <div className="font-inter text-sm">
+                        <span className="font-semibold text-foreground">
+                          {service.testimonial.author}
+                        </span>
+                        <span className="text-muted-foreground ml-2">
+                          • {service.testimonial.location}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Fixed Bottom CTA */}
-        <div className="sticky bottom-0 left-0 right-0 bg-gray-100 p-6 shadow-elegant">
-          <div className="max-w-2xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-4">
-            <div className="lg:flex-1 w-full">
-              <div className="flex items-center gap-3 mb-1">
-                <span className="font-larken text-2xl font-bold text-foreground">
-                  {service.price.currency}
-                  {service.price.discounted}
-                </span>
-                <span className="font-inter text-lg text-muted-foreground line-through">
-                  {service.price.currency}
-                  {service.price.original}
-                </span>
-                <span className="bg-saffron text-white text-xs font-medium px-2 py-1 rounded-full uppercase inline">
-                  {discountPercentage}% OFF
-                </span>
-              </div>
-              <p className="font-inter text-xs text-muted-foreground">
-                Limited time offer • Save {service.price.currency}
-                {service.price.original - service.price.discounted}
-              </p>
+              )}
             </div>
-            <div className="lg:flex-1 w-full">
-              <PremiumButton
-                icon={<ArrowRightIcon className="w-4 h-4" />}
-                label="Get Your Report"
-                onClick={() => onBookService(service.id)}
+          </div>
+
+          {/* Fixed Bottom CTA */}
+          <div className="sticky bottom-0 left-0 right-0 bg-gray-100 p-6 shadow-elegant">
+            <div className="max-w-2xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-4">
+              <div className="lg:flex-1 w-full">
+                <div className="flex items-center gap-3 mb-1">
+                  <span className="font-larken text-2xl font-bold text-foreground">
+                    {service.price.currency}
+                    {service.price.discounted}
+                  </span>
+                  <span className="font-inter text-lg text-muted-foreground line-through">
+                    {service.price.currency}
+                    {service.price.original}
+                  </span>
+                  <span className="bg-saffron text-white text-xs font-medium px-2 py-1 rounded-full uppercase inline">
+                    {discountPercentage}% OFF
+                  </span>
+                </div>
+                <p className="font-inter text-xs text-muted-foreground">
+                  Limited time offer • Save {service.price.currency}
+                  {service.price.original - service.price.discounted}
+                </p>
+              </div>
+              <div className="lg:flex-1 w-full">
+                <PremiumButton
+                  icon={<ArrowRightIcon className="w-4 h-4" />}
+                  label="Get Your Report"
+                  onClick={() => setIsZohoFormOpen(true)} // Updated to open modal
+                />
+              </div>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      {/* Added Zoho Form Modal */}
+      <Dialog open={isZohoFormOpen} onOpenChange={setIsZohoFormOpen}>
+        <DialogContent className="max-w-4xl w-full h-[80vh] p-0 bg-background dark:bg-charcoal">
+          <DialogHeader className="p-4">
+            <DialogTitle className="text-charcoal dark:text-warm-white">
+              Jeevan Sathee Form
+            </DialogTitle>
+          </DialogHeader>
+          <div className="flex-1 p-4 relative">
+            <div
+              id="zf_div_NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg"
+              className="w-full h-full"
+            >
+              <iframe
+                src="https://forms.zohopublic.com/dulenchdeori564gm1/form/JeevanSathee/formperma/NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg?zf_rszfm=1"
+                style={{
+                  border: "none",
+                  width: "100%",
+                  height: "100vh",
+                  transition: "all 0.5s ease",
+                }}
+                aria-label="Jeevan Sathee"
+                title="Jeevan Sathee Form"
               />
             </div>
           </div>
-        </div>
-      </SheetContent>
-    </Sheet>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 
