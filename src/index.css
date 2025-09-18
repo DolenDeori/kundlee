@@ -45,18 +45,21 @@
 
 @layer base {
   :root {
-    /* Kundlee Brand Colors */
-    --saffron: 18 100% 56%; /* #FF6820 - Indian Saffron */
-    --saffron-light: 18 100% 70%;
-    --saffron-dark: 18 100% 45%;
+    /* Enhanced Kundlee Brand Colors - Awwwards Level */
+    --saffron: 18 100% 58%; /* #FF6820 - Enhanced Indian Saffron */
+    --saffron-light: 18 100% 72%;
+    --saffron-dark: 18 100% 42%;
+    --saffron-glow: 18 100% 65%;
 
-    --teal: 180 82% 18%; /* #0D5B5B - Deep Teal */
-    --teal-light: 180 82% 25%;
-    --teal-dark: 180 82% 12%;
+    --teal: 180 85% 20%; /* #0D5B5B - Enhanced Deep Teal */
+    --teal-light: 180 85% 28%;
+    --teal-dark: 180 85% 14%;
+    --teal-soft: 180 45% 35%;
 
-    --warm-white: 36 67% 99%; /* #FFFDFB - Warm White */
-    --charcoal: 0 0% 7%; /* #121212 - Charcoal Black */
-    --charcoal-soft: 0 0% 15%;
+    --warm-white: 36 70% 99%; /* #FFFDFB - Enhanced Warm White */
+    --charcoal: 0 0% 6%; /* #121212 - Enhanced Charcoal Black */
+    --charcoal-soft: 0 0% 12%;
+    --charcoal-light: 0 0% 20%;
 
     /* Design System Tokens */
     --background: var(--warm-white);
@@ -81,41 +84,55 @@
     --input: 0 0% 90%;
     --ring: var(--saffron);
 
-    /* Gradients */
+    /* Enhanced Premium Gradients */
     --gradient-saffron: linear-gradient(
-      135deg,
+      145deg,
+      hsl(var(--saffron-dark)),
       hsl(var(--saffron)),
       hsl(var(--saffron-light))
     );
     --gradient-teal: linear-gradient(
-      135deg,
+      145deg,
+      hsl(var(--teal-dark)),
       hsl(var(--teal)),
       hsl(var(--teal-light))
     );
     --gradient-hero: linear-gradient(
       135deg,
-      hsl(var(--saffron) / 0.1),
-      hsl(var(--teal) / 0.1)
+      hsl(var(--saffron) / 0.08),
+      hsl(var(--teal) / 0.08),
+      hsl(var(--saffron) / 0.05)
     );
-    --gradient-cosmic: radial-gradient(
-        circle at 30% 70%,
-        hsl(var(--saffron) / 0.2),
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 80% 20%,
-        hsl(var(--teal) / 0.15),
-        transparent 50%
-      );
+    --gradient-cosmic: 
+      radial-gradient(ellipse 800px 600px at 50% 0%, hsl(var(--saffron) / 0.1), transparent),
+      radial-gradient(ellipse 600px 800px at 0% 100%, hsl(var(--teal) / 0.08), transparent),
+      radial-gradient(ellipse 400px 400px at 100% 50%, hsl(var(--saffron-glow) / 0.06), transparent);
+    --gradient-subtle: linear-gradient(
+      180deg,
+      hsl(var(--warm-white)),
+      hsl(var(--warm-white) / 0.95)
+    );
+    --gradient-premium: linear-gradient(
+      135deg,
+      hsl(var(--saffron)),
+      hsl(var(--saffron-glow)),
+      hsl(var(--teal)),
+      hsl(var(--teal-light))
+    );
 
-    /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--charcoal) / 0.1);
-    --shadow-saffron-glow: 0 0 40px hsl(var(--saffron) / 0.3);
-    --shadow-teal-glow: 0 0 40px hsl(var(--teal) / 0.3);
+    /* Enhanced Premium Shadows */
+    --shadow-elegant: 0 20px 60px -10px hsl(var(--charcoal) / 0.12);
+    --shadow-premium: 0 25px 80px -15px hsl(var(--charcoal) / 0.15);
+    --shadow-saffron-glow: 0 0 60px hsl(var(--saffron) / 0.4);
+    --shadow-teal-glow: 0 0 60px hsl(var(--teal) / 0.4);
+    --shadow-soft: 0 8px 32px -8px hsl(var(--charcoal) / 0.08);
+    --shadow-crisp: 0 4px 20px -4px hsl(var(--charcoal) / 0.1);
 
-    /* Animations */
-    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Awwwards-level Animations */
+    --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-spring: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition-crisp: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
     --radius: 0.5rem;
   }
@@ -138,55 +155,127 @@
 }
 
 @layer components {
-  /* Sunray Pattern - Subtle background element */
+  /* Enhanced Awwwards-level Components */
+  
+  /* Glassmorphism Effects */
+  .glass {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-elegant;
+  }
+  
+  .glass-card {
+    @apply bg-white/95 backdrop-blur-xl border border-white/30 shadow-premium rounded-2xl;
+  }
+
+  /* Premium Interactive Elements */
+  .interactive-card {
+    @apply transform transition-all duration-700 hover:scale-[1.02] hover:shadow-premium hover:-translate-y-2;
+  }
+
+  .magnetic-hover {
+    @apply transform transition-all duration-500 hover:scale-105 cursor-pointer;
+  }
+
+  /* Enhanced Sunray Pattern */
   .sunray-pattern {
-    background-image: radial-gradient(
-        circle at center,
-        transparent 20%,
-        hsl(var(--saffron) / 0.03) 21%,
-        hsl(var(--saffron) / 0.03) 25%,
-        transparent 26%
-      ),
+    background-image: 
+      radial-gradient(circle at center, transparent 25%, hsl(var(--saffron) / 0.04) 26%, hsl(var(--saffron) / 0.04) 28%, transparent 29%),
       conic-gradient(
         from 0deg,
-        hsl(var(--saffron) / 0.05),
-        transparent 10deg,
-        hsl(var(--saffron) / 0.05) 20deg,
-        transparent 30deg,
-        hsl(var(--saffron) / 0.05) 40deg,
-        transparent 50deg,
-        hsl(var(--saffron) / 0.05) 60deg,
-        transparent 70deg,
-        hsl(var(--saffron) / 0.05) 80deg,
-        transparent 90deg,
-        hsl(var(--saffron) / 0.05) 100deg,
-        transparent 110deg,
-        hsl(var(--saffron) / 0.05) 120deg,
-        transparent 130deg,
-        hsl(var(--saffron) / 0.05) 140deg,
-        transparent 150deg,
-        hsl(var(--saffron) / 0.05) 160deg,
-        transparent 170deg,
-        hsl(var(--saffron) / 0.05) 180deg,
-        transparent 190deg,
-        hsl(var(--saffron) / 0.05) 200deg,
-        transparent 210deg,
-        hsl(var(--saffron) / 0.05) 220deg,
-        transparent 230deg,
-        hsl(var(--saffron) / 0.05) 240deg,
-        transparent 250deg,
-        hsl(var(--saffron) / 0.05) 260deg,
-        transparent 270deg,
-        hsl(var(--saffron) / 0.05) 280deg,
-        transparent 290deg,
-        hsl(var(--saffron) / 0.05) 300deg,
-        transparent 310deg,
-        hsl(var(--saffron) / 0.05) 320deg,
-        transparent 330deg,
-        hsl(var(--saffron) / 0.05) 340deg,
-        transparent 350deg,
-        hsl(var(--saffron) / 0.05)
+        hsl(var(--saffron) / 0.06), transparent 8deg,
+        hsl(var(--saffron) / 0.06) 16deg, transparent 24deg,
+        hsl(var(--saffron) / 0.06) 32deg, transparent 40deg,
+        hsl(var(--saffron) / 0.06) 48deg, transparent 56deg,
+        hsl(var(--saffron) / 0.06) 64deg, transparent 72deg,
+        hsl(var(--saffron) / 0.06) 80deg, transparent 88deg,
+        hsl(var(--saffron) / 0.06) 96deg, transparent 104deg,
+        hsl(var(--saffron) / 0.06) 112deg, transparent 120deg,
+        hsl(var(--saffron) / 0.06) 128deg, transparent 136deg,
+        hsl(var(--saffron) / 0.06) 144deg, transparent 152deg,
+        hsl(var(--saffron) / 0.06) 160deg, transparent 168deg,
+        hsl(var(--saffron) / 0.06) 176deg, transparent 184deg,
+        hsl(var(--saffron) / 0.06) 192deg, transparent 200deg,
+        hsl(var(--saffron) / 0.06) 208deg, transparent 216deg,
+        hsl(var(--saffron) / 0.06) 224deg, transparent 232deg,
+        hsl(var(--saffron) / 0.06) 240deg, transparent 248deg,
+        hsl(var(--saffron) / 0.06) 256deg, transparent 264deg,
+        hsl(var(--saffron) / 0.06) 272deg, transparent 280deg,
+        hsl(var(--saffron) / 0.06) 288deg, transparent 296deg,
+        hsl(var(--saffron) / 0.06) 304deg, transparent 312deg,
+        hsl(var(--saffron) / 0.06) 320deg, transparent 328deg,
+        hsl(var(--saffron) / 0.06) 336deg, transparent 344deg,
+        hsl(var(--saffron) / 0.06) 352deg, transparent 360deg
       );
+  }
+
+  /* Premium Text Effects */
+  .text-gradient {
+    @apply bg-gradient-premium bg-clip-text text-transparent;
+  }
+
+  .text-shimmer {
+    @apply relative overflow-hidden;
+  }
+
+  .text-shimmer::after {
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer;
+    content: '';
+  }
+
+  /* Enhanced Button Styles */
+  .btn-awwwards {
+    @apply relative bg-gradient-teal text-white font-medium px-8 py-4 rounded-full 
+           transform transition-all duration-500 hover:scale-105 hover:shadow-teal-glow 
+           focus:ring-4 focus:ring-teal/30 group overflow-hidden;
+  }
+
+  .btn-awwwards::before {
+    @apply absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 
+           transform -translate-x-full transition-transform duration-700 group-hover:translate-x-full;
+    content: '';
+  }
+
+  /* Service Card Premium Enhancement */
+  .service-card-premium {
+    @apply relative bg-gradient-subtle backdrop-blur-sm border border-border/30 rounded-3xl 
+           p-8 transform transition-all duration-700 hover:scale-[1.03] hover:shadow-premium 
+           hover:border-saffron/20 group cursor-pointer overflow-hidden;
+  }
+
+  .service-card-premium::before {
+    @apply absolute inset-0 bg-gradient-to-br from-saffron/5 via-transparent to-teal/5 
+           opacity-0 transition-opacity duration-700 group-hover:opacity-100;
+    content: '';
+  }
+
+  .service-card-premium::after {
+    @apply absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-bl 
+           from-white/10 via-transparent to-transparent opacity-0 
+           transition-opacity duration-700 group-hover:opacity-100 rotate-45;
+    content: '';
+  }
+
+  /* Floating Animation */
+  .float-element {
+    @apply animate-float;
+  }
+
+  /* Stagger Animation Classes */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+
+  /* Parallax Effect */
+  .parallax-slow {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* Premium Loading States */
+  .loading-shimmer {
+    @apply bg-gradient-to-r from-muted via-muted-foreground/10 to-muted animate-shimmer;
+    background-size: 200% 100%;
   }
 
   /* Loading Animation */

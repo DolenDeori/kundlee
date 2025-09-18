@@ -402,31 +402,41 @@ const ServiceDetailSheet: React.FC<ServiceDetailSheetProps> = ({
         </SheetContent>
       </Sheet>
 
-      {/* Added Zoho Form Modal */}
+      {/* Enhanced Zoho Form Modal */}
       <Dialog open={isZohoFormOpen} onOpenChange={setIsZohoFormOpen}>
-        <DialogContent className="max-w-4xl w-full h-[80vh] p-0 bg-background dark:bg-charcoal">
-          <DialogHeader className="p-4">
-            <DialogTitle className="text-charcoal dark:text-warm-white">
-              Jeevan Sathee Form
+        <DialogContent className="max-w-5xl w-[95vw] max-h-[90vh] h-auto p-0 bg-background border-border/20 shadow-2xl">
+          <DialogHeader className="px-6 py-4 border-b border-border/10">
+            <DialogTitle className="font-larken text-xl uppercase tracking-wide text-foreground flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-saffron rounded-full flex items-center justify-center">
+                <StarIconSolid className="w-4 h-4 text-white" />
+              </div>
+              {service.title} - Registration Form
             </DialogTitle>
           </DialogHeader>
-          <div className="flex-1 p-4 relative">
-            <div
-              id="zf_div_NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg"
-              className="w-full h-full"
-            >
+          <div className="relative overflow-hidden">
+            <div className="w-full" style={{ height: 'calc(90vh - 120px)' }}>
               <iframe
-                src="https://forms.zohopublic.com/dulenchdeori564gm1/form/JeevanSathee/formperma/NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg?zf_rszfm=1"
+                src={`https://forms.zohopublic.com/dulenchdeori564gm1/form/${
+                  service.id === 'jeevan-sathee' ? 'JeevanSathee' : 'JeevanMarg'
+                }/formperma/${
+                  service.id === 'jeevan-sathee' 
+                    ? 'NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg' 
+                    : 'NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg'
+                }?zf_rszfm=1`}
                 style={{
                   border: "none",
                   width: "100%",
-                  height: "100vh",
-                  transition: "all 0.5s ease",
+                  height: "100%",
+                  borderRadius: "0 0 12px 12px",
                 }}
-                aria-label="Jeevan Sathee"
-                title="Jeevan Sathee Form"
+                aria-label={`${service.title} Registration Form`}
+                title={`${service.title} Form`}
+                loading="lazy"
               />
             </div>
+            {/* Gradient overlay for premium feel */}
+            <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-background/80 to-transparent pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />
           </div>
         </DialogContent>
       </Dialog>
