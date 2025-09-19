@@ -96,7 +96,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
       {/* Content Overlay */}
       <div className="absolute inset-0 z-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-          <div className="max-w-4xl">
+          <div className="max-w-4xl w-full">
             <motion.div
               key={activeSlide}
               initial={{ opacity: 0, y: 60 }}
@@ -168,12 +168,12 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
                   {heroSlides[activeSlide]?.cta}
                 </PremiumButton>
                 
-                <div className="flex items-center gap-4 text-warm-white/70">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 text-warm-white/70 w-full sm:w-auto">
                   <div className="flex items-center gap-2">
-                    <SparklesIcon className="w-5 h-5 text-saffron-light" />
+                    <SparklesIcon className="w-4 h-4 sm:w-5 sm:h-5 text-saffron-light" />
                     <span className="font-inter text-sm font-medium">Vedic Certified</span>
                   </div>
-                  <div className="w-px h-4 bg-warm-white/30" />
+                  <div className="hidden sm:block w-px h-4 bg-warm-white/30" />
                   <span className="font-inter text-sm">Delivered in 48-72 hours</span>
                 </div>
               </motion.div>

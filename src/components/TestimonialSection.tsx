@@ -125,7 +125,7 @@ const TestimonialSection: React.FC = () => {
       {/* Background Pattern */}
       <div className="absolute top-0 right-0 w-96 h-96 sunray-pattern opacity-20 pointer-events-none" />
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -141,7 +141,7 @@ const TestimonialSection: React.FC = () => {
             </p>
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-saffron to-transparent" />
           </div>
-          <h2 className="font-larken text-4xl lg:text-5xl text-charcoal mb-6 uppercase">
+          <h2 className="font-larken text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-charcoal mb-4 sm:mb-6 uppercase">
             What People Say
           </h2>
         </motion.div>
@@ -175,9 +175,10 @@ const TestimonialSection: React.FC = () => {
               },
             }}
             breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              320: { slidesPerView: 1, spaceBetween: 16 },
+              640: { slidesPerView: 1, spaceBetween: 20 },
+              768: { slidesPerView: 2, spaceBetween: 24 },
+              1024: { slidesPerView: 3, spaceBetween: 30 },
             }}
             className="pb-16"
             style={{ display: "flex", alignItems: "stretch" }}
@@ -186,32 +187,32 @@ const TestimonialSection: React.FC = () => {
           >
             {testimonials.map((testimonial) => (
               <SwiperSlide key={testimonial.id} className="h-auto">
-                <div className="bg-white/90 backdrop-blur-sm border border-border rounded-2xl p-8 h-full flex flex-col shadow-elegant hover:shadow-xl transition-all duration-300">
+                <div className="bg-white/90 backdrop-blur-sm border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 h-full flex flex-col shadow-elegant hover:shadow-xl transition-all duration-300">
                   {/* Rating */}
                   <div className="flex items-center mb-4">
                     {renderStars(testimonial.rating)}
                   </div>
 
                   {/* Testimonial Text */}
-                  <p className="font-inter text-charcoal/80 leading-relaxed mb-6 flex-grow">
+                  <p className="font-inter text-sm sm:text-base text-charcoal/80 leading-relaxed mb-4 sm:mb-6 flex-grow">
                     "{testimonial.text}"
                   </p>
 
                   {/* Client Info */}
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-gradient-saffron rounded-full flex items-center justify-center mr-4">
-                      <span className="font-larken text-white font-bold text-lg">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-saffron rounded-full flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
+                      <span className="font-larken text-white font-bold text-sm sm:text-lg">
                         {testimonial.name.charAt(0)}
                       </span>
                     </div>
-                    <div>
-                      <h4 className="font-inter font-semibold text-charcoal">
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-inter font-semibold text-sm sm:text-base text-charcoal truncate">
                         {testimonial.name}
                       </h4>
-                      <p className="font-inter text-sm text-charcoal/60">
+                      <p className="font-inter text-xs sm:text-sm text-charcoal/60 truncate">
                         {testimonial.location}
                       </p>
-                      <p className="font-inter text-xs text-saffron font-medium">
+                      <p className="font-inter text-xs text-saffron font-medium truncate">
                         {testimonial.service}
                       </p>
                     </div>

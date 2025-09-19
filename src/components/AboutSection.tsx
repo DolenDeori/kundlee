@@ -36,13 +36,13 @@ const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-warm-white relative overflow-hidden">
+    <section className="py-16 sm:py-20 bg-warm-white relative overflow-hidden">
       {/* Subtle background elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="sunray-pattern"></div>
       </div>
 
-      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -58,13 +58,13 @@ const AboutSection: React.FC = () => {
             </p>
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-saffron to-transparent" />
           </div>
-          <h2 className="font-larken text-4xl md:text-5xl text-charcoal uppercase tracking-wide mb-4">
-            Bridging Ancient Wisdom <br />
+          <h2 className="font-larken text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-charcoal uppercase tracking-wide mb-4">
+            <span className="block">Bridging Ancient Wisdom</span> 
             <span className="text-teal bg-clip-text">With Modern Life</span>
           </h2>
-          <p className="text-lg text-charcoal/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-charcoal/70 max-w-3xl mx-auto leading-relaxed">
             We transform traditional Vedic astrology into practical guidance,
-            making ancient wisdomaccessible and actionable for today's seekers.
+            making ancient wisdom accessible and actionable for today's seekers.
           </p>
         </motion.div>
 

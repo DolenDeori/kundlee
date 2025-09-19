@@ -110,7 +110,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
 
       {/* Services Grid */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -121,9 +121,9 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
               className="group cursor-pointer"
               onClick={() => onServiceClick(service.id)}
             >
-              <div className="relative overflow-hidden rounded-3xl bg-card border border-border/20 hover:border-saffron/20 transition-all duration-700 hover:shadow-elegant group-hover:-translate-y-2">
+                <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-card border border-border/20 hover:border-saffron/20 transition-all duration-700 hover:shadow-elegant group-hover:-translate-y-2">
                 {/* Premium Badge */}
-                <div className="absolute top-6 right-6 z-10">
+                <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10">
                   <div className="bg-gradient-saffron rounded-full px-3 py-1 flex items-center gap-1 shadow-xs">
                     <ShieldCheckIcon className="w-3 h-3 text-white" />
                     <span className="font-inter text-xs font-medium text-white">
@@ -133,19 +133,19 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                 </div>
 
                 {/* Card Content */}
-                <div className="relative z-10 p-6">
+                <div className="relative z-10 p-4 sm:p-6">
                   {/* Service Icon & Title */}
-                  <div className="flex items-start gap-6 mb-8">
+                  <div className="flex items-start gap-4 sm:gap-6 mb-6 sm:mb-8">
                     <div className="relative">
-                      <div className="w-16 h-16 bg-gradient-teal rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 group-hover:shadow-teal">
-                        <service.icon className="w-8 h-8 text-white" />
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-teal rounded-xl sm:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 group-hover:shadow-teal">
+                        <service.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                       </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-larken text-2xl text-foreground uppercase tracking-wide">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-larken text-lg sm:text-xl md:text-2xl text-foreground uppercase tracking-wide">
                         {service.title}
                       </h3>
-                      <p className="font-inter text-saffron font-medium text-sm uppercase tracking-wide">
+                      <p className="font-inter text-saffron font-medium text-xs sm:text-sm uppercase tracking-wide">
                         {service.tagline}
                       </p>
                       <div className="flex items-center gap-2 mt-3">
@@ -160,20 +160,20 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                   </div>
 
                   {/* Description */}
-                  <p className="font-inter text-foreground/80 text-base leading-relaxed mb-8">
+                  <p className="font-inter text-foreground/80 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
                     {service.shortDescription}
                   </p>
 
                   {/* Key Highlights */}
-                  <div className="space-y-3 mb-8">
-                    <h4 className="font-inter font-semibold text-foreground text-sm uppercase">
+                  <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
+                    <h4 className="font-inter font-semibold text-foreground text-xs sm:text-sm uppercase">
                       What's Included
                     </h4>
-                    <div className="grid gap-2">
+                    <div className="grid gap-1.5 sm:gap-2">
                       {service.highlights.map((highlight, idx) => (
-                        <div key={idx} className="flex items-center gap-3">
-                          <CheckIcon className="w-4 h-4 text-teal flex-shrink-0" />
-                          <span className="font-inter text-sm text-foreground/80">
+                        <div key={idx} className="flex items-center gap-2 sm:gap-3">
+                          <CheckIcon className="w-3 h-3 sm:w-4 sm:h-4 text-teal flex-shrink-0" />
+                          <span className="font-inter text-xs sm:text-sm text-foreground/80">
                             {highlight}
                           </span>
                         </div>
@@ -182,35 +182,35 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                   </div>
 
                   {/* Pricing */}
-                  <div className="bg-muted/30 rounded-2xl p-6 border border-border/50">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-baseline gap-3">
-                        <span className="font-larken text-3xl font-bold text-foreground">
-                          {service.price}
-                        </span>
-                        <span className="font-inter text-lg text-muted-foreground line-through">
-                          {service.originalPrice}
-                        </span>
-                        <span className="bg-saffron text-white text-xs font-medium px-2 py-1 rounded-full uppercase">
-                          Save{" "}
-                          {Math.round(
-                            ((parseInt(service.originalPrice.slice(1)) -
-                              parseInt(service.price.slice(1))) /
-                              parseInt(service.originalPrice.slice(1))) *
-                              100
-                          )}
-                          %
-                        </span>
+                  <div className="bg-muted/30 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-border/50">
+                      <div className="flex items-center justify-between mb-3 sm:mb-4">
+                        <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
+                          <span className="font-larken text-2xl sm:text-3xl font-bold text-foreground">
+                            {service.price}
+                          </span>
+                          <span className="font-inter text-base sm:text-lg text-muted-foreground line-through">
+                            {service.originalPrice}
+                          </span>
+                          <span className="bg-saffron text-white text-xs font-medium px-2 py-1 rounded-full uppercase whitespace-nowrap">
+                            Save{" "}
+                            {Math.round(
+                              ((parseInt(service.originalPrice.slice(1)) -
+                                parseInt(service.price.slice(1))) /
+                                parseInt(service.originalPrice.slice(1))) *
+                                100
+                            )}
+                            %
+                          </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-muted-foreground mb-3 sm:mb-4">
                       <div className="flex items-center gap-2">
-                        <ClockIcon className="w-3 h-3" />
+                        <ClockIcon className="w-3 h-3 flex-shrink-0" />
                         <span>Delivered in {service.deliveryTime}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <SparklesIcon className="w-3 h-3" />
+                        <SparklesIcon className="w-3 h-3 flex-shrink-0" />
                         <span>Vedic Certified</span>
                       </div>
                     </div>
@@ -225,6 +225,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                         <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                       }
                       variant="teal"
+                      className="w-full py-3 sm:py-4 touch-manipulation"
                     >
                       <span>{service.cta}</span>
                     </PremiumButton>

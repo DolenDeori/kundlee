@@ -63,16 +63,16 @@ const ContactSection: React.FC = () => {
             </p>
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-saffron to-transparent" />
           </div>
-          <h2 className="font-larken text-4xl lg:text-5xl text-charcoal uppercase">
+          <h2 className="font-larken text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-charcoal uppercase">
             Get In Touch
           </h2>
-          <p className="font-inter text-charcoal/70 max-w-2xl mx-auto leading-relaxed">
+          <p className="font-inter text-sm sm:text-base text-charcoal/70 max-w-2xl mx-auto leading-relaxed">
             Have any Questions or feedback? We'd love to hear from you.
           </p>
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -93,30 +93,30 @@ const ContactSection: React.FC = () => {
                 </p>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-saffron/85 rounded-full flex items-center justify-center mr-4">
-                    <EnvelopeIcon className="w-6 h-6 text-white" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-saffron/85 rounded-full flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
+                    <EnvelopeIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
-                  <div>
-                    <h4 className="font-inter font-semibold text-charcoal">
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-inter font-semibold text-sm sm:text-base text-charcoal">
                       Email Us
                     </h4>
-                    <p className="font-inter text-charcoal/70">
+                    <p className="font-inter text-sm text-charcoal/70 break-all">
                       hello@kundlee.com
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-teal-700 rounded-full flex items-center justify-center mr-4">
-                    <BsChatLeftDots className="w-5 h-5 text-white" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-teal-700 rounded-full flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
+                    <BsChatLeftDots className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
-                  <div>
-                    <h4 className="font-inter font-semibold text-charcoal">
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-inter font-semibold text-sm sm:text-base text-charcoal">
                       Response Time
                     </h4>
-                    <p className="font-inter text-charcoal/70">
+                    <p className="font-inter text-sm text-charcoal/70">
                       Within 24 hours
                     </p>
                   </div>
@@ -133,7 +133,7 @@ const ContactSection: React.FC = () => {
               className="bg-white/80 backdrop-blur-sm border border-border rounded-[20px] rounded-b-[40px] p-4 shadow-elegant"
             >
               {!isSubmitted ? (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                   {/* Name Field */}
                   <div>
                     <label
@@ -151,7 +151,7 @@ const ContactSection: React.FC = () => {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="w-full pl-10 pr-4 py-3 border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200"
+                        className="w-full pl-10 pr-4 py-3 sm:py-4 border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200 text-sm sm:text-base"
                         placeholder="Enter your full name"
                       />
                     </div>
@@ -174,7 +174,7 @@ const ContactSection: React.FC = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="w-full pl-10 pr-4 py-3 border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200"
+                        className="w-full pl-10 pr-4 py-3 sm:py-4 border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200 text-sm sm:text-base"
                         placeholder="Enter your email address"
                       />
                     </div>
@@ -195,7 +195,7 @@ const ContactSection: React.FC = () => {
                       onChange={handleInputChange}
                       required
                       rows={4}
-                      className="w-full px-4 py-3 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200 resize-none"
+                      className="w-full px-4 py-3 sm:py-4 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200 resize-none text-sm sm:text-base"
                       placeholder="Tell us how we can help you ..."
                     />
                   </div>

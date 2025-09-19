@@ -47,7 +47,7 @@ const FAQSection: React.FC = () => {
   ];
 
   return (
-    <section id="faq" className="py-20 bg-warm-white relative overflow-hidden">
+    <section id="faq" className="py-16 sm:py-20 bg-warm-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute top-0 left-0 w-full h-full sunray-pattern opacity-30 pointer-events-none" />
 
@@ -60,7 +60,7 @@ const FAQSection: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="font-larken text-4xl lg:text-5xl text-charcoal uppercase tracking-wide">
+          <h2 className="font-larken text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-charcoal uppercase tracking-wide">
             FAQ's
           </h2>
         </motion.div>

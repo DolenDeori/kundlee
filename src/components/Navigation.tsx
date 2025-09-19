@@ -63,7 +63,7 @@ const Navigation: React.FC = () => {
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 sm:h-18 md:h-20">
           {/* Enhanced Logo */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -76,7 +76,7 @@ const Navigation: React.FC = () => {
               <img
                 src={kundleePrimaryLogo}
                 alt="Kundlee"
-                className="h-10 transition-transform duration-300 group-hover:scale-105"
+                className="h-8 sm:h-9 md:h-10 transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-saffron/20 to-teal/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
@@ -139,7 +139,7 @@ const Navigation: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, type: "spring", stiffness: 200 }}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-full bg-charcoal/5 hover:from-saffron/20 hover:to-teal/20 transition-all"
+            className="md:hidden p-3 rounded-full bg-charcoal/5 hover:bg-saffron/10 transition-all touch-manipulation"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -169,12 +169,12 @@ const Navigation: React.FC = () => {
               transition={{ duration: 0.4, ease: "easeInOut" }}
               className="md:hidden border-t border-border/30 overflow-hidden"
             >
-              <div className="py-6 space-y-4">
+              <div className="py-4 space-y-2">
                 {navLinks.map((link, index) => (
                   <motion.button
                     key={index}
                     onClick={() => handleNavClick(link.href)}
-                    className="block w-full text-left font-inter text-base font-medium text-charcoal/80 hover:text-saffron transition-all duration-300 py-3 px-4 rounded-xl hover:bg-gradient-to-r hover:from-saffron/5 hover:to-teal/5"
+                    className="block w-full text-left font-inter text-lg font-medium text-charcoal/80 hover:text-saffron transition-all duration-300 py-4 px-4 rounded-xl hover:bg-gradient-to-r hover:from-saffron/5 hover:to-teal/5 touch-manipulation"
                     initial={{ opacity: 0, x: 0 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -30 }}
