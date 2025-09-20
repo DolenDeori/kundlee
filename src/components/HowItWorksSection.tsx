@@ -13,34 +13,44 @@ const steps = [
   {
     id: 1,
     title: "Choose Your Report",
-    description: "Select from Jeevan Sathee (relationship compatibility) or Jeevan Marg (life path guidance) to begin your cosmic journey.",
+    description:
+      "Select from Jeevan Sathee (relationship compatibility) or Jeevan Marg (life path guidance) to begin your cosmic journey.",
     icon: DocumentTextIcon,
-    details: ["Two specialized services", "Ancient Vedic wisdom", "Modern interpretations"],
+    details: [
+      "Two specialized services",
+      "Ancient Vedic wisdom",
+      "Modern interpretations",
+    ],
   },
   {
     id: 2,
     title: "Provide Your Birth Details",
-    description: "Share your birth information with complete confidence. Your personal data is encrypted and kept absolutely confidential.",
+    description:
+      "Share your birth information with complete confidence. Your personal data is encrypted and kept absolutely confidential.",
     icon: UserIcon,
-    details: ["Secure data handling", "100% confidential", "Encrypted transmission"],
+    details: [
+      "Secure data handling",
+      "100% confidential",
+      "Encrypted transmission",
+    ],
   },
   {
     id: 3,
     title: "Receive Your Report",
-    description: "Get your comprehensive, personalized report delivered directly to your inbox within 48-72 hours.",
+    description:
+      "Get your comprehensive, personalized report delivered directly to your inbox within 48-72 hours.",
     icon: InboxIcon,
-    details: ["Delivered in 48-72 hours", "Comprehensive analysis", "Lifetime access"],
+    details: [
+      "Delivered in 48-72 hours",
+      "Comprehensive analysis",
+      "Lifetime access",
+    ],
   },
 ];
 
 const HowItWorksSection: React.FC = () => {
   return (
     <section className="py-24 relative overflow-hidden bg-gradient-to-b from-muted/30 to-background">
-      {/* Decorative Background Elements */}
-      <div className="absolute inset-0 sunray-pattern opacity-30" />
-      <div className="absolute top-1/4 left-10 w-72 h-72 bg-gradient-radial from-saffron/8 to-transparent rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-10 w-72 h-72 bg-gradient-radial from-teal/8 to-transparent rounded-full blur-3xl" />
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -61,7 +71,8 @@ const HowItWorksSection: React.FC = () => {
             Your Journey to Cosmic Clarity
           </h2>
           <p className="font-inter text-lg text-muted-foreground leading-relaxed">
-            Three simple steps to unlock the ancient wisdom tailored for your modern life
+            Three simple steps to unlock the ancient wisdom tailored for your
+            modern life
           </p>
         </motion.div>
 
@@ -72,7 +83,7 @@ const HowItWorksSection: React.FC = () => {
             <div className="relative">
               {/* Connection Line */}
               <div className="absolute top-24 left-1/2 w-full max-w-3xl -translate-x-1/2 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-              
+
               <div className="grid lg:grid-cols-3 gap-8">
                 {steps.map((step, index) => (
                   <motion.div
@@ -113,9 +124,15 @@ const HowItWorksSection: React.FC = () => {
                         <div className="space-y-2 pt-4">
                           {step.details.map((detail, idx) => (
                             <div key={idx} className="flex items-center gap-3">
-                              {step.id === 1 && <SparklesIcon className="w-4 h-4 text-saffron flex-shrink-0" />}
-                              {step.id === 2 && <ShieldCheckIcon className="w-4 h-4 text-teal flex-shrink-0" />}
-                              {step.id === 3 && <ClockIcon className="w-4 h-4 text-saffron flex-shrink-0" />}
+                              {step.id === 1 && (
+                                <SparklesIcon className="w-4 h-4 text-saffron flex-shrink-0" />
+                              )}
+                              {step.id === 2 && (
+                                <ShieldCheckIcon className="w-4 h-4 text-teal flex-shrink-0" />
+                              )}
+                              {step.id === 3 && (
+                                <ClockIcon className="w-4 h-4 text-saffron flex-shrink-0" />
+                              )}
                               <span className="font-inter text-sm text-foreground/80">
                                 {detail}
                               </span>
@@ -177,9 +194,15 @@ const HowItWorksSection: React.FC = () => {
                     <div className="space-y-2">
                       {step.details.map((detail, idx) => (
                         <div key={idx} className="flex items-center gap-3">
-                          {step.id === 1 && <SparklesIcon className="w-4 h-4 text-saffron flex-shrink-0" />}
-                          {step.id === 2 && <ShieldCheckIcon className="w-4 h-4 text-teal flex-shrink-0" />}
-                          {step.id === 3 && <ClockIcon className="w-4 h-4 text-saffron flex-shrink-0" />}
+                          {step.id === 1 && (
+                            <SparklesIcon className="w-4 h-4 text-saffron flex-shrink-0" />
+                          )}
+                          {step.id === 2 && (
+                            <ShieldCheckIcon className="w-4 h-4 text-teal flex-shrink-0" />
+                          )}
+                          {step.id === 3 && (
+                            <ClockIcon className="w-4 h-4 text-saffron flex-shrink-0" />
+                          )}
                           <span className="font-inter text-sm text-foreground/80">
                             {detail}
                           </span>
@@ -209,7 +232,8 @@ const HowItWorksSection: React.FC = () => {
               </span>
             </div>
             <p className="font-inter text-foreground/80 leading-relaxed">
-              Ready to discover what the cosmos has in store for you? Your personalized journey awaits.
+              Ready to discover what the cosmos has in store for you? Your
+              personalized journey awaits.
             </p>
           </div>
         </motion.div>

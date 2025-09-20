@@ -36,7 +36,10 @@ const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-20 bg-warm-white relative overflow-hidden">
+    <section
+      id="about"
+      className="py-16 sm:py-20 bg-warm-white relative overflow-hidden"
+    >
       {/* Subtle background elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="sunray-pattern"></div>
@@ -59,7 +62,7 @@ const AboutSection: React.FC = () => {
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-saffron to-transparent" />
           </div>
           <h2 className="font-larken text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-charcoal uppercase tracking-wide mb-4">
-            <span className="block">Bridging Ancient Wisdom</span> 
+            <span className="block">Bridging Ancient Wisdom</span>
             <span className="text-teal bg-clip-text">With Modern Life</span>
           </h2>
           <p className="text-base sm:text-lg text-charcoal/70 max-w-3xl mx-auto leading-relaxed">

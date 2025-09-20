@@ -122,17 +122,14 @@ const TestimonialSection: React.FC = () => {
       id="testimonials"
       className="py-20 bg-gradient-to-br from-warm-white relative overflow-hidden"
     >
-      {/* Background Pattern */}
-      <div className="absolute top-0 right-0 w-96 h-96 sunray-pattern opacity-20 pointer-events-none" />
-
+      {/* Section Header (Centered with Container) */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8"
         >
           <div className="inline-flex items-center gap-3 mb-6">
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-saffron to-transparent" />
@@ -141,94 +138,94 @@ const TestimonialSection: React.FC = () => {
             </p>
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-saffron to-transparent" />
           </div>
-          <h2 className="font-larken text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-charcoal mb-4 sm:mb-6 uppercase">
+          <h2 className="font-larken text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-charcoal mb-4 uppercase">
             What People Say
           </h2>
         </motion.div>
+      </div>
 
-        {/* Testimonials Slider */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="relative"
+      {/* Full-Width Swiper */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        viewport={{ once: true }}
+        className="relative w-full" // Full width container for Swiper
+      >
+        <Swiper
+          loop={true}
+          modules={[Autoplay, Pagination, Navigation]}
+          spaceBetween={5} // Reduced for full-width to prevent overflow
+          slidesPerView={3}
+          autoplay={{
+            delay: AUTOPLAY_DELAY,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+            renderBullet: (index, className) => {
+              // Custom bullet markup with progress bar
+              return `
+              <span class="testimonial-pagination-bullet ${className}" data-index="${index}">
+                <span class="testimonial-pagination-progress"></span>
+              </span>
+            `;
+            },
+          }}
+          breakpoints={{
+            320: { slidesPerView: 1, spaceBetween: 10 },
+            640: { slidesPerView: 2, spaceBetween: 15 },
+            768: { slidesPerView: 3, spaceBetween: 20 },
+            1024: { slidesPerView: 4, spaceBetween: 25 }, // Added for larger screens
+          }}
+          className="py-16 px-4 sm:px-6 lg:px-8" // Added padding back to Swiper for content spacing
+          style={{ display: "flex", alignItems: "stretch" }}
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
         >
-          <Swiper
-            loop={true}
-            modules={[Autoplay, Pagination, Navigation]}
-            spaceBetween={30}
-            slidesPerView={1}
-            autoplay={{
-              delay: AUTOPLAY_DELAY,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
-              renderBullet: (index, className) => {
-                // Custom bullet markup with progress bar
-                return `
-                <span class="testimonial-pagination-bullet ${className}" data-index="${index}">
-                  <span class="testimonial-pagination-progress"></span>
-                </span>
-              `;
-              },
-            }}
-            breakpoints={{
-              320: { slidesPerView: 1, spaceBetween: 16 },
-              640: { slidesPerView: 1, spaceBetween: 20 },
-              768: { slidesPerView: 2, spaceBetween: 24 },
-              1024: { slidesPerView: 3, spaceBetween: 30 },
-            }}
-            className="pb-16"
-            style={{ display: "flex", alignItems: "stretch" }}
-            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-            onSwiper={(swiper) => (swiperRef.current = swiper)}
-          >
-            {testimonials.map((testimonial) => (
-              <SwiperSlide key={testimonial.id} className="h-auto">
-                <div className="bg-white/90 backdrop-blur-sm border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 h-full flex flex-col shadow-elegant hover:shadow-xl transition-all duration-300">
-                  {/* Rating */}
-                  <div className="flex items-center mb-4">
-                    {renderStars(testimonial.rating)}
+          {testimonials.map((testimonial) => (
+            <SwiperSlide key={testimonial.id} className="h-auto">
+              <div className="bg-white/90 backdrop-blur-sm border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 h-full flex flex-col shadow-elegant hover:shadow-xl transition-all duration-300 mx-2">
+                {" "}
+                {/* Added mx-2 for slide margins */}
+                {/* Rating */}
+                <div className="flex items-center mb-4">
+                  {renderStars(testimonial.rating)}
+                </div>
+                {/* Testimonial Text */}
+                <p className="font-inter text-sm sm:text-base text-charcoal/80 leading-relaxed mb-4 sm:mb-6 flex-grow">
+                  "{testimonial.text}"
+                </p>
+                {/* Client Info */}
+                <div className="flex items-center">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-saffron rounded-full flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
+                    <span className="font-larken text-white font-bold text-sm sm:text-lg">
+                      {testimonial.name.charAt(0)}
+                    </span>
                   </div>
-
-                  {/* Testimonial Text */}
-                  <p className="font-inter text-sm sm:text-base text-charcoal/80 leading-relaxed mb-4 sm:mb-6 flex-grow">
-                    "{testimonial.text}"
-                  </p>
-
-                  {/* Client Info */}
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-saffron rounded-full flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
-                      <span className="font-larken text-white font-bold text-sm sm:text-lg">
-                        {testimonial.name.charAt(0)}
-                      </span>
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <h4 className="font-inter font-semibold text-sm sm:text-base text-charcoal truncate">
-                        {testimonial.name}
-                      </h4>
-                      <p className="font-inter text-xs sm:text-sm text-charcoal/60 truncate">
-                        {testimonial.location}
-                      </p>
-                      <p className="font-inter text-xs text-saffron font-medium truncate">
-                        {testimonial.service}
-                      </p>
-                    </div>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-inter font-semibold text-sm sm:text-base text-charcoal truncate">
+                      {testimonial.name}
+                    </h4>
+                    <p className="font-inter text-xs sm:text-sm text-charcoal/60 truncate">
+                      {testimonial.location}
+                    </p>
+                    <p className="font-inter text-xs text-saffron font-medium truncate">
+                      {testimonial.service}
+                    </p>
                   </div>
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </motion.div>
-      </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </motion.div>
 
       <style>
         {`
         .testimonial-pagination-bullet {
           display: inline-block;
-          width: 40px;
+          width: 20px;
           height: 4px;
           border-radius: 6px;
           background: rgba(34,34,34,0.4);
@@ -241,7 +238,7 @@ const TestimonialSection: React.FC = () => {
         }
         .testimonial-pagination-bullet.swiper-pagination-bullet-active {
           background: rgba(34,34,34,0.2);
-          width: 60px;
+          width: 40px;
         }
         .testimonial-pagination-progress {
           position: absolute;

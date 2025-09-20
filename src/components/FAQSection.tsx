@@ -47,10 +47,10 @@ const FAQSection: React.FC = () => {
   ];
 
   return (
-    <section id="faq" className="py-16 sm:py-20 bg-warm-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute top-0 left-0 w-full h-full sunray-pattern opacity-30 pointer-events-none" />
-
+    <section
+      id="faq"
+      className="py-16 sm:py-20 bg-warm-white relative overflow-hidden"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div

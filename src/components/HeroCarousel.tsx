@@ -13,7 +13,11 @@ import heroBg1 from "@/assets/hero-bg-1.jpg";
 import heroBg2 from "@/assets/hero-bg-2.jpg";
 import heroBg3 from "@/assets/hero-bg-3.jpg";
 import { PremiumButton } from "./ui/PremiumButton";
-import { ArrowRightIcon, SparklesIcon, StarIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowRightIcon,
+  SparklesIcon,
+  StarIcon,
+} from "@heroicons/react/24/outline";
 
 const heroSlides = [
   {
@@ -52,10 +56,11 @@ interface HeroCarouselProps {
 const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 200]);
+  // Adjusted for smoother parallax: larger scroll range, smaller transform output
+  const y = useTransform(scrollY, [0, 1000], [0, -150]); // Negative for upward movement, smoother range
 
   return (
-    <section className="relative h-screen overflow-hidden bg-charcoal">
+    <section className="relative h-[80vh] overflow-hidden bg-charcoal">
       {/* Background Swiper */}
       <Swiper
         modules={[Autoplay, EffectFade, Parallax]}
@@ -73,18 +78,21 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
         {heroSlides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="relative h-full">
-              {/* Background Image with Parallax */}
+              {/* Background Image with Smooth Parallax */}
               <motion.div
-                style={{ y }}
-                className="absolute inset-0 scale-110"
+                style={{
+                  y,
+                  willChange: "transform", // Optimizes performance
+                }}
+                className="absolute left-0 right-0 h-[120vh] -top-20" // Increased height and adjusted top to extend above/below
               >
                 <div
-                  className="w-full h-full bg-cover bg-center bg-no-repeat"
+                  className="w-full h-full bg-cover bg-center bg-no-repeat" // Ensures image covers the larger area
                   style={{ backgroundImage: `url(${slide.background})` }}
                   data-swiper-parallax="-300"
                 />
               </motion.div>
-              
+
               {/* Enhanced Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/60 to-charcoal/30" />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-charcoal/20" />
@@ -105,15 +113,8 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
               className="space-y-8"
             >
               {/* Accent Line */}
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "auto" }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="flex items-center gap-4"
-              >
-                <div className="h-px bg-gradient-to-r from-saffron to-saffron-light w-16" />
-                <div className="flex items-center gap-2">
-                  <StarIcon className="w-4 h-4 text-saffron animate-pulse-soft" />
+              <motion.div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 w-full">
                   <span className="font-inter text-saffron-light text-sm font-medium uppercase tracking-wider">
                     {heroSlides[activeSlide]?.accent}
                   </span>
@@ -125,20 +126,22 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="font-larken text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-warm-white leading-tight tracking-wide"
+                className="font-larken text-3xl sm:text-3xl md:text-5xl lg:text-6xl text-warm-white leading-tight tracking-wide"
               >
                 <span className="block">
-                  {heroSlides[activeSlide]?.headline.split(' ').map((word, idx) => (
-                    <motion.span
-                      key={idx}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.7 + (idx * 0.1) }}
-                      className="inline-block mr-4"
-                    >
-                      {word}
-                    </motion.span>
-                  ))}
+                  {heroSlides[activeSlide]?.headline
+                    .split(" ")
+                    .map((word, idx) => (
+                      <motion.span
+                        key={idx}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.7 + idx * 0.1 }}
+                        className="inline-block mr-4"
+                      >
+                        {word}
+                      </motion.span>
+                    ))}
                 </span>
               </motion.h1>
 
@@ -147,7 +150,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.2 }}
-                className="font-inter text-lg sm:text-xl md:text-2xl text-warm-white/90 leading-relaxed max-w-2xl"
+                className="font-inter text-lg sm:text-xl md:text-lg text-warm-white/90 leading-relaxed max-w-2xl"
               >
                 {heroSlides[activeSlide]?.subheading}
               </motion.p>
@@ -157,25 +160,15 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.5 }}
-                className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-8"
+                className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-8 w-fit"
               >
                 <PremiumButton
                   onClick={onCtaClick}
                   label={heroSlides[activeSlide]?.cta || "Get Started"}
                   icon={<ArrowRightIcon className="w-5 h-5" />}
-                  className="transform hover:scale-105 transition-transform duration-300"
                 >
                   {heroSlides[activeSlide]?.cta}
                 </PremiumButton>
-                
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 text-warm-white/70 w-full sm:w-auto">
-                  <div className="flex items-center gap-2">
-                    <SparklesIcon className="w-4 h-4 sm:w-5 sm:h-5 text-saffron-light" />
-                    <span className="font-inter text-sm font-medium">Vedic Certified</span>
-                  </div>
-                  <div className="hidden sm:block w-px h-4 bg-warm-white/30" />
-                  <span className="font-inter text-sm">Delivered in 48-72 hours</span>
-                </div>
               </motion.div>
             </motion.div>
           </div>
@@ -195,7 +188,10 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
                 initial={false}
                 animate={{
                   width: index === activeSlide ? 48 : 24,
-                  backgroundColor: index === activeSlide ? "hsl(var(--saffron))" : "hsl(var(--warm-white) / 0.3)"
+                  backgroundColor:
+                    index === activeSlide
+                      ? "hsl(var(--saffron))"
+                      : "hsl(var(--warm-white) / 0.3)",
                 }}
                 transition={{ duration: 0.3 }}
               />

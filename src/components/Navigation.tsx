@@ -72,13 +72,12 @@ const Navigation: React.FC = () => {
             className="flex items-center group cursor-pointer"
             onClick={() => handleNavClick("#hero")}
           >
-            <div className="relative overflow-hidden rounded-lg">
+            <div className="relative rounded-lg">
               <img
                 src={kundleePrimaryLogo}
                 alt="Kundlee"
-                className="h-8 sm:h-9 md:h-10 transition-transform duration-300 group-hover:scale-105"
+                className="h-6 sm:h-9 md:h-10"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-saffron/20 to-teal/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </motion.div>
 
@@ -96,8 +95,6 @@ const Navigation: React.FC = () => {
                 key={index}
                 onClick={() => handleNavClick(link.href)}
                 className="relative font-inter text-sm font-medium text-charcoal/80 hover:text-saffron transition-all duration-300 py-2 group"
-                whileHover={{ y: -2 }}
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
               >
                 <span className="relative z-10">{link.name}</span>
                 {/* Hover underline effect */}
@@ -107,8 +104,6 @@ const Navigation: React.FC = () => {
                   whileHover={{ width: "100%" }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 />
-                {/* Hover background glow */}
-                <div className="absolute inset-0 bg-gradient-to-r from-saffron/10 to-teal/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
               </motion.button>
             ))}
           </motion.div>
