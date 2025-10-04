@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { BsChevronRight } from "react-icons/bs";
+import { useLocation, useNavigate } from "react-router-dom";
 import kundleePrimaryLogo from "@/assets/kundlee-primary-logo.png";
 import { PremiumButton } from "./ui/PremiumButton";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import { navLinks } from "@/constants/Index";
 
 const Navigation: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showNav, setShowNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -15,6 +18,16 @@ const Navigation: React.FC = () => {
   const animationTransitionTime = 0.5;
 
   const handleNavClick = (href: string) => {
+    const isHomePage = location.pathname === "/";
+
+    // If not on home page, navigate to home page with hash
+    if (!isHomePage) {
+      setIsMobileMenuOpen(false);
+      navigate(`/${href}`);
+      return;
+    }
+
+    // If on home page, scroll to section
     const doScroll = () => {
       if (href === "#hero") {
         window.scrollTo({ top: 0, behavior: "smooth" });
