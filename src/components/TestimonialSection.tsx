@@ -7,13 +7,27 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-const AUTOPLAY_DELAY = 5000; // ms
+/** Autoplay delay in milliseconds */
+const AUTOPLAY_DELAY = 5000;
 
+/**
+ * TestimonialSection Component
+ * 
+ * Displays customer testimonials in a responsive carousel with:
+ * - Auto-playing slides with custom progress indicators
+ * - Responsive breakpoints for different screen sizes
+ * - Animated progress bars synchronized with autoplay
+ * 
+ * @returns {JSX.Element} The testimonials section
+ */
 const TestimonialSection: React.FC = () => {
   const swiperRef = useRef<any>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  // Animate progress bar for active bullet
+  /**
+   * Animate progress bar for the active pagination bullet
+   * Syncs with the autoplay delay to show visual progress
+   */
   useEffect(() => {
     let frame: number;
     let start: number | null = null;
@@ -58,6 +72,10 @@ const TestimonialSection: React.FC = () => {
     return () => cancelAnimationFrame(frame);
   }, [activeIndex]);
 
+  /**
+   * Testimonial data array
+   * Contains customer reviews with ratings and service information
+   */
   const testimonials = [
     {
       id: 1,
@@ -106,6 +124,11 @@ const TestimonialSection: React.FC = () => {
     },
   ];
 
+  /**
+   * Renders star rating icons
+   * @param rating - Number of stars (1-5)
+   * @returns Array of star icon elements
+   */
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
       <BsStarFill
@@ -174,9 +197,12 @@ const TestimonialSection: React.FC = () => {
           }}
           breakpoints={{
             320: { slidesPerView: 1, spaceBetween: 10 },
+            480: { slidesPerView: 1.5, spaceBetween: 12 },
             640: { slidesPerView: 2, spaceBetween: 15 },
-            768: { slidesPerView: 3, spaceBetween: 20 },
-            1024: { slidesPerView: 4, spaceBetween: 25 }, // Added for larger screens
+            768: { slidesPerView: 2.5, spaceBetween: 18 },
+            1024: { slidesPerView: 3, spaceBetween: 20 },
+            1280: { slidesPerView: 3.5, spaceBetween: 25 },
+            1536: { slidesPerView: 4, spaceBetween: 30 },
           }}
           className="py-16 px-4 sm:px-6 lg:px-8" // Added padding back to Swiper for content spacing
           style={{ display: "flex", alignItems: "stretch" }}
@@ -185,32 +211,32 @@ const TestimonialSection: React.FC = () => {
         >
           {testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial.id} className="h-auto">
-              <div className="bg-white/90 backdrop-blur-sm border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 h-full flex flex-col shadow-elegant hover:shadow-xl transition-all duration-300 mx-2">
-                {" "}
-                {/* Added mx-2 for slide margins */}
-                {/* Rating */}
-                <div className="flex items-center mb-4">
+              <div className="bg-white/90 backdrop-blur-sm border border-border rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 h-full flex flex-col shadow-elegant hover:shadow-xl transition-all duration-300 mx-2">
+                {/* Star Rating */}
+                <div className="flex items-center justify-center sm:justify-start mb-4">
                   {renderStars(testimonial.rating)}
                 </div>
-                {/* Testimonial Text */}
-                <p className="font-inter text-sm sm:text-base text-charcoal/80 leading-relaxed mb-4 sm:mb-6 flex-grow">
+                
+                {/* Testimonial Quote */}
+                <p className="font-inter text-sm sm:text-base lg:text-lg text-charcoal/80 leading-relaxed mb-6 flex-grow text-center sm:text-left">
                   "{testimonial.text}"
                 </p>
-                {/* Client Info */}
-                <div className="flex items-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-saffron rounded-full flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
-                    <span className="font-larken text-white font-bold text-sm sm:text-lg">
+                
+                {/* Client Information */}
+                <div className="flex items-center justify-center sm:justify-start pt-4 border-t border-border/20">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-saffron rounded-full flex items-center justify-center mr-4 flex-shrink-0 shadow-md">
+                    <span className="font-larken text-white font-bold text-base sm:text-lg">
                       {testimonial.name.charAt(0)}
                     </span>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h4 className="font-inter font-semibold text-sm sm:text-base text-charcoal truncate">
+                    <h4 className="font-inter font-semibold text-sm sm:text-base lg:text-lg text-charcoal truncate">
                       {testimonial.name}
                     </h4>
                     <p className="font-inter text-xs sm:text-sm text-charcoal/60 truncate">
                       {testimonial.location}
                     </p>
-                    <p className="font-inter text-xs text-saffron font-medium truncate">
+                    <p className="font-inter text-xs sm:text-sm text-saffron font-medium truncate">
                       {testimonial.service}
                     </p>
                   </div>
@@ -221,34 +247,55 @@ const TestimonialSection: React.FC = () => {
         </Swiper>
       </motion.div>
 
+      {/* Custom Pagination Styles */}
       <style>
         {`
+        /* Custom pagination bullet styling with progress animation */
         .testimonial-pagination-bullet {
           display: inline-block;
           width: 20px;
           height: 4px;
           border-radius: 6px;
-          background: rgba(34,34,34,0.4);
+          background: rgba(34, 34, 34, 0.4);
           margin: 0 6px;
           position: relative;
           overflow: hidden;
           vertical-align: middle;
-          transition: 0.2s linear;
+          transition: width 0.2s linear, background 0.2s linear;
           transform-origin: left;
+          cursor: pointer;
         }
+        
+        /* Active bullet expands and changes background */
         .testimonial-pagination-bullet.swiper-pagination-bullet-active {
-          background: rgba(34,34,34,0.2);
+          background: rgba(34, 34, 34, 0.2);
           width: 40px;
         }
+        
+        /* Progress bar inside bullet */
         .testimonial-pagination-progress {
           position: absolute;
-          left: 0; top: 0; bottom: 0;
+          left: 0;
+          top: 0;
+          bottom: 0;
           height: 100%;
           width: 0%;
-          background: #FF9933; /* Indian Saffron */
+          background: #FF9933; /* Saffron color */
           border-radius: 6px;
           transition: width 0.2s linear;
           z-index: 1;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+          .testimonial-pagination-bullet {
+            width: 16px;
+            height: 3px;
+            margin: 0 4px;
+          }
+          .testimonial-pagination-bullet.swiper-pagination-bullet-active {
+            width: 32px;
+          }
         }
         `}
       </style>
