@@ -44,10 +44,10 @@ const Footer: React.FC = () => {
     legal: {
       title: "Legal",
       links: [
-        { name: "Privacy Policy", href: "#privacy" },
-        { name: "Terms of Service", href: "#terms" },
-        { name: "Refund Policy", href: "#refund" },
-        { name: "Disclaimer", href: "#disclaimer" },
+        { name: "Privacy Policy", href: "/privacy-policy" },
+        { name: "Terms of Service", href: "/terms-of-service" },
+        { name: "Refund Policy", href: "/refund-policy" },
+        { name: "Disclaimer", href: "/disclaimer" },
       ],
     },
     contact: {
