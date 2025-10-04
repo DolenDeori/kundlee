@@ -60,7 +60,10 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
   const y = useTransform(scrollY, [0, 1000], [0, -150]); // Negative for upward movement, smoother range
 
   return (
-    <section className="relative h-[80vh] overflow-hidden bg-charcoal">
+    <section
+      id="hero"
+      className="relative h-[80vh] overflow-hidden bg-charcoal"
+    >
       {/* Background Swiper */}
       <Swiper
         modules={[Autoplay, EffectFade, Parallax]}
@@ -92,10 +95,6 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
                   data-swiper-parallax="-300"
                 />
               </motion.div>
-
-              {/* Enhanced Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/60 to-charcoal/30" />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-charcoal/20" />
             </div>
           </SwiperSlide>
         ))}
@@ -103,95 +102,20 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
 
       {/* Content Overlay */}
       <div className="absolute inset-0 z-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-          <div className="max-w-4xl w-full">
-            <motion.div
-              key={activeSlide}
-              initial={{ opacity: 0, y: 60 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="space-y-8"
-            >
-              {/* Accent Line */}
-              <motion.div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 w-full">
-                  <span className="font-inter text-saffron-light text-sm font-medium uppercase tracking-wider">
-                    {heroSlides[activeSlide]?.accent}
-                  </span>
-                </div>
-              </motion.div>
-
-              {/* Main Headline */}
-              <motion.h1
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="font-larken text-3xl sm:text-3xl md:text-5xl lg:text-6xl text-warm-white leading-tight tracking-wide"
-              >
-                <span className="block">
-                  {heroSlides[activeSlide]?.headline
-                    .split(" ")
-                    .map((word, idx) => (
-                      <motion.span
-                        key={idx}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.7 + idx * 0.1 }}
-                        className="inline-block mr-4"
-                      >
-                        {word}
-                      </motion.span>
-                    ))}
-                </span>
-              </motion.h1>
-
-              {/* Subheading */}
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.2 }}
-                className="font-inter text-lg sm:text-xl md:text-lg text-warm-white/90 leading-relaxed max-w-2xl"
-              >
-                {heroSlides[activeSlide]?.subheading}
-              </motion.p>
-
-              {/* CTA Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.5 }}
-                className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-8 w-fit"
-              >
-                <PremiumButton
-                  onClick={onCtaClick}
-                  label={heroSlides[activeSlide]?.cta || "Get Started"}
-                  icon={<ArrowRightIcon className="w-5 h-5" />}
-                >
-                  {heroSlides[activeSlide]?.cta}
-                </PremiumButton>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-
         {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30">
           <div className="flex items-center gap-3">
             {heroSlides.map((_, index) => (
               <motion.div
                 key={index}
                 className={`h-1 transition-all duration-500 ${
                   index === activeSlide
-                    ? "w-12 bg-saffron"
-                    : "w-6 bg-warm-white/30 hover:bg-warm-white/50"
-                }`}
+                    ? "w-6 bg-saffron"
+                    : "w-4 bg-warm-white/30 hover:bg-warm-white/50"
+                } transition-colors`}
                 initial={false}
                 animate={{
                   width: index === activeSlide ? 48 : 24,
-                  backgroundColor:
-                    index === activeSlide
-                      ? "hsl(var(--saffron))"
-                      : "hsl(var(--warm-white) / 0.3)",
                 }}
                 transition={{ duration: 0.3 }}
               />

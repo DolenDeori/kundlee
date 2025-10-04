@@ -49,7 +49,7 @@ const FAQSection: React.FC = () => {
   return (
     <section
       id="faq"
-      className="py-16 sm:py-20 bg-warm-white relative overflow-hidden"
+      className="py-16 sm:py-24 bg-warm-white relative overflow-hidden scroll-mt-24"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -112,22 +112,6 @@ const FAQSection: React.FC = () => {
             className="group bg-teal text-white font-inter font-medium px-8 py-3 rounded-full transition-all duration-300 hover:bg-teal-dark focus:ring-4 focus:ring-teal/20 inline-flex items-center space-x-2"
           >
             <span>Contact Us</span>
-            <motion.svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              animate={{ x: 0 }}
-              whileHover={{ x: 3 }}
-              transition={{ duration: 0.2 }}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </motion.svg>
           </button>
         </motion.div>
       </div>

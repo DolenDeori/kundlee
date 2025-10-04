@@ -251,120 +251,122 @@ const ServiceDetailSheet: React.FC<ServiceDetailSheetProps> = ({
 
           {/* Scrollable Content */}
           <div className="overflow-y-auto px-6 flex-1">
-            <div className="space-y-6 pb-8">
-              {/* Hero Image */}
-              <div className="relative overflow-hidden rounded-2xl">
-                <img
-                  src={service.heroImage}
-                  alt={service.title}
-                  className="w-full h-80 object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                <div className="absolute bottom-6 left-6 text-white">
-                  <h2 className="font-larken text-3xl uppercase tracking-wide">
-                    {service.title}
-                  </h2>
-                  <p className="font-inter text-saffron-light font-medium text-sm">
-                    {service.tagline}
+            <div className="flex-1 min-h-0 overflow-y-auto px-6 overscroll-contain">
+              <div className="space-y-6 pb-8">
+                {/* Hero Image */}
+                <div className="relative overflow-hidden rounded-2xl">
+                  <img
+                    src={service.heroImage}
+                    alt={service.title}
+                    className="w-full h-80 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute bottom-6 left-6 text-white">
+                    <h2 className="font-larken text-3xl uppercase tracking-wide">
+                      {service.title}
+                    </h2>
+                    <p className="font-inter text-saffron-light font-medium text-sm">
+                      {service.tagline}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Rating & Reviews */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1">
+                      {renderStars(service.rating)}
+                    </div>
+                    <span className="font-inter text-sm text-muted-foreground">
+                      {service.rating} • {service.reviews} reviews
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <ClockIcon className="w-4 h-4" />
+                    <span>{service.deliveryTime}</span>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div className="pt-6">
+                  <h3 className="font-larken text-xl text-foreground mb-3 uppercase tracking-wide">
+                    About This Service
+                  </h3>
+                  <p className="font-inter text-foreground/80 leading-relaxed">
+                    {service.longDescription}
                   </p>
                 </div>
-              </div>
 
-              {/* Rating & Reviews */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1">
-                    {renderStars(service.rating)}
+                {/* What's Included */}
+                <div>
+                  <h3 className="font-larken text-xl text-foreground mb-6 uppercase tracking-wide">
+                    What's Included
+                  </h3>
+                  <div className="space-y-4">
+                    {service.detailedOfferings.map((offering, index) => (
+                      <div
+                        key={index}
+                        className={`flex gap-4 p-4 rounded-2xl border transition-all duration-300 ${
+                          offering.included
+                            ? "bg-card border-border/50 hover:border-teal/30"
+                            : "bg-muted/30 border-border/30 opacity-70"
+                        }`}
+                      >
+                        <div className="flex-shrink-0 mt-1">
+                          <div
+                            className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                              offering.included
+                                ? "bg-teal"
+                                : "bg-muted-foreground"
+                            }`}
+                          >
+                            <CheckIcon className={`w-3 h-3 text-white`} />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-inter font-semibold text-foreground mb-1">
+                            {offering.title}
+                            {!offering.included && (
+                              <span className="text-xs text-saffron ml-2 font-medium uppercase">
+                                Premium Add-on
+                              </span>
+                            )}
+                          </h4>
+                          <p className="font-inter text-sm text-muted-foreground leading-relaxed">
+                            {offering.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <span className="font-inter text-sm text-muted-foreground">
-                    {service.rating} • {service.reviews} reviews
-                  </span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <ClockIcon className="w-4 h-4" />
-                  <span>{service.deliveryTime}</span>
-                </div>
-              </div>
 
-              {/* Description */}
-              <div className="pt-6">
-                <h3 className="font-larken text-xl text-foreground mb-3 uppercase tracking-wide">
-                  About This Service
-                </h3>
-                <p className="font-inter text-foreground/80 leading-relaxed">
-                  {service.longDescription}
-                </p>
-              </div>
-
-              {/* What's Included */}
-              <div>
-                <h3 className="font-larken text-xl text-foreground mb-6 uppercase tracking-wide">
-                  What's Included
-                </h3>
-                <div className="space-y-4">
-                  {service.detailedOfferings.map((offering, index) => (
-                    <div
-                      key={index}
-                      className={`flex gap-4 p-4 rounded-2xl border transition-all duration-300 ${
-                        offering.included
-                          ? "bg-card border-border/50 hover:border-teal/30"
-                          : "bg-muted/30 border-border/30 opacity-70"
-                      }`}
-                    >
-                      <div className="flex-shrink-0 mt-1">
-                        <div
-                          className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                            offering.included
-                              ? "bg-teal"
-                              : "bg-muted-foreground"
-                          }`}
-                        >
-                          <CheckIcon className={`w-3 h-3 text-white`} />
+                {/* Testimonial */}
+                {service.testimonial && (
+                  <div className="bg-gradient-to-r from-saffron/5 to-teal/5 border border-border/50 rounded-2xl p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-gradient-teal rounded-full flex items-center justify-center shadow-lg">
+                          <StarIconSolid className="w-6 h-6 text-white" />
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-inter font-semibold text-foreground mb-1">
-                          {offering.title}
-                          {!offering.included && (
-                            <span className="text-xs text-saffron ml-2 font-medium uppercase">
-                              Premium Add-on
-                            </span>
-                          )}
-                        </h4>
-                        <p className="font-inter text-sm text-muted-foreground leading-relaxed">
-                          {offering.description}
+                        <p className="font-inter text-foreground/90 italic mb-3 text-lg leading-relaxed">
+                          "{service.testimonial.text}"
                         </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Testimonial */}
-              {service.testimonial && (
-                <div className="bg-gradient-to-r from-saffron/5 to-teal/5 border border-border/50 rounded-2xl p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-gradient-teal rounded-full flex items-center justify-center shadow-lg">
-                        <StarIconSolid className="w-6 h-6 text-white" />
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-inter text-foreground/90 italic mb-3 text-lg leading-relaxed">
-                        "{service.testimonial.text}"
-                      </p>
-                      <div className="font-inter text-sm">
-                        <span className="font-semibold text-foreground">
-                          {service.testimonial.author}
-                        </span>
-                        <span className="text-muted-foreground ml-2">
-                          • {service.testimonial.location}
-                        </span>
+                        <div className="font-inter text-sm">
+                          <span className="font-semibold text-foreground">
+                            {service.testimonial.author}
+                          </span>
+                          <span className="text-muted-foreground ml-2">
+                            • {service.testimonial.location}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
 
@@ -414,14 +416,14 @@ const ServiceDetailSheet: React.FC<ServiceDetailSheetProps> = ({
             </DialogTitle>
           </DialogHeader>
           <div className="relative overflow-hidden">
-            <div className="w-full" style={{ height: 'calc(90vh - 120px)' }}>
+            <div className="w-full" style={{ height: "calc(90vh - 120px)" }}>
               <iframe
                 src={`https://forms.zohopublic.com/dulenchdeori564gm1/form/${
-                  service.id === 'jeevan-sathee' ? 'JeevanSathee' : 'JeevanMarg'
+                  service.id === "jeevan-sathee" ? "JeevanSathee" : "JeevanMarg"
                 }/formperma/${
-                  service.id === 'jeevan-sathee' 
-                    ? 'NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg' 
-                    : 'NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg'
+                  service.id === "jeevan-sathee"
+                    ? "NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg"
+                    : "NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg"
                 }?zf_rszfm=1`}
                 style={{
                   border: "none",

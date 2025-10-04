@@ -38,7 +38,7 @@ const AboutSection: React.FC = () => {
   return (
     <section
       id="about"
-      className="py-16 sm:py-20 bg-warm-white relative overflow-hidden"
+      className="py-16 sm:py-20 bg-warm-white relative overflow-hidden scroll-mt-24"
     >
       {/* Subtle background elements */}
       <div className="absolute inset-0 opacity-5">

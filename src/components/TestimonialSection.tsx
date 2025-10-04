@@ -120,7 +120,7 @@ const TestimonialSection: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="py-20 bg-gradient-to-br from-warm-white relative overflow-hidden"
+      className="py-20 bg-gradient-to-br from-warm-white relative overflow-hidden scroll-mt-24"
     >
       {/* Section Header (Centered with Container) */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import LoadingAnimation from '@/components/LoadingAnimation';
-import Navigation from '@/components/Navigation';
-import HeroCarousel from '@/components/HeroCarousel';
-import ServicesSection from '@/components/ServicesSection';
-import ServiceDetailSheet from '@/components/ServiceDetailSheet';
-import AboutSection from '@/components/AboutSection';
-import HowItWorksSection from '@/components/HowItWorksSection';
-import FAQSection from '@/components/FAQSection';
-import TestimonialSection from '@/components/TestimonialSection';
-import ContactSection from '@/components/ContactSection';
-import Footer from '@/components/Footer';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import LoadingAnimation from "@/components/LoadingAnimation";
+import Navigation from "@/components/Navigation";
+import HeroCarousel from "@/components/HeroCarousel";
+import ServicesSection from "@/components/ServicesSection";
+import ServiceDetailSheet from "@/components/ServiceDetailSheet";
+import AboutSection from "@/components/AboutSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
+import FAQSection from "@/components/FAQSection";
+import TestimonialSection from "@/components/TestimonialSection";
+import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
 
 const KundleeHome: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,9 +25,9 @@ const KundleeHome: React.FC = () => {
 
   const handleCtaClick = () => {
     // Scroll to services section
-    const servicesSection = document.getElementById('services');
+    const servicesSection = document.getElementById("services");
     if (servicesSection) {
-      servicesSection.scrollIntoView({ behavior: 'smooth' });
+      servicesSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -52,22 +52,20 @@ const KundleeHome: React.FC = () => {
   // Prevent scrolling when loading
   useEffect(() => {
     if (isLoading) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
-    
+
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isLoading]);
 
   return (
     <div className="min-h-screen bg-warm-white">
       <AnimatePresence mode="wait">
-        {isLoading && (
-          <LoadingAnimation onComplete={handleLoadingComplete} />
-        )}
+        {isLoading && <LoadingAnimation onComplete={handleLoadingComplete} />}
       </AnimatePresence>
 
       <AnimatePresence>
@@ -75,7 +73,7 @@ const KundleeHome: React.FC = () => {
           <>
             {/* Navigation */}
             <Navigation />
-            
+
             <motion.main
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -86,7 +84,7 @@ const KundleeHome: React.FC = () => {
               <HeroCarousel onCtaClick={handleCtaClick} />
 
               {/* Services Section */}
-              <div id="services">
+              <div id="services" className="scroll-mt-24">
                 <ServicesSection onServiceClick={handleServiceClick} />
               </div>
 

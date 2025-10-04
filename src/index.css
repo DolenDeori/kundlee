@@ -103,10 +103,21 @@
       hsl(var(--teal) / 0.08),
       hsl(var(--saffron) / 0.05)
     );
-    --gradient-cosmic: 
-      radial-gradient(ellipse 800px 600px at 50% 0%, hsl(var(--saffron) / 0.1), transparent),
-      radial-gradient(ellipse 600px 800px at 0% 100%, hsl(var(--teal) / 0.08), transparent),
-      radial-gradient(ellipse 400px 400px at 100% 50%, hsl(var(--saffron-glow) / 0.06), transparent);
+    --gradient-cosmic: radial-gradient(
+        ellipse 800px 600px at 50% 0%,
+        hsl(var(--saffron) / 0.1),
+        transparent
+      ),
+      radial-gradient(
+        ellipse 600px 800px at 0% 100%,
+        hsl(var(--teal) / 0.08),
+        transparent
+      ),
+      radial-gradient(
+        ellipse 400px 400px at 100% 50%,
+        hsl(var(--saffron-glow) / 0.06),
+        transparent
+      );
     --gradient-subtle: linear-gradient(
       180deg,
       hsl(var(--warm-white)),
@@ -156,12 +167,12 @@
 
 @layer components {
   /* Enhanced Awwwards-level Components */
-  
+
   /* Glassmorphism Effects */
   .glass {
     @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-elegant;
   }
-  
+
   .glass-card {
     @apply bg-white/95 backdrop-blur-xl border border-white/30 shadow-premium rounded-2xl;
   }
@@ -177,33 +188,61 @@
 
   /* Enhanced Sunray Pattern */
   .sunray-pattern {
-    background-image: 
-      radial-gradient(circle at center, transparent 25%, hsl(var(--saffron) / 0.04) 26%, hsl(var(--saffron) / 0.04) 28%, transparent 29%),
+    background-image: radial-gradient(
+        circle at center,
+        transparent 25%,
+        hsl(var(--saffron) / 0.04) 26%,
+        hsl(var(--saffron) / 0.04) 28%,
+        transparent 29%
+      ),
       conic-gradient(
         from 0deg,
-        hsl(var(--saffron) / 0.06), transparent 8deg,
-        hsl(var(--saffron) / 0.06) 16deg, transparent 24deg,
-        hsl(var(--saffron) / 0.06) 32deg, transparent 40deg,
-        hsl(var(--saffron) / 0.06) 48deg, transparent 56deg,
-        hsl(var(--saffron) / 0.06) 64deg, transparent 72deg,
-        hsl(var(--saffron) / 0.06) 80deg, transparent 88deg,
-        hsl(var(--saffron) / 0.06) 96deg, transparent 104deg,
-        hsl(var(--saffron) / 0.06) 112deg, transparent 120deg,
-        hsl(var(--saffron) / 0.06) 128deg, transparent 136deg,
-        hsl(var(--saffron) / 0.06) 144deg, transparent 152deg,
-        hsl(var(--saffron) / 0.06) 160deg, transparent 168deg,
-        hsl(var(--saffron) / 0.06) 176deg, transparent 184deg,
-        hsl(var(--saffron) / 0.06) 192deg, transparent 200deg,
-        hsl(var(--saffron) / 0.06) 208deg, transparent 216deg,
-        hsl(var(--saffron) / 0.06) 224deg, transparent 232deg,
-        hsl(var(--saffron) / 0.06) 240deg, transparent 248deg,
-        hsl(var(--saffron) / 0.06) 256deg, transparent 264deg,
-        hsl(var(--saffron) / 0.06) 272deg, transparent 280deg,
-        hsl(var(--saffron) / 0.06) 288deg, transparent 296deg,
-        hsl(var(--saffron) / 0.06) 304deg, transparent 312deg,
-        hsl(var(--saffron) / 0.06) 320deg, transparent 328deg,
-        hsl(var(--saffron) / 0.06) 336deg, transparent 344deg,
-        hsl(var(--saffron) / 0.06) 352deg, transparent 360deg
+        hsl(var(--saffron) / 0.06),
+        transparent 8deg,
+        hsl(var(--saffron) / 0.06) 16deg,
+        transparent 24deg,
+        hsl(var(--saffron) / 0.06) 32deg,
+        transparent 40deg,
+        hsl(var(--saffron) / 0.06) 48deg,
+        transparent 56deg,
+        hsl(var(--saffron) / 0.06) 64deg,
+        transparent 72deg,
+        hsl(var(--saffron) / 0.06) 80deg,
+        transparent 88deg,
+        hsl(var(--saffron) / 0.06) 96deg,
+        transparent 104deg,
+        hsl(var(--saffron) / 0.06) 112deg,
+        transparent 120deg,
+        hsl(var(--saffron) / 0.06) 128deg,
+        transparent 136deg,
+        hsl(var(--saffron) / 0.06) 144deg,
+        transparent 152deg,
+        hsl(var(--saffron) / 0.06) 160deg,
+        transparent 168deg,
+        hsl(var(--saffron) / 0.06) 176deg,
+        transparent 184deg,
+        hsl(var(--saffron) / 0.06) 192deg,
+        transparent 200deg,
+        hsl(var(--saffron) / 0.06) 208deg,
+        transparent 216deg,
+        hsl(var(--saffron) / 0.06) 224deg,
+        transparent 232deg,
+        hsl(var(--saffron) / 0.06) 240deg,
+        transparent 248deg,
+        hsl(var(--saffron) / 0.06) 256deg,
+        transparent 264deg,
+        hsl(var(--saffron) / 0.06) 272deg,
+        transparent 280deg,
+        hsl(var(--saffron) / 0.06) 288deg,
+        transparent 296deg,
+        hsl(var(--saffron) / 0.06) 304deg,
+        transparent 312deg,
+        hsl(var(--saffron) / 0.06) 320deg,
+        transparent 328deg,
+        hsl(var(--saffron) / 0.06) 336deg,
+        transparent 344deg,
+        hsl(var(--saffron) / 0.06) 352deg,
+        transparent 360deg
       );
   }
 
@@ -218,40 +257,40 @@
 
   .text-shimmer::after {
     @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer;
-    content: '';
+    content: "";
   }
 
   /* Enhanced Button Styles */
   .btn-awwwards {
-    @apply relative bg-gradient-teal text-white font-medium px-8 py-4 rounded-full 
-           transform transition-all duration-500 hover:scale-105 hover:shadow-teal-glow 
+    @apply relative bg-gradient-teal text-white font-medium px-8 py-4 rounded-full
+           transform transition-all duration-500 hover:scale-105 hover:shadow-teal-glow
            focus:ring-4 focus:ring-teal/30 group overflow-hidden;
   }
 
   .btn-awwwards::before {
-    @apply absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 
+    @apply absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0
            transform -translate-x-full transition-transform duration-700 group-hover:translate-x-full;
-    content: '';
+    content: "";
   }
 
   /* Service Card Premium Enhancement */
   .service-card-premium {
-    @apply relative bg-gradient-subtle backdrop-blur-sm border border-border/30 rounded-3xl 
-           p-8 transform transition-all duration-700 hover:scale-[1.03] hover:shadow-premium 
+    @apply relative bg-gradient-subtle backdrop-blur-sm border border-border/30 rounded-3xl
+           p-8 transform transition-all duration-700 hover:scale-[1.03] hover:shadow-premium
            hover:border-saffron/20 group cursor-pointer overflow-hidden;
   }
 
   .service-card-premium::before {
-    @apply absolute inset-0 bg-gradient-to-br from-saffron/5 via-transparent to-teal/5 
+    @apply absolute inset-0 bg-gradient-to-br from-saffron/5 via-transparent to-teal/5
            opacity-0 transition-opacity duration-700 group-hover:opacity-100;
-    content: '';
+    content: "";
   }
 
   .service-card-premium::after {
-    @apply absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-bl 
-           from-white/10 via-transparent to-transparent opacity-0 
+    @apply absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-bl
+           from-white/10 via-transparent to-transparent opacity-0
            transition-opacity duration-700 group-hover:opacity-100 rotate-45;
-    content: '';
+    content: "";
   }
 
   /* Floating Animation */
@@ -260,11 +299,21 @@
   }
 
   /* Stagger Animation Classes */
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
-  .stagger-5 { animation-delay: 0.5s; }
+  .stagger-1 {
+    animation-delay: 0.1s;
+  }
+  .stagger-2 {
+    animation-delay: 0.2s;
+  }
+  .stagger-3 {
+    animation-delay: 0.3s;
+  }
+  .stagger-4 {
+    animation-delay: 0.4s;
+  }
+  .stagger-5 {
+    animation-delay: 0.5s;
+  }
 
   /* Parallax Effect */
   .parallax-slow {

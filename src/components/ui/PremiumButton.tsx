@@ -22,7 +22,7 @@ export const PremiumButton = React.forwardRef<
   <button
     ref={ref}
     className={cn(
-      "premium-btn w-full font-inter font-medium px-6 py-3 rounded-full transition-all duration-300 flex items-center justify-center space-x-2 relative overflow-hidden",
+      "premium-btn w-full font-inter font-medium text-sm px-6 py-3 rounded-full transition-all duration-300 flex items-center justify-center space-x-2 relative overflow-hidden",
       variantClasses[variant],
       className
     )}
@@ -32,4 +32,5 @@ export const PremiumButton = React.forwardRef<
     {icon && <span className="ml-2">{icon}</span>}
   </button>
 ));
+
 PremiumButton.displayName = "PremiumButton";

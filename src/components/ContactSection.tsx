@@ -42,7 +42,7 @@ const ContactSection: React.FC = () => {
   return (
     <section
       id="contact"
-      className="py-20 bg-warm-white relative overflow-hidden"
+      className="py-20 bg-warm-white relative overflow-hidden scroll-mt-24"
     >
       {/* Background Pattern */}
       <div className="absolute bottom-0 left-0 w-full h-full sunray-pattern opacity-20 pointer-events-none" />
