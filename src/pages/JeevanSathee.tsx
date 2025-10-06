@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import {
-  MapIcon,
+  HeartIcon,
   CheckIcon,
   StarIcon as StarOutline,
   ClockIcon,
@@ -19,63 +19,59 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import jeevamargHero from "@/assets/jeevan-marg-hero.jpg";
+import jeevansatheeHero from "@/assets/jeevan-sathee-hero.jpg";
 
 /**
- * JeevanMarg - Dedicated service page for life path analysis
+ * JeevanSathee - Dedicated service page for relationship compatibility analysis
  * Features comprehensive service details and integrated booking form
  */
-const JeevanMarg: React.FC = () => {
+const JeevanSathee: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const serviceDetails = {
-    title: "Jeevan Marg",
-    tagline: "Navigate your Dharmic Path",
+    title: "Jeevan Sathee",
+    tagline: "Illuminate your Sacred Union",
     description:
-      "Your complete life path report providing deep insights into career, purpose, and spiritual direction.",
+      "A comprehensive relationship compatibility analysis rooted in ancient Vedic wisdom.",
     longDescription:
-      "Embark on a journey of self-discovery with our comprehensive Jeevan Marg report. Rooted in ancient Vedic traditions, this analysis reveals your dharmic path, innate talents, and the cosmic influences shaping your destiny. Make informed decisions about your career, relationships, and spiritual growth.",
-    price: "₹599",
+      "Discover the sacred bond that connects you and your partner through ancient Vedic wisdom. Our Jeevan Sathee report provides deep insights into your relationship's cosmic blueprint, helping you understand the karmic patterns that brought you together and guiding you toward lasting harmony.",
+    price: "₹499",
     originalPrice: "₹800",
-    deliveryTime: "72 hours",
-    rating: 4.9,
-    reviews: 203,
+    deliveryTime: "48 hours",
+    rating: 4.8,
+    reviews: 127,
     highlights: [
-      "Life Purpose & Dharma Analysis",
-      "Career Destiny Insights",
-      "Spiritual Evolution Roadmap",
-      "12-Month Cosmic Forecast",
+      "Comprehensive Compatibility Analysis",
+      "Karmic Bond Insights",
+      "Auspicious Timing Guidance",
+      "Relationship Harmony Solutions",
     ],
     detailedOfferings: [
       {
-        title: "Life Purpose & Dharma Analysis",
+        title: "Comprehensive Compatibility Score",
         description:
-          "Discover your soul's purpose and the path you're meant to walk in this lifetime",
+          "Detailed analysis of your astrological compatibility across 12 key areas of life",
       },
       {
-        title: "Career & Finance Predictions",
+        title: "Relationship Timeline Predictions",
         description:
-          "Detailed insights into your professional journey and financial prospects",
+          "Favorable periods for major relationship milestones and decisions",
       },
       {
-        title: "Health & Wellness Guidance",
+        title: "Conflict Resolution Strategies",
         description:
-          "Astrological health insights and preventive care recommendations",
+          "Personalized guidance on navigating challenges based on your cosmic dynamics",
       },
       {
-        title: "Spiritual Growth Roadmap",
+        title: "Marriage Timing Analysis",
         description:
-          "Personalized guidance for your spiritual evolution and inner development",
-      },
-      {
-        title: "Yearly Forecast",
-        description: "Comprehensive predictions for the next 12 months",
+          "Astrological guidance on the most auspicious time for marriage",
       },
     ],
     testimonial: {
-      text: "My Jeevan Marg report gave me the clarity I needed to make important life decisions. The predictions have been remarkably accurate.",
-      author: "Rahul Sharma",
-      location: "Delhi",
+      text: "The insights from my Jeevan Sathee report helped us understand each other better and strengthen our bond. Highly recommended!",
+      author: "Priya & Arjun",
+      location: "Mumbai",
     },
   };
 
@@ -101,14 +97,14 @@ const JeevanMarg: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Jeevan Marg - Life Path Analysis | Kundlee</title>
+        <title>Jeevan Sathee - Relationship Compatibility Analysis | Kundlee</title>
         <meta
           name="description"
-          content="Discover your life's purpose through Vedic astrology. Comprehensive analysis of career, dharma, and spiritual path with 12-month cosmic forecast."
+          content="Discover your sacred bond through Vedic astrology. Comprehensive relationship compatibility analysis with insights into karmic patterns and auspicious timing."
         />
         <meta
           name="keywords"
-          content="life path analysis, vedic astrology, career guidance, dharma analysis, spiritual path, life purpose"
+          content="relationship compatibility, vedic astrology, marriage compatibility, relationship analysis, karmic bond"
         />
       </Helmet>
 
@@ -119,8 +115,8 @@ const JeevanMarg: React.FC = () => {
         <section className="relative pt-32 pb-20 overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src={jeevamargHero}
-              alt="Jeevan Marg"
+              src={jeevansatheeHero}
+              alt="Jeevan Sathee"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-charcoal/80 via-charcoal/60 to-background" />
@@ -135,7 +131,7 @@ const JeevanMarg: React.FC = () => {
             >
               <div className="inline-flex items-center gap-3 mb-6">
                 <div className="w-14 h-14 bg-gradient-teal rounded-2xl flex items-center justify-center">
-                  <MapIcon className="w-8 h-8 text-white" />
+                  <HeartIcon className="w-8 h-8 text-white" />
                 </div>
               </div>
               <h1 className="font-larken text-4xl md:text-6xl lg:text-7xl mb-6">
@@ -326,15 +322,15 @@ const JeevanMarg: React.FC = () => {
           <div className="relative overflow-hidden">
             <div className="w-full" style={{ height: "calc(90vh - 120px)" }}>
               <iframe
-                src="https://forms.zohopublic.com/dulenchdeori564gm1/form/JeevanMarg/formperma/NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg?zf_rszfm=1"
+                src="https://forms.zohopublic.com/dulenchdeori564gm1/form/JeevanSathee/formperma/NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg?zf_rszfm=1"
                 style={{
                   border: "none",
                   width: "100%",
                   height: "100%",
                   borderRadius: "0 0 12px 12px",
                 }}
-                aria-label="Jeevan Marg Registration Form"
-                title="Jeevan Marg Form"
+                aria-label="Jeevan Sathee Registration Form"
+                title="Jeevan Sathee Form"
                 loading="lazy"
               />
             </div>
@@ -347,4 +343,4 @@ const JeevanMarg: React.FC = () => {
   );
 };
 
-export default JeevanMarg;
+export default JeevanSathee;

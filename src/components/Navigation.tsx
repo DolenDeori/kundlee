@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { BsChevronRight } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import kundleePrimaryLogo from "@/assets/kundlee-primary-logo.png";
@@ -8,6 +8,14 @@ import { PremiumButton } from "./ui/PremiumButton";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import { navLinks } from "@/constants/Index";
 
+/**
+ * Navigation Component - Responsive navigation bar with dropdown support
+ * Features:
+ * - Desktop hover-based dropdowns
+ * - Mobile touch-friendly dropdowns
+ * - Smooth scrolling for anchor links
+ * - Dynamic visibility based on scroll
+ */
 const Navigation: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -15,14 +23,29 @@ const Navigation: React.FC = () => {
   const [showNav, setShowNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null);
   const animationTransitionTime = 0.5;
 
+  /**
+   * Handle navigation clicks - supports both routes and anchor links
+   */
   const handleNavClick = (href: string) => {
     const isHomePage = location.pathname === "/";
+
+    // If it's a route (starts with /)
+    if (href.startsWith("/") && !href.startsWith("/#")) {
+      setIsMobileMenuOpen(false);
+      setActiveDropdown(null);
+      navigate(href);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
 
     // If not on home page, navigate to home page with hash
     if (!isHomePage) {
       setIsMobileMenuOpen(false);
+      setActiveDropdown(null);
       navigate(`/${href}`);
       return;
     }
@@ -40,9 +63,7 @@ const Navigation: React.FC = () => {
     // If mobile menu is open, close it first, then scroll after the animation
     if (isMobileMenuOpen) {
       setIsMobileMenuOpen(false);
-      // Match the exit transition duration (~400ms)
       setTimeout(() => {
-        // Use rAF to ensure layout has settled before scrolling
         requestAnimationFrame(() => doScroll());
       }, 420);
     } else {
@@ -50,6 +71,9 @@ const Navigation: React.FC = () => {
     }
   };
 
+  /**
+   * Scroll event handler for navigation visibility
+   */
   useEffect(() => {
     const hero = document.querySelector("#hero");
     const heroHeight = hero ? hero.getBoundingClientRect().height : 400;
@@ -72,7 +96,14 @@ const Navigation: React.FC = () => {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, isMobileMenuOpen]); // Added isMobileMenuOpen to dependencies
+  }, [lastScrollY, isMobileMenuOpen]);
+
+  /**
+   * Toggle mobile dropdown
+   */
+  const toggleMobileDropdown = (linkName: string) => {
+    setMobileDropdownOpen(mobileDropdownOpen === linkName ? null : linkName);
+  };
 
   return (
     <motion.nav
@@ -87,7 +118,7 @@ const Navigation: React.FC = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18 md:h-20">
-          {/* Enhanced Logo */}
+          {/* Logo */}
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -104,7 +135,7 @@ const Navigation: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Enhanced Desktop Navigation */}
+          {/* Desktop Navigation */}
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -114,18 +145,62 @@ const Navigation: React.FC = () => {
             className="hidden md:flex items-center space-x-10"
           >
             {navLinks.map((link, index) => (
-              <motion.button
-                type="button"
+              <div
                 key={index}
-                onClick={() => handleNavClick(link.href)}
-                className="relative font-inter text-sm font-medium text-charcoal/80 hover:text-saffron transition-all duration-300 py-2 group"
+                className="relative group"
+                onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
               >
-                <span className="relative z-10">{link.name}</span>
-              </motion.button>
+                {link.dropdown ? (
+                  // Link with dropdown
+                  <>
+                    <button
+                      type="button"
+                      className="relative font-inter text-sm font-medium text-charcoal/80 hover:text-saffron transition-all duration-300 py-2 flex items-center gap-1"
+                    >
+                      <span className="relative z-10">{link.name}</span>
+                      <ChevronDownIcon className="w-3 h-3" />
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    <AnimatePresence>
+                      {activeDropdown === link.name && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-warm-white/95 backdrop-blur-xl rounded-2xl shadow-elegant border border-border/20 overflow-hidden"
+                        >
+                          {link.dropdown.map((dropItem, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => handleNavClick(dropItem.href)}
+                              className="w-full text-left px-6 py-3 font-inter text-sm font-medium text-charcoal/80 hover:text-saffron hover:bg-saffron/5 transition-all duration-300 first:rounded-t-2xl last:rounded-b-2xl"
+                            >
+                              {dropItem.name}
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </>
+                ) : (
+                  // Regular link
+                  <motion.button
+                    type="button"
+                    onClick={() => handleNavClick(link.href)}
+                    className="relative font-inter text-sm font-medium text-charcoal/80 hover:text-saffron transition-all duration-300 py-2 group"
+                  >
+                    <span className="relative z-10">{link.name}</span>
+                  </motion.button>
+                )}
+              </div>
             ))}
           </motion.div>
 
-          {/* Enhanced Desktop CTA */}
+          {/* Desktop CTA */}
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -141,7 +216,7 @@ const Navigation: React.FC = () => {
             />
           </motion.div>
 
-          {/* Enhanced Mobile Menu Button */}
+          {/* Mobile Menu Button */}
           <motion.button
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -165,7 +240,8 @@ const Navigation: React.FC = () => {
             </AnimatePresence>
           </motion.button>
         </div>
-        {/* Enhanced Mobile Menu */}
+
+        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -177,11 +253,8 @@ const Navigation: React.FC = () => {
             >
               <div className="pb-8 space-y-2 flex flex-col items-stretch w-full">
                 {navLinks.map((link, index) => (
-                  <motion.button
-                    type="button"
+                  <motion.div
                     key={index}
-                    onClick={() => handleNavClick(link.href)}
-                    className="block w-full font-inter text-lg text-charcoal/80 hover:text-saffron transition-all duration-300 py-4 px-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
@@ -191,11 +264,61 @@ const Navigation: React.FC = () => {
                       ease: [0.25, 0.46, 0.45, 0.94],
                     }}
                   >
-                    {link.name}
-                  </motion.button>
+                    {link.dropdown ? (
+                      // Mobile dropdown
+                      <div className="w-full">
+                        <button
+                          type="button"
+                          onClick={() => toggleMobileDropdown(link.name)}
+                          className="w-full flex items-center justify-between font-inter text-lg text-charcoal/80 hover:text-saffron transition-all duration-300 py-4 px-4"
+                        >
+                          <span>{link.name}</span>
+                          <ChevronDownIcon
+                            className={`w-4 h-4 transition-transform duration-300 ${
+                              mobileDropdownOpen === link.name ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+
+                        {/* Mobile Dropdown Items */}
+                        <AnimatePresence>
+                          {mobileDropdownOpen === link.name && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden bg-muted/20 rounded-xl ml-4 mr-4"
+                            >
+                              {link.dropdown.map((dropItem, idx) => (
+                                <button
+                                  key={idx}
+                                  type="button"
+                                  onClick={() => handleNavClick(dropItem.href)}
+                                  className="w-full text-left font-inter text-base text-charcoal/70 hover:text-saffron transition-all duration-300 py-3 px-4 flex items-center gap-2"
+                                >
+                                  <BsChevronRight className="w-3 h-3" />
+                                  {dropItem.name}
+                                </button>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    ) : (
+                      // Regular mobile link
+                      <button
+                        type="button"
+                        onClick={() => handleNavClick(link.href)}
+                        className="block w-full font-inter text-lg text-charcoal/80 hover:text-saffron transition-all duration-300 py-4 px-4"
+                      >
+                        {link.name}
+                      </button>
+                    )}
+                  </motion.div>
                 ))}
 
-                {/** Enhanced Mobile CTA */}
+                {/* Mobile CTA */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
