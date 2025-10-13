@@ -116,7 +116,7 @@ const HowItWorksSection: React.FC = () => {
                 </div>
 
                 {/* Content Card - Below Icon */}
-                <div className="bg-card border border-border/20 rounded-2xl sm:rounded-3xl p-6 sm:p-8 hover:border-saffron/20 transition-all duration-700 hover:shadow-elegant group-hover:-translate-y-2 h-full">
+                <div className="bg-card/60 backdrop-blur-sm border border-border rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-md transition-colors duration-300 h-full">
                   {/* Title */}
                   <h3 className="font-larken text-xl sm:text-2xl text-foreground uppercase tracking-wide mb-4 text-center">
                     {step.title}
@@ -168,9 +168,9 @@ const HowItWorksSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-border/30"
+          className="text-center mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-border/30 relative z-20"
         >
-          <div className="inline-block bg-gradient-to-r from-saffron/10 via-teal/10 to-saffron/10 rounded-2xl p-6 sm:p-8 max-w-2xl">
+          <div className="inline-block bg-gradient-to-r from-saffron/10 via-teal/10 to-saffron/10 rounded-2xl p-6 sm:p-8 max-w-2xl border border-border/20 shadow-lg">
             <div className="flex items-center justify-center gap-2 mb-4">
               <ShieldCheckIcon className="w-5 h-5 text-teal" />
               <span className="font-inter font-semibold text-teal uppercase tracking-wide text-sm">
