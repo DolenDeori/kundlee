@@ -112,48 +112,39 @@ const JeevanSathee: React.FC = () => {
         <Navigation />
 
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 overflow-hidden">
-          <div className="absolute inset-0">
-            <img
-              src={jeevansatheeHero}
-              alt="Jeevan Sathee"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-charcoal/80 via-charcoal/60 to-background" />
-          </div>
-
+        <section className="relative pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 overflow-hidden bg-teal">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-4xl mx-auto text-center text-white"
+              transition={{ duration: 0.6 }}
+              className="max-w-3xl mx-auto text-center text-white"
             >
-              <div className="inline-flex items-center gap-3 mb-6">
-                <div className="w-14 h-14 bg-gradient-teal rounded-2xl flex items-center justify-center">
-                  <HeartIcon className="w-8 h-8 text-white" />
+              <div className="inline-flex items-center justify-center mb-4 sm:mb-6">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/20">
+                  <HeartIcon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
               </div>
-              <h1 className="font-larken text-4xl md:text-6xl lg:text-7xl mb-6">
+              <h1 className="font-larken text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-3 sm:mb-4">
                 {serviceDetails.title}
               </h1>
-              <p className="font-inter text-xl md:text-2xl text-saffron-light font-medium mb-4 uppercase tracking-wide">
+              <p className="font-inter text-base sm:text-lg md:text-xl text-saffron-light font-medium mb-2 sm:mb-3 uppercase tracking-wide">
                 {serviceDetails.tagline}
               </p>
-              <p className="font-inter text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
+              <p className="font-inter text-sm sm:text-base md:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
                 {serviceDetails.description}
               </p>
 
               {/* Rating */}
-              <div className="flex items-center justify-center gap-4 mt-8">
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
                 <div className="flex items-center gap-1">
                   {renderStars(serviceDetails.rating)}
                 </div>
-                <span className="font-inter text-sm text-white/80">
+                <span className="font-inter text-xs sm:text-sm text-white/80">
                   {serviceDetails.rating} • {serviceDetails.reviews} reviews
                 </span>
-                <div className="flex items-center gap-2 text-sm text-white/80">
-                  <ClockIcon className="w-4 h-4" />
+                <div className="flex items-center gap-2 text-xs sm:text-sm text-white/80">
+                  <ClockIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span>{serviceDetails.deliveryTime}</span>
                 </div>
               </div>
