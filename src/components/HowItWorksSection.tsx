@@ -155,7 +155,7 @@ const HowItWorksSection: React.FC = () => {
   return (
     <section 
       ref={ref}
-      className="py-16 sm:py-20 lg:py-24 relative overflow-hidden bg-gradient-to-b from-background via-muted/20 to-background"
+      className="pt-16 sm:pt-20 lg:pt-24 pb-24 sm:pb-28 lg:pb-32 relative overflow-hidden bg-gradient-to-b from-background via-muted/20 to-background"
     >
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.03] sunray-pattern" />
@@ -265,25 +265,6 @@ const HowItWorksSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="text-center mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-border/30 relative z-20"
-        >
-          <div className="inline-block bg-gradient-to-r from-saffron/10 via-teal/10 to-saffron/10 rounded-2xl p-6 sm:p-8 max-w-2xl border border-border/30 shadow-soft">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <ShieldCheckIcon className="w-5 h-5 text-teal" />
-              <span className="font-inter font-semibold text-teal uppercase tracking-wide text-sm">
-                Trusted by 500+ Souls
-              </span>
-            </div>
-            <p className="font-inter text-sm sm:text-base text-foreground/90 leading-relaxed">
-              Ready to discover what the cosmos has in store for you? Your personalized journey awaits.
-            </p>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
