@@ -1,10 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
-  HeartIcon,
-  MapIcon,
   ArrowRightIcon,
-  StarIcon,
   ClockIcon,
   SparklesIcon,
   CheckIcon,
@@ -15,13 +13,8 @@ import { PremiumButton } from "./ui/PremiumButton";
 
 import { services } from "@/constants/services";
 
-interface ServicesSectionProps {
-  onServiceClick: (serviceId: string) => void;
-}
-
-const ServicesSection: React.FC<ServicesSectionProps> = ({
-  onServiceClick,
-}) => {
+const ServicesSection: React.FC = () => {
+  const navigate = useNavigate();
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => {
       const filled = i < Math.floor(rating);
@@ -74,7 +67,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
               transition={{ duration: 0.8, delay: index * 0.1 }}
               viewport={{ once: true }}
               className="group cursor-pointer"
-              onClick={() => onServiceClick(service.id)}
+              onClick={() => navigate(`/${service.id}`)}
             >
                 <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-card border border-border/20 hover:border-saffron/20 transition-all duration-700 hover:shadow-elegant group-hover:-translate-y-2">
                 {/* Premium Badge */}
@@ -173,7 +166,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                     <PremiumButton
                       onClick={(e) => {
                         e.stopPropagation();
-                        onServiceClick(service.id);
+                        navigate(`/${service.id}`);
                       }}
                       label={service.cta}
                       icon={

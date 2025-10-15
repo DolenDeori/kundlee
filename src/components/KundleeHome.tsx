@@ -5,7 +5,6 @@ import LoadingAnimation from "@/components/LoadingAnimation";
 import Navigation from "@/components/Navigation";
 import HeroCarousel from "@/components/HeroCarousel";
 import ServicesSection from "@/components/ServicesSection";
-import ServiceDetailSheet from "@/components/ServiceDetailSheet";
 import AboutSection from "@/components/AboutSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import FAQSection from "@/components/FAQSection";
@@ -17,8 +16,6 @@ const KundleeHome: React.FC = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
-  const [selectedService, setSelectedService] = useState<string | null>(null);
-  const [isServiceSheetOpen, setIsServiceSheetOpen] = useState(false);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
@@ -31,24 +28,6 @@ const KundleeHome: React.FC = () => {
     if (servicesSection) {
       servicesSection.scrollIntoView({ behavior: "smooth" });
     }
-  };
-
-  const handleServiceClick = (serviceId: string) => {
-    setSelectedService(serviceId);
-    setIsServiceSheetOpen(true);
-  };
-
-  const handleCloseServiceSheet = () => {
-    setIsServiceSheetOpen(false);
-    setSelectedService(null);
-  };
-
-  const handleBookService = (serviceId: string) => {
-    // Handle booking logic here
-    console.log(`Booking service: ${serviceId}`);
-    // For now, show an alert - in production, this would integrate with payment system
-    alert(`Proceeding to book ${serviceId} report...`);
-    handleCloseServiceSheet();
   };
 
   // Prevent scrolling when loading
@@ -105,7 +84,7 @@ const KundleeHome: React.FC = () => {
 
               {/* Services Section */}
               <div id="services" className="scroll-mt-24">
-                <ServicesSection onServiceClick={handleServiceClick} />
+                <ServicesSection />
               </div>
 
               {/* About Section */}
@@ -126,14 +105,6 @@ const KundleeHome: React.FC = () => {
               {/* Footer */}
               <Footer />
             </motion.main>
-
-            {/* Service Detail Sheet */}
-            <ServiceDetailSheet
-              serviceId={selectedService}
-              isOpen={isServiceSheetOpen}
-              onClose={handleCloseServiceSheet}
-              onBookService={handleBookService}
-            />
           </>
         )}
       </AnimatePresence>
