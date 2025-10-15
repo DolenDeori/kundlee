@@ -13,52 +13,7 @@ import {
 import { StarIcon as StarIconSolid } from "@heroicons/react/24/solid";
 import { PremiumButton } from "./ui/PremiumButton";
 
-const services = [
-  {
-    id: "jeevan-sathee",
-    title: "Jeevan Sathee",
-    tagline: "Illuminate your Sacred Union",
-    shortDescription:
-      "A comprehensive relationship compatibility analysis rooted in ancient Vedic wisdom.",
-    description:
-      "Understand the cosmic dynamics between you and your partner through detailed astrological insights that reveal the deeper purpose of your union.",
-    icon: HeartIcon,
-    price: "₹499",
-    originalPrice: "₹800",
-    deliveryTime: "48 hours",
-    rating: 4.8,
-    reviews: 127,
-    highlights: [
-      "Comprehensive Compatibility Analysis",
-      "Karmic Bond Insights",
-      "Auspicious Timing Guidance",
-      "Relationship Harmony Solutions",
-    ],
-    cta: "Discover Your Bond",
-  },
-  {
-    id: "jeevan-marg",
-    title: "Jeevan Marg",
-    tagline: "Navigate your Dharmic Path",
-    shortDescription:
-      "Your complete life path report providing deep insights into career, purpose, and spiritual direction.",
-    description:
-      "Rooted in ancient Vedic traditions, this comprehensive analysis reveals the cosmic blueprint of your destiny and guides you toward your highest potential.",
-    icon: MapIcon,
-    price: "₹599",
-    originalPrice: "₹800",
-    deliveryTime: "72 hours",
-    rating: 4.9,
-    reviews: 203,
-    highlights: [
-      "Life Purpose & Dharma Analysis",
-      "Career Destiny Insights",
-      "Spiritual Evolution Roadmap",
-      "12-Month Cosmic Forecast",
-    ],
-    cta: "Find Your Purpose",
-  },
-];
+import { services } from "@/constants/services";
 
 interface ServicesSectionProps {
   onServiceClick: (serviceId: string) => void;

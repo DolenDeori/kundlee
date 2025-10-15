@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import kundleePrimaryLogo from "@/assets/kundlee-primary-logo.png";
 import { PremiumButton } from "./ui/PremiumButton";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
-import { navLinks } from "@/constants/Index";
+import { navLinks } from "@/constants/navigation";
 
 /**
  * Navigation Component - Responsive navigation bar with dropdown support
