@@ -1,7 +1,4 @@
-import {
-  HeartIcon,
-  MapIcon,
-} from "@heroicons/react/24/outline";
+import { HeartIcon, MapIcon } from "@heroicons/react/24/outline";
 import jeevansatheeHero from "@/assets/jeevan-sathee-hero.jpg";
 import jeevamargHero from "@/assets/jeevan-marg-hero.jpg";
 
@@ -38,7 +35,7 @@ export const services = [
     description:
       "Rooted in ancient Vedic traditions, this comprehensive analysis reveals the cosmic blueprint of your destiny and guides you toward your highest potential.",
     icon: MapIcon,
-    price: "₹599",
+    price: "₹499",
     originalPrice: "₹800",
     deliveryTime: "72 hours",
     rating: 4.9,

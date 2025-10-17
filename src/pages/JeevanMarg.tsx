@@ -35,7 +35,7 @@ const JeevanMarg: React.FC = () => {
       "Your complete life path report providing deep insights into career, purpose, and spiritual direction.",
     longDescription:
       "Embark on a journey of self-discovery with our comprehensive Jeevan Marg report. Rooted in ancient Vedic traditions, this analysis reveals your dharmic path, innate talents, and the cosmic influences shaping your destiny. Make informed decisions about your career, relationships, and spiritual growth.",
-    price: "₹599",
+    price: "₹499",
     originalPrice: "₹800",
     deliveryTime: "72 hours",
     rating: 4.9,
@@ -305,10 +305,10 @@ const JeevanMarg: React.FC = () => {
 
       {/* Booking Form Modal */}
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
-        <DialogContent className="max-w-5xl w-[95vw] max-h-[90vh] h-auto p-0 bg-background border-border/20 shadow-2xl">
+        <DialogContent className="max-w-5xl w-[95vw] max-h-[90vh] h-auto p-0 bg-background border-border/20">
           <DialogHeader className="px-6 py-4 border-b border-border/10">
-            <DialogTitle className="font-larken text-xl uppercase tracking-wide text-foreground flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-saffron rounded-full flex items-center justify-center">
+            <DialogTitle className="font-larken font-normal text-xl uppercase tracking-wide text-foreground flex items-center gap-3">
+              <div className="w-8 h-8 bg-saffron rounded-full flex items-center justify-center">
                 <StarIconSolid className="w-4 h-4 text-white" />
               </div>
               {serviceDetails.title} - Registration Form

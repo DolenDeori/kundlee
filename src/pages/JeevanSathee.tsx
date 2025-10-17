@@ -97,7 +97,9 @@ const JeevanSathee: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Jeevan Sathee - Relationship Compatibility Analysis | Kundlee</title>
+        <title>
+          Jeevan Sathee - Relationship Compatibility Analysis | Kundlee
+        </title>
         <meta
           name="description"
           content="Discover your sacred bond through Vedic astrology. Comprehensive relationship compatibility analysis with insights into karmic patterns and auspicious timing."
@@ -301,10 +303,10 @@ const JeevanSathee: React.FC = () => {
 
       {/* Booking Form Modal */}
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
-        <DialogContent className="max-w-5xl w-[95vw] max-h-[90vh] h-auto p-0 bg-background border-border/20 shadow-2xl">
+        <DialogContent className="max-w-5xl w-[95vw] max-h-[90vh] h-auto p-0 overflow-hidden">
           <DialogHeader className="px-6 py-4 border-b border-border/10">
-            <DialogTitle className="font-larken text-xl uppercase tracking-wide text-foreground flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-saffron rounded-full flex items-center justify-center">
+            <DialogTitle className="font-larken font-normal text-xl uppercase tracking-wide text-foreground flex items-center gap-3">
+              <div className="w-8 h-8 bg-saffron rounded-full flex items-center justify-center">
                 <StarIconSolid className="w-4 h-4 text-white" />
               </div>
               {serviceDetails.title} - Registration Form
@@ -325,8 +327,6 @@ const JeevanSathee: React.FC = () => {
                 loading="lazy"
               />
             </div>
-            <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-background/80 to-transparent pointer-events-none" />
-            <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />
           </div>
         </DialogContent>
       </Dialog>

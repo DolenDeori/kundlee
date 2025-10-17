@@ -86,10 +86,9 @@
 
     /* Enhanced Premium Gradients */
     --gradient-saffron: linear-gradient(
-      145deg,
+      90deg,
       hsl(var(--saffron-dark)),
-      hsl(var(--saffron)),
-      hsl(var(--saffron-light))
+      hsl(var(--saffron))
     );
     --gradient-teal: linear-gradient(
       145deg,
