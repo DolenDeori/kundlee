@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   MapPinIcon,
   PhoneIcon,
@@ -15,6 +16,29 @@ import { BsInstagram, BsTwitterX, BsFacebook, BsYoutube } from "react-icons/bs";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    // If it's a hash link (section on home page)
+    if (href.startsWith('#')) {
+      // If we're not on home page, navigate to home first
+      if (location.pathname !== '/') {
+        navigate('/' + href);
+      } else {
+        // If already on home page, just scroll
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else {
+      // For regular routes
+      navigate(href);
+    }
+  };
 
   const footerSections = {
     brand: {
@@ -26,19 +50,17 @@ const Footer: React.FC = () => {
     services: {
       title: "Services",
       links: [
-        { name: "Jeevan Sathee", href: "#services" },
-        { name: "Jeevan Marg", href: "#services" },
-        { name: "Custom Reports", href: "#services" },
-        { name: "Consultation", href: "#contact" },
+        { name: "Jeevan Sathee", href: "/jeevan-sathee" },
+        { name: "Jeevan Marg", href: "/jeevan-marg" },
       ],
     },
     company: {
       title: "Company",
       links: [
         { name: "About Us", href: "#about" },
-        { name: "Our Process", href: "#services" },
         { name: "FAQ", href: "#faq" },
         { name: "Testimonials", href: "#testimonials" },
+        { name: "Contact", href: "#contact" },
       ],
     },
     legal: {
@@ -121,7 +143,8 @@ const Footer: React.FC = () => {
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="font-inter text-sm text-warm-white/70 hover:text-saffron transition-colors duration-200 block"
+                    onClick={(e) => handleLinkClick(e, link.href)}
+                    className="font-inter text-sm text-warm-white/70 hover:text-saffron transition-colors duration-200 block cursor-pointer"
                   >
                     {link.name}
                   </a>
@@ -145,7 +168,8 @@ const Footer: React.FC = () => {
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="font-inter text-sm text-warm-white/70 hover:text-saffron transition-colors duration-200 block"
+                    onClick={(e) => handleLinkClick(e, link.href)}
+                    className="font-inter text-sm text-warm-white/70 hover:text-saffron transition-colors duration-200 block cursor-pointer"
                   >
                     {link.name}
                   </a>
