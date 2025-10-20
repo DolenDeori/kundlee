@@ -26,87 +26,95 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = ({ onComplete }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, delay: isComplete ? 0.5 : 0 }}
     >
-      <div className="relative">
-        {/* Logo Animation */}
-        <motion.div
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+      <div className="relative w-32 h-32">
+        {/* Outer rotating circle */}
+        <motion.svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 100 100"
+          initial={{ rotate: 0 }}
+          animate={{ rotate: 360 }}
+          transition={{ 
+            duration: 3, 
+            ease: "linear",
+            repeat: Infinity 
+          }}
         >
-          <div className="w-24 h-24 relative">
-            {/* Circular drawing animation around the logo */}
-            <motion.svg
-              className="absolute inset-0 w-full h-full"
-              viewBox="0 0 100 100"
-              initial={{ rotate: 0 }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, ease: "easeInOut" }}
-            >
-              <motion.circle
-                cx="50"
-                cy="50"
-                r="40"
-                stroke="hsl(var(--saffron))"
-                strokeWidth="2"
-                fill="none"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 2, ease: "easeInOut" }}
-                style={{
-                  strokeDasharray: "251.32",
-                  strokeDashoffset: "251.32",
-                }}
-              />
-            </motion.svg>
+          <circle
+            cx="50"
+            cy="50"
+            r="45"
+            stroke="hsl(var(--saffron))"
+            strokeWidth="1"
+            fill="none"
+            opacity="0.3"
+          />
+        </motion.svg>
 
-            {/* Logo Image */}
-            {/* <div className="absolute inset-2 flex items-center justify-center">
-              <img
-                src={kundleeLogo}
-                alt="Kundlee"
-                className="w-16 h-16 object-contain"
-              />
-            </div> */}
-          </div>
-        </motion.div>
-
-        {/* Brand Name */}
-        <motion.div
-          className="mt-6 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+        {/* Middle pulsing circle */}
+        <motion.svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 100 100"
         >
-          <h1 className="font-larken text-2xl font-bold text-charcoal uppercase tracking-wider">
-            KUNDLEE
-          </h1>
-          <p className="font-inter text-sm text-charcoal/60 mt-2">
-            Clarity for your cosmic path
-          </p>
-        </motion.div>
+          <motion.circle
+            cx="50"
+            cy="50"
+            r="30"
+            stroke="hsl(var(--saffron))"
+            strokeWidth="1.5"
+            fill="none"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ 
+              scale: [0.8, 1, 0.8],
+              opacity: [0.4, 1, 0.4]
+            }}
+            transition={{ 
+              duration: 2,
+              ease: "easeInOut",
+              repeat: Infinity
+            }}
+          />
+        </motion.svg>
 
-        {/* Loading dots */}
-        <motion.div
-          className="flex justify-center mt-6 space-x-1"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 1.2 }}
+        {/* Inner drawing circle */}
+        <motion.svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 100 100"
+          initial={{ rotate: -90 }}
         >
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              className="w-2 h-2 bg-saffron rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 0.8,
-                repeat: Infinity,
-                delay: i * 0.2,
-              }}
-            />
-          ))}
+          <motion.circle
+            cx="50"
+            cy="50"
+            r="20"
+            stroke="hsl(var(--saffron))"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: [0, 1, 0] }}
+            transition={{ 
+              duration: 2.5,
+              ease: "easeInOut",
+              repeat: Infinity
+            }}
+          />
+        </motion.svg>
+
+        {/* Center dot */}
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          <motion.div
+            className="w-2 h-2 rounded-full bg-saffron"
+            animate={{ 
+              scale: [1, 1.5, 1],
+              opacity: [0.6, 1, 0.6]
+            }}
+            transition={{ 
+              duration: 1.5,
+              ease: "easeInOut",
+              repeat: Infinity
+            }}
+          />
         </motion.div>
       </div>
     </motion.div>
