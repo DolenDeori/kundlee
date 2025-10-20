@@ -130,7 +130,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick, ctaAction = 'sc
       </Swiper>
 
       {/* Content Overlay */}
-      <div className="absolute inset-0 z-20">
+      <div className="absolute inset-0 z-20 pointer-events-none">
         {/* Slide Indicators */}
         <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30">
           <div className="flex items-center gap-3">
