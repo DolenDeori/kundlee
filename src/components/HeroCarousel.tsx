@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade, Parallax } from "swiper/modules";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { Autoplay, EffectFade } from "swiper/modules";
+import { motion } from "framer-motion";
 
 // Import Swiper styles
 import "swiper/css";
@@ -51,13 +51,22 @@ const heroSlides = [
 
 interface HeroCarouselProps {
   onCtaClick: () => void;
+  // Set to 'scroll' to scroll to services section, or 'navigate' to go to services page
+  ctaAction?: 'scroll' | 'navigate';
 }
 
-const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
+const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick, ctaAction = 'scroll' }) => {
   const [activeSlide, setActiveSlide] = useState(0);
-  const { scrollY } = useScroll();
-  // Adjusted for smoother parallax: larger scroll range, smaller transform output
-  const y = useTransform(scrollY, [0, 1000], [0, -150]); // Negative for upward movement, smoother range
+
+  const handleSlideClick = () => {
+    if (ctaAction === 'scroll') {
+      // Scroll to services section
+      onCtaClick();
+    } else {
+      // Navigate to services page (you can customize this)
+      window.location.href = '/#services';
+    }
+  };
 
   return (
     <section
@@ -66,9 +75,8 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
     >
       {/* Background Swiper */}
       <Swiper
-        modules={[Autoplay, EffectFade, Parallax]}
+        modules={[Autoplay, EffectFade]}
         effect="fade"
-        parallax={true}
         autoplay={{
           delay: 6000,
           disableOnInteraction: false,
@@ -80,21 +88,42 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick }) => {
       >
         {heroSlides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="relative h-full">
-              {/* Background Image with Smooth Parallax */}
-              <motion.div
-                style={{
-                  y,
-                  willChange: "transform", // Optimizes performance
-                }}
-                className="absolute left-0 right-0 h-[120vh] -top-20" // Increased height and adjusted top to extend above/below
-              >
-                <div
-                  className="w-full h-full bg-cover bg-center bg-no-repeat" // Ensures image covers the larger area
-                  style={{ backgroundImage: `url(${slide.background})` }}
-                  data-swiper-parallax="-300"
-                />
-              </motion.div>
+            <div 
+              className="relative h-full cursor-pointer group"
+              onClick={handleSlideClick}
+            >
+              {/* Background Image */}
+              <div
+                className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
+                style={{ backgroundImage: `url(${slide.background})` }}
+              />
+              
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-charcoal/60 to-charcoal/90" />
+              
+              {/* Content */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 z-10">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="max-w-4xl"
+                >
+                  <p className="font-inter text-saffron text-sm sm:text-base uppercase tracking-widest mb-4">
+                    {slide.accent}
+                  </p>
+                  <h1 className="font-larken text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-warm-white uppercase tracking-wide mb-6">
+                    {slide.headline}
+                  </h1>
+                  <p className="font-inter text-warm-white/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8">
+                    {slide.subheading}
+                  </p>
+                  <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-saffron rounded-full text-white font-inter font-medium text-sm sm:text-base uppercase tracking-wide hover:shadow-elegant transition-all duration-300 group-hover:scale-105">
+                    <span>{slide.cta}</span>
+                    <ArrowRightIcon className="w-5 h-5" />
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </SwiperSlide>
         ))}
