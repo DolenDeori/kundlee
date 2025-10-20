@@ -70,29 +70,30 @@ const ServicesSection: React.FC = () => {
               onClick={() => navigate(`/${service.id}`)}
             >
                 <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-card border border-border/20 hover:border-saffron/20 transition-all duration-700 hover:shadow-elegant group-hover:-translate-y-2">
-                {/* Premium Badge */}
-                <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10">
-                  <div className="bg-gradient-saffron rounded-full px-3 py-1 flex items-center gap-1 shadow-xs">
-                    <ShieldCheckIcon className="w-3 h-3 text-white" />
-                    <span className="font-inter text-xs font-medium text-white">
-                      Premium
-                    </span>
-                  </div>
-                </div>
-
                 {/* Card Content */}
                 <div className="relative z-10 p-4 sm:p-6">
-                  {/* Service Icon & Title */}
+                  {/* Service Icon, Title & Premium Badge */}
                   <div className="flex items-start gap-4 sm:gap-6 mb-6 sm:mb-8">
                     <div className="relative">
                       <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-teal rounded-xl sm:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 group-hover:shadow-teal">
                         <service.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                       </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-larken text-lg sm:text-xl md:text-2xl text-foreground uppercase tracking-wide">
-                        {service.title}
-                      </h3>
+                    <div className="flex-1 min-w-0 pr-2 sm:pr-0">
+                      <div className="flex items-start justify-between gap-2 mb-1">
+                        <h3 className="font-larken text-lg sm:text-xl md:text-2xl text-foreground uppercase tracking-wide flex-1">
+                          {service.title}
+                        </h3>
+                        {/* Premium Badge - Mobile Optimized */}
+                        <div className="flex-shrink-0">
+                          <div className="bg-gradient-saffron rounded-full px-2 py-0.5 sm:px-3 sm:py-1 flex items-center gap-1 shadow-xs">
+                            <ShieldCheckIcon className="w-3 h-3 text-white" />
+                            <span className="font-inter text-[10px] sm:text-xs font-medium text-white">
+                              Premium
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                       <p className="font-inter text-saffron font-medium text-xs sm:text-sm uppercase tracking-wide">
                         {service.tagline}
                       </p>
