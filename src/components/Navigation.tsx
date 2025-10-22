@@ -142,7 +142,7 @@ const Navigation: React.FC = () => {
             transition={{
               duration: animationTransitionTime,
             }}
-            className="hidden md:flex items-center space-x-10"
+            className="hidden lg:flex items-center space-x-8 xl:space-x-10"
           >
             {navLinks.map((link, index) => (
               <div
@@ -208,7 +208,7 @@ const Navigation: React.FC = () => {
               duration: animationTransitionTime,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="hidden md:block"
+            className="hidden lg:block"
           >
             <PremiumButton
               label="Get your report"
@@ -216,13 +216,13 @@ const Navigation: React.FC = () => {
             />
           </motion.div>
 
-          {/* Mobile Menu Button */}
+          {/* Tablet/Mobile Menu Button */}
           <motion.button
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, type: "spring", stiffness: 200 }}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-3 rounded-full"
+            className="lg:hidden p-2 sm:p-3 rounded-full hover:bg-charcoal/5 transition-colors"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -241,7 +241,7 @@ const Navigation: React.FC = () => {
           </motion.button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Tablet/Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -249,7 +249,7 @@ const Navigation: React.FC = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="md:hidden overflow-hidden flex flex-col items-center"
+              className="lg:hidden overflow-hidden flex flex-col items-center"
             >
               <div className="pb-8 space-y-2 flex flex-col items-stretch w-full">
                 {navLinks.map((link, index) => (

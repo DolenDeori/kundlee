@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade } from "swiper/modules";
+import { Autoplay, EffectFade, Navigation } from "swiper/modules";
 import { motion } from "framer-motion";
+import type { Swiper as SwiperType } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
-import "swiper/css/parallax";
+import "swiper/css/navigation";
 
 // Import hero images
 import heroBg1 from "@/assets/hero-bg-1.jpg";
@@ -14,6 +15,8 @@ import heroBg2 from "@/assets/hero-bg-2.jpg";
 import heroBg3 from "@/assets/hero-bg-3.jpg";
 import {
   ArrowRightIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 
 const heroSlides = [
@@ -48,25 +51,32 @@ interface HeroCarouselProps {
 
 const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick, ctaAction = 'scroll' }) => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
-  const handleSlideClick = () => {
+  const handleCtaClick = () => {
     if (ctaAction === 'scroll') {
-      // Scroll to services section
       onCtaClick();
     } else {
-      // Navigate to services page (you can customize this)
       window.location.href = '/#services';
     }
+  };
+
+  const handlePrevSlide = () => {
+    swiperInstance?.slidePrev();
+  };
+
+  const handleNextSlide = () => {
+    swiperInstance?.slideNext();
   };
 
   return (
     <section
       id="hero"
-      className="relative h-[80vh] overflow-hidden bg-charcoal"
+      className="relative h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[85vh] overflow-hidden bg-charcoal"
     >
       {/* Background Swiper */}
       <Swiper
-        modules={[Autoplay, EffectFade]}
+        modules={[Autoplay, EffectFade, Navigation]}
         effect="fade"
         autoplay={{
           delay: 6000,
@@ -74,43 +84,49 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick, ctaAction = 'sc
         }}
         speed={1500}
         loop={true}
+        onSwiper={setSwiperInstance}
         onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
         className="h-full"
       >
         {heroSlides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div 
-              className="relative h-full cursor-pointer group"
-              onClick={handleSlideClick}
-            >
+            <div className="relative h-full">
               {/* Background Image */}
               <div
-                className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
+                className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${slide.background})` }}
               />
               
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/50 to-transparent" />
+              {/* Gradient Overlay - using design system colors */}
+              <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/60 to-charcoal/20" />
               
               {/* Content */}
-              <div className="absolute inset-0 flex items-center px-6 sm:px-12 lg:px-20 z-10">
-                <div className="container mx-auto">
+              <div className="absolute inset-0 flex items-center z-10">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-20">
                   <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="max-w-2xl"
+                    className="max-w-xl lg:max-w-2xl"
                   >
-                    <h1 className="font-larken text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-warm-white mb-4 leading-tight">
+                    {/* Headline */}
+                    <h1 className="font-larken text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-warm-white mb-3 sm:mb-4 md:mb-6 leading-tight">
                       {slide.headline}
                     </h1>
-                    <p className="font-inter text-warm-white/80 text-lg sm:text-xl md:text-2xl mb-8 leading-relaxed">
+                    
+                    {/* Subheading */}
+                    <p className="font-inter text-warm-white/90 text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 leading-relaxed max-w-lg">
                       {slide.subheading}
                     </p>
-                    <div className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-saffron rounded-lg text-white font-inter font-medium text-base uppercase tracking-wide hover:shadow-elegant transition-all duration-300 hover:scale-105">
+                    
+                    {/* CTA Button */}
+                    <button
+                      onClick={handleCtaClick}
+                      className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-saffron rounded-full text-warm-white font-inter font-medium text-sm sm:text-base uppercase tracking-wide shadow-saffron-glow hover:scale-105 transition-all duration-300 group"
+                    >
                       <span>{slide.cta}</span>
-                      <ArrowRightIcon className="w-5 h-5" />
-                    </div>
+                      <ArrowRightIcon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+                    </button>
                   </motion.div>
                 </div>
               </div>
@@ -119,30 +135,56 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick, ctaAction = 'sc
         ))}
       </Swiper>
 
-      {/* Content Overlay */}
+      {/* Navigation Controls & Indicators */}
       <div className="absolute inset-0 z-20 pointer-events-none">
+        {/* Navigation Arrows */}
+        <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4 sm:px-6 lg:px-12">
+          {/* Previous Button */}
+          <button
+            onClick={handlePrevSlide}
+            className="pointer-events-auto w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-warm-white/10 backdrop-blur-md border border-warm-white/20 flex items-center justify-center text-warm-white hover:bg-warm-white/20 hover:border-warm-white/40 transition-all duration-300 hover:scale-110 group"
+            aria-label="Previous slide"
+          >
+            <ChevronLeftIcon className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
+          </button>
+
+          {/* Next Button */}
+          <button
+            onClick={handleNextSlide}
+            className="pointer-events-auto w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-warm-white/10 backdrop-blur-md border border-warm-white/20 flex items-center justify-center text-warm-white hover:bg-warm-white/20 hover:border-warm-white/40 transition-all duration-300 hover:scale-110 group"
+            aria-label="Next slide"
+          >
+            <ChevronRightIcon className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+        </div>
+
         {/* Slide Indicators */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30">
-          <div className="flex items-center gap-3">
+        <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2">
+          <div className="flex items-center gap-2 sm:gap-3">
             {heroSlides.map((_, index) => (
-              <motion.div
+              <button
                 key={index}
-                className={`h-1 transition-all duration-500 ${
-                  index === activeSlide
-                    ? "w-6 bg-saffron"
-                    : "w-4 bg-warm-white/30 hover:bg-warm-white/50"
-                } transition-colors`}
-                initial={false}
-                animate={{
-                  width: index === activeSlide ? 48 : 24,
-                }}
-                transition={{ duration: 0.3 }}
-              />
+                onClick={() => swiperInstance?.slideToLoop(index)}
+                className="pointer-events-auto group"
+                aria-label={`Go to slide ${index + 1}`}
+              >
+                <motion.div
+                  className={`h-1 rounded-full transition-all duration-500 ${
+                    index === activeSlide
+                      ? "bg-saffron"
+                      : "bg-warm-white/30 group-hover:bg-warm-white/50"
+                  }`}
+                  initial={false}
+                  animate={{
+                    width: index === activeSlide ? 32 : 16,
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              </button>
             ))}
           </div>
         </div>
       </div>
-
     </section>
   );
 };
