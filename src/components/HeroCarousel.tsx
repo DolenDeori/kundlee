@@ -12,40 +12,31 @@ import "swiper/css/parallax";
 import heroBg1 from "@/assets/hero-bg-1.jpg";
 import heroBg2 from "@/assets/hero-bg-2.jpg";
 import heroBg3 from "@/assets/hero-bg-3.jpg";
-import { PremiumButton } from "./ui/PremiumButton";
 import {
   ArrowRightIcon,
-  SparklesIcon,
-  StarIcon,
 } from "@heroicons/react/24/outline";
 
 const heroSlides = [
   {
     id: 1,
     background: heroBg1,
-    headline: "CLARITY FOR YOUR COSMIC PATH",
-    subheading:
-      "Deeply researched, practical Vedic astrology reports to help you navigate your life with confidence and purpose.",
-    cta: "Get My Report",
-    accent: "Ancient wisdom meets modern clarity",
+    headline: "Vedic Astrology Reports",
+    subheading: "Personalized insights to guide your life decisions",
+    cta: "Get Started",
   },
   {
     id: 2,
     background: heroBg2,
-    headline: "ANCIENT WISDOM, MODERN CLARITY",
-    subheading:
-      "Transform complex astrological insights into practical guidance for your most important life decisions.",
-    cta: "Discover My Path",
-    accent: "Navigate life's journey with cosmic insight",
+    headline: "Ancient Wisdom, Modern Clarity",
+    subheading: "Transform cosmic insights into practical guidance",
+    cta: "Explore Services",
   },
   {
     id: 3,
     background: heroBg3,
-    headline: "NAVIGATE LIFE WITH CONFIDENCE",
-    subheading:
-      "Personalized reports that blend traditional Vedic integrity with contemporary understanding.",
-    cta: "Start My Journey",
-    accent: "Your destiny awaits cosmic clarity",
+    headline: "Navigate Your Path",
+    subheading: "Professional astrology reports tailored for you",
+    cta: "View Reports",
   },
 ];
 
@@ -99,30 +90,29 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick, ctaAction = 'sc
               />
               
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-charcoal/60 to-charcoal/90" />
+              <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/50 to-transparent" />
               
               {/* Content */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 z-10">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="max-w-4xl"
-                >
-                  <p className="font-inter text-saffron text-sm sm:text-base uppercase tracking-widest mb-4">
-                    {slide.accent}
-                  </p>
-                  <h1 className="font-larken text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-warm-white uppercase tracking-wide mb-6">
-                    {slide.headline}
-                  </h1>
-                  <p className="font-inter text-warm-white/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8">
-                    {slide.subheading}
-                  </p>
-                  <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-saffron rounded-full text-white font-inter font-medium text-sm sm:text-base uppercase tracking-wide hover:shadow-elegant transition-all duration-300 group-hover:scale-105">
-                    <span>{slide.cta}</span>
-                    <ArrowRightIcon className="w-5 h-5" />
-                  </div>
-                </motion.div>
+              <div className="absolute inset-0 flex items-center px-6 sm:px-12 lg:px-20 z-10">
+                <div className="container mx-auto">
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="max-w-2xl"
+                  >
+                    <h1 className="font-larken text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-warm-white mb-4 leading-tight">
+                      {slide.headline}
+                    </h1>
+                    <p className="font-inter text-warm-white/80 text-lg sm:text-xl md:text-2xl mb-8 leading-relaxed">
+                      {slide.subheading}
+                    </p>
+                    <div className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-saffron rounded-lg text-white font-inter font-medium text-base uppercase tracking-wide hover:shadow-elegant transition-all duration-300 hover:scale-105">
+                      <span>{slide.cta}</span>
+                      <ArrowRightIcon className="w-5 h-5" />
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             </div>
           </SwiperSlide>
@@ -153,31 +143,6 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick, ctaAction = 'sc
         </div>
       </div>
 
-      {/* Floating Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Cosmic Dust Particles */}
-        {Array.from({ length: 6 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-saffron/20 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [-20, 20],
-              opacity: [0.2, 0.8, 0.2],
-              scale: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              repeatType: "reverse",
-              delay: i * 0.5,
-            }}
-          />
-        ))}
-      </div>
     </section>
   );
 };
