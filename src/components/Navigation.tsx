@@ -25,6 +25,7 @@ const Navigation: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<string>("#hero");
   const animationTransitionTime = 0.5;
 
   /**
@@ -99,6 +100,61 @@ const Navigation: React.FC = () => {
   }, [lastScrollY, isMobileMenuOpen]);
 
   /**
+   * Intersection Observer for active section detection
+   */
+  useEffect(() => {
+    const isHomePage = location.pathname === "/";
+    
+    // If not on home page, set active based on route
+    if (!isHomePage) {
+      setActiveSection(location.pathname);
+      return;
+    }
+
+    // On home page, use intersection observer for sections
+    const sections = document.querySelectorAll("section[id]");
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px",
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(`#${entry.target.id}`);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        observer.unobserve(section);
+      });
+    };
+  }, [location.pathname]);
+
+  /**
+   * Check if a link is active
+   */
+  const isLinkActive = (link: typeof navLinks[0]) => {
+    if (link.dropdown) {
+      // Check if any dropdown item matches current route or section
+      return link.dropdown.some(dropItem => 
+        dropItem.href === activeSection || dropItem.href === location.pathname
+      );
+    }
+    return link.href === activeSection || link.href === location.pathname;
+  };
+
+  /**
    * Toggle mobile dropdown
    */
   const toggleMobileDropdown = (linkName: string) => {
@@ -156,7 +212,9 @@ const Navigation: React.FC = () => {
                   <>
                     <button
                       type="button"
-                      className="relative font-inter text-sm font-medium text-charcoal/80 hover:text-saffron transition-all duration-300 py-2 flex items-center gap-1"
+                      className={`relative font-inter text-sm font-medium transition-all duration-300 py-2 flex items-center gap-1 ${
+                        isLinkActive(link) ? "text-saffron" : "text-charcoal/80 hover:text-saffron"
+                      }`}
                     >
                       <span className="relative z-10">{link.name}</span>
                       <ChevronDownIcon className="w-3 h-3" />
@@ -191,7 +249,9 @@ const Navigation: React.FC = () => {
                   <motion.button
                     type="button"
                     onClick={() => handleNavClick(link.href)}
-                    className="relative font-inter text-sm font-medium text-charcoal/80 hover:text-saffron transition-all duration-300 py-2 group"
+                    className={`relative font-inter text-sm font-medium transition-all duration-300 py-2 group ${
+                      isLinkActive(link) ? "text-saffron" : "text-charcoal/80 hover:text-saffron"
+                    }`}
                   >
                     <span className="relative z-10">{link.name}</span>
                   </motion.button>
@@ -270,7 +330,9 @@ const Navigation: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => toggleMobileDropdown(link.name)}
-                          className="w-full flex items-center justify-between font-inter text-lg text-charcoal/80 hover:text-saffron transition-all duration-300 py-4 px-4"
+                          className={`w-full flex items-center justify-between font-inter text-lg transition-all duration-300 py-4 px-4 ${
+                            isLinkActive(link) ? "text-saffron" : "text-charcoal/80 hover:text-saffron"
+                          }`}
                         >
                           <span>{link.name}</span>
                           <ChevronDownIcon
@@ -310,7 +372,9 @@ const Navigation: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleNavClick(link.href)}
-                        className="block w-full font-inter text-lg text-charcoal/80 hover:text-saffron transition-all duration-300 py-4 px-4"
+                        className={`block w-full font-inter text-lg transition-all duration-300 py-4 px-4 ${
+                          isLinkActive(link) ? "text-saffron" : "text-charcoal/80 hover:text-saffron"
+                        }`}
                       >
                         {link.name}
                       </button>
