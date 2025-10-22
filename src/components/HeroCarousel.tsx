@@ -46,18 +46,21 @@ const heroSlides = [
 interface HeroCarouselProps {
   onCtaClick: () => void;
   // Set to 'scroll' to scroll to services section, or 'navigate' to go to services page
-  ctaAction?: 'scroll' | 'navigate';
+  ctaAction?: "scroll" | "navigate";
 }
 
-const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick, ctaAction = 'scroll' }) => {
+const HeroCarousel: React.FC<HeroCarouselProps> = ({
+  onCtaClick,
+  ctaAction = "scroll",
+}) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
   const handleCtaClick = () => {
-    if (ctaAction === 'scroll') {
+    if (ctaAction === "scroll") {
       onCtaClick();
     } else {
-      window.location.href = '/#services';
+      window.location.href = "/#services";
     }
   };
 
@@ -96,10 +99,10 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick, ctaAction = 'sc
                 className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${slide.background})` }}
               />
-              
+
               {/* Gradient Overlay - using design system colors */}
               <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/60 to-charcoal/20" />
-              
+
               {/* Content */}
               <div className="absolute inset-0 flex items-center z-10">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-20">
@@ -113,16 +116,16 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick, ctaAction = 'sc
                     <h1 className="font-larken text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-warm-white mb-3 sm:mb-4 md:mb-6 leading-tight">
                       {slide.headline}
                     </h1>
-                    
+
                     {/* Subheading */}
                     <p className="font-inter text-warm-white/90 text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 leading-relaxed max-w-lg">
                       {slide.subheading}
                     </p>
-                    
+
                     {/* CTA Button */}
                     <button
                       onClick={handleCtaClick}
-                      className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-saffron rounded-full text-warm-white font-inter font-medium text-sm sm:text-base uppercase tracking-wide shadow-saffron-glow hover:scale-105 transition-all duration-300 group"
+                      className="border border-warm-white inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-saffron rounded-full text-warm-white font-inter font-medium text-sm sm:text-base uppercase tracking-wide shadow-saffron-glow hover:scale-105 transition-all duration-300 group"
                     >
                       <span>{slide.cta}</span>
                       <ArrowRightIcon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
@@ -136,7 +139,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ onCtaClick, ctaAction = 'sc
       </Swiper>
 
       {/* Navigation Controls & Indicators */}
-      <div className="absolute inset-0 z-20 pointer-events-none">
+      <div className="absolute inset-0 z-20 pointer-events-none max-sm:hidden">
         {/* Navigation Arrows */}
         <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4 sm:px-6 lg:px-12">
           {/* Previous Button */}
