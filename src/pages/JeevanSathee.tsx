@@ -95,7 +95,7 @@ const JeevanSathee: React.FC = () => {
     });
   };
 
-  // Intersection Observer to hide sticky tab when footer is visible
+  // Intersection Observer to make tab non-sticky when footer is visible
   React.useEffect(() => {
     const footer = document.querySelector('footer');
     if (!footer) return;
@@ -105,7 +105,8 @@ const JeevanSathee: React.FC = () => {
         setShowStickyTab(!entry.isIntersecting);
       },
       {
-        threshold: 0.1,
+        threshold: 0,
+        rootMargin: '-80px 0px 0px 0px'
       }
     );
 
@@ -324,37 +325,37 @@ const JeevanSathee: React.FC = () => {
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ 
-            y: showStickyTab ? 0 : 100, 
-            opacity: showStickyTab ? 1 : 0 
+            y: 0, 
+            opacity: 1 
           }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant"
+          className={`lg:hidden ${showStickyTab ? 'fixed' : 'relative'} bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant`}
         >
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex-1">
-                <div className="flex items-baseline gap-2 mb-1">
-                  <span className="font-larken text-2xl font-bold text-foreground">
+          <div className="px-3 py-3 sm:px-4 sm:py-4">
+            <div className="flex items-center gap-3">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-baseline gap-1.5 flex-wrap mb-1">
+                  <span className="font-larken text-xl sm:text-2xl font-bold text-foreground whitespace-nowrap">
                     {serviceDetails.price}
                   </span>
-                  <span className="font-inter text-sm text-muted-foreground line-through">
+                  <span className="font-inter text-xs sm:text-sm text-muted-foreground line-through whitespace-nowrap">
                     {serviceDetails.originalPrice}
                   </span>
-                  <span className="bg-saffron text-white text-[10px] font-medium px-2 py-0.5 rounded-full uppercase">
+                  <span className="bg-saffron text-white text-[9px] sm:text-[10px] font-medium px-1.5 sm:px-2 py-0.5 rounded-full uppercase whitespace-nowrap">
                     {discountPercentage}% OFF
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <ClockIcon className="w-3 h-3" />
-                  <span>{serviceDetails.deliveryTime}</span>
+                <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-muted-foreground">
+                  <ClockIcon className="w-3 h-3 flex-shrink-0" />
+                  <span className="truncate">{serviceDetails.deliveryTime}</span>
                 </div>
               </div>
               <PremiumButton
                 onClick={() => setIsFormOpen(true)}
                 label="Get Report"
-                icon={<ArrowRightIcon className="w-4 h-4" />}
+                icon={<ArrowRightIcon className="w-3.5 h-3.5" />}
                 variant="teal"
-                className="flex-shrink-0"
+                className="flex-shrink-0 !px-4 !py-2.5 text-xs sm:text-sm"
               />
             </div>
           </div>
