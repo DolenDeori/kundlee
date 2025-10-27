@@ -44,9 +44,6 @@ const ContactSection: React.FC = () => {
       id="contact"
       className="py-20 bg-warm-white relative overflow-hidden scroll-mt-24"
     >
-      {/* Background Pattern */}
-      <div className="absolute bottom-0 left-0 w-full h-full sunray-pattern opacity-20 pointer-events-none" />
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -133,7 +130,10 @@ const ContactSection: React.FC = () => {
               className="bg-white/80 backdrop-blur-sm border border-border rounded-[20px] rounded-b-[40px] p-4 shadow-elegant"
             >
               {!isSubmitted ? (
-                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-4 sm:space-y-6"
+                >
                   {/* Name Field */}
                   <div>
                     <label

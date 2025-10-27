@@ -104,28 +104,28 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
               <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/60 to-charcoal/20" />
 
               {/* Content */}
-              <div className="absolute inset-0 flex items-center z-10">
+              <div className="absolute inset-0 flex items-center z-10 ml-8">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-20">
                   <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 1, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
+                    transition={{ duration: 0.1, delay: 0.2 }}
                     className="max-w-xl lg:max-w-2xl"
                   >
                     {/* Headline */}
-                    <h1 className="font-larken text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-warm-white mb-3 sm:mb-4 md:mb-6 leading-tight">
+                    <h1 className="font-larken font-light text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-warm-white mb-3 sm:mb-4 md:mb-6 leading-tight">
                       {slide.headline}
                     </h1>
 
                     {/* Subheading */}
-                    <p className="font-inter text-warm-white/90 text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 leading-relaxed max-w-lg">
+                    <p className="font-inter text-warm-white/90 text-base sm:text md:text-lg lg:text-xl mb-6 sm:mb-8 leading-relaxed max-w-lg">
                       {slide.subheading}
                     </p>
 
                     {/* CTA Button */}
                     <button
                       onClick={handleCtaClick}
-                      className="border border-warm-white inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-saffron rounded-full text-warm-white font-inter font-medium text-sm sm:text-base uppercase tracking-wide shadow-saffron-glow hover:scale-105 transition-all duration-300 group"
+                      className="border border-warm-white inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-saffron rounded-full text-warm-white font-inter text-sm sm:text-base uppercase transition-all duration-300 group"
                     >
                       <span>{slide.cta}</span>
                       <ArrowRightIcon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
