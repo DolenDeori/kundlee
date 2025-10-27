@@ -333,31 +333,31 @@ const JeevanMarg: React.FC = () => {
           transition={{ duration: 0.3, ease: "easeOut" }}
           className={`lg:hidden ${showStickyTab ? 'fixed' : 'relative'} bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant`}
         >
-          <div className="px-3 py-3 sm:px-4 sm:py-4">
-            <div className="flex items-center gap-3">
+          <div className="px-4 py-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <div className="flex-1 min-w-0">
-                <div className="flex items-baseline gap-1.5 flex-wrap mb-1">
-                  <span className="font-larken text-xl sm:text-2xl font-bold text-foreground whitespace-nowrap">
+                <div className="flex items-baseline gap-2 flex-wrap mb-1">
+                  <span className="font-larken text-2xl font-bold text-foreground">
                     {serviceDetails.price}
                   </span>
-                  <span className="font-inter text-xs sm:text-sm text-muted-foreground line-through whitespace-nowrap">
+                  <span className="font-inter text-sm text-muted-foreground line-through">
                     {serviceDetails.originalPrice}
                   </span>
-                  <span className="bg-saffron text-white text-[9px] sm:text-[10px] font-medium px-1.5 sm:px-2 py-0.5 rounded-full uppercase whitespace-nowrap">
+                  <span className="bg-saffron text-white text-[10px] font-medium px-2 py-0.5 rounded-full uppercase">
                     {discountPercentage}% OFF
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-muted-foreground">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <ClockIcon className="w-3 h-3 flex-shrink-0" />
-                  <span className="truncate">{serviceDetails.deliveryTime}</span>
+                  <span>{serviceDetails.deliveryTime}</span>
                 </div>
               </div>
               <PremiumButton
                 onClick={() => setIsFormOpen(true)}
                 label="Get Report"
-                icon={<ArrowRightIcon className="w-3.5 h-3.5" />}
+                icon={<ArrowRightIcon className="w-4 h-4" />}
                 variant="saffron"
-                className="flex-shrink-0 !px-4 !py-2.5 text-xs sm:text-sm"
+                className="w-full sm:w-auto sm:flex-shrink-0"
               />
             </div>
           </div>
