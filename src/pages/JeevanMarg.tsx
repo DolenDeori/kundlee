@@ -27,6 +27,7 @@ import jeevamargHero from "@/assets/jeevan-marg-hero.jpg";
  */
 const JeevanMarg: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [showStickyTab, setShowStickyTab] = useState(true);
 
   const serviceDetails = {
     title: "Jeevan Marg",
@@ -97,6 +98,25 @@ const JeevanMarg: React.FC = () => {
       );
     });
   };
+
+  // Intersection Observer to hide sticky tab when footer is visible
+  React.useEffect(() => {
+    const footer = document.querySelector('footer');
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowStickyTab(!entry.isIntersecting);
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    observer.observe(footer);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -301,6 +321,46 @@ const JeevanMarg: React.FC = () => {
         </section>
 
         <Footer />
+
+        {/* Sticky Mobile Price Tab */}
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ 
+            y: showStickyTab ? 0 : 100, 
+            opacity: showStickyTab ? 1 : 0 
+          }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant"
+        >
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-baseline gap-2 mb-1">
+                  <span className="font-larken text-2xl font-bold text-foreground">
+                    {serviceDetails.price}
+                  </span>
+                  <span className="font-inter text-sm text-muted-foreground line-through">
+                    {serviceDetails.originalPrice}
+                  </span>
+                  <span className="bg-saffron text-white text-[10px] font-medium px-2 py-0.5 rounded-full uppercase">
+                    {discountPercentage}% OFF
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <ClockIcon className="w-3 h-3" />
+                  <span>{serviceDetails.deliveryTime}</span>
+                </div>
+              </div>
+              <PremiumButton
+                onClick={() => setIsFormOpen(true)}
+                label="Get Report"
+                icon={<ArrowRightIcon className="w-4 h-4" />}
+                variant="teal"
+                className="flex-shrink-0"
+              />
+            </div>
+          </div>
+        </motion.div>
       </div>
 
       {/* Booking Form Modal */}
