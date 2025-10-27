@@ -18,6 +18,12 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = ({ onComplete }) => {
     return () => clearTimeout(timer);
   }, [onComplete]);
 
+  // Create 6 petals positioned in a circle
+  const petals = Array.from({ length: 6 }, (_, i) => {
+    const angle = (i * 60) - 90; // Start from top, 60° apart
+    return { id: i, angle };
+  });
+
   return (
     <motion.div
       className="fixed inset-0 z-50 flex items-center justify-center bg-warm-white"
@@ -26,96 +32,52 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = ({ onComplete }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, delay: isComplete ? 0.5 : 0 }}
     >
-      <div className="relative w-32 h-32">
-        {/* Outer rotating circle */}
-        <motion.svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 100 100"
-          initial={{ rotate: 0 }}
-          animate={{ rotate: 360 }}
-          transition={{ 
-            duration: 3, 
-            ease: "linear",
-            repeat: Infinity 
-          }}
-        >
-          <circle
-            cx="50"
-            cy="50"
-            r="45"
-            stroke="hsl(var(--saffron))"
-            strokeWidth="1"
-            fill="none"
-            opacity="0.3"
-          />
-        </motion.svg>
-
-        {/* Middle pulsing circle */}
-        <motion.svg
+      <div className="relative w-24 h-24">
+        <svg
           className="absolute inset-0 w-full h-full"
           viewBox="0 0 100 100"
         >
-          <motion.circle
-            cx="50"
-            cy="50"
-            r="30"
-            stroke="hsl(var(--saffron))"
-            strokeWidth="1.5"
-            fill="none"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ 
-              scale: [0.8, 1, 0.8],
-              opacity: [0.4, 1, 0.4]
-            }}
-            transition={{ 
-              duration: 2,
-              ease: "easeInOut",
-              repeat: Infinity
-            }}
-          />
-        </motion.svg>
+          {petals.map((petal) => {
+            const radians = (petal.angle * Math.PI) / 180;
+            const x1 = 50 + Math.cos(radians) * 15;
+            const y1 = 50 + Math.sin(radians) * 15;
+            const x2 = 50 + Math.cos(radians) * 40;
+            const y2 = 50 + Math.sin(radians) * 40;
 
-        {/* Inner drawing circle */}
-        <motion.svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 100 100"
-          initial={{ rotate: -90 }}
-        >
-          <motion.circle
-            cx="50"
-            cy="50"
-            r="20"
-            stroke="hsl(var(--saffron))"
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: [0, 1, 0] }}
-            transition={{ 
-              duration: 2.5,
-              ease: "easeInOut",
-              repeat: Infinity
-            }}
-          />
-        </motion.svg>
-
-        {/* Center dot */}
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          <motion.div
-            className="w-2 h-2 rounded-full bg-saffron"
-            animate={{ 
-              scale: [1, 1.5, 1],
-              opacity: [0.6, 1, 0.6]
-            }}
-            transition={{ 
-              duration: 1.5,
-              ease: "easeInOut",
-              repeat: Infinity
-            }}
-          />
-        </motion.div>
+            return (
+              <motion.line
+                key={petal.id}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                strokeWidth="3"
+                strokeLinecap="round"
+                initial={{ 
+                  stroke: "hsl(var(--muted))",
+                  opacity: 0.3
+                }}
+                animate={{
+                  stroke: [
+                    "hsl(var(--muted))",
+                    "hsl(var(--saffron))",
+                    "hsl(var(--muted))"
+                  ],
+                  opacity: [0.3, 1, 0.3]
+                }}
+                transition={{
+                  duration: 1.8,
+                  repeat: Infinity,
+                  delay: petal.id * 0.15,
+                  ease: "easeInOut"
+                }}
+                style={{
+                  filter: "drop-shadow(0 0 8px hsl(var(--saffron) / 0.6))"
+                }}
+              />
+            );
+          })}
+        </svg>
       </div>
     </motion.div>
   );
