@@ -32,17 +32,22 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = ({ onComplete }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, delay: isComplete ? 0.5 : 0 }}
     >
-      <div className="relative w-24 h-24">
+      <div className="relative w-20 h-20">
         <svg
           className="absolute inset-0 w-full h-full"
           viewBox="0 0 100 100"
         >
           {petals.map((petal) => {
             const radians = (petal.angle * Math.PI) / 180;
-            const x1 = 50 + Math.cos(radians) * 15;
-            const y1 = 50 + Math.sin(radians) * 15;
-            const x2 = 50 + Math.cos(radians) * 40;
-            const y2 = 50 + Math.sin(radians) * 40;
+            const x1 = 50 + Math.cos(radians) * 18;
+            const y1 = 50 + Math.sin(radians) * 18;
+            const x2 = 50 + Math.cos(radians) * 42;
+            const y2 = 50 + Math.sin(radians) * 42;
+
+            // Calculate animation timing for sequential glow
+            const cycleDuration = 1.8;
+            const petalDuration = cycleDuration / 6;
+            const delay = petal.id * petalDuration;
 
             return (
               <motion.line
@@ -51,28 +56,33 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = ({ onComplete }) => {
                 y1={y1}
                 x2={x2}
                 y2={y2}
-                strokeWidth="3"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 initial={{ 
-                  stroke: "hsl(var(--muted))",
-                  opacity: 0.3
+                  stroke: "hsl(var(--muted-foreground) / 0.3)"
                 }}
                 animate={{
                   stroke: [
-                    "hsl(var(--muted))",
+                    "hsl(var(--muted-foreground) / 0.3)",
+                    "hsl(var(--muted-foreground) / 0.3)",
                     "hsl(var(--saffron))",
-                    "hsl(var(--muted))"
+                    "hsl(var(--saffron))",
+                    "hsl(var(--muted-foreground) / 0.3)"
                   ],
-                  opacity: [0.3, 1, 0.3]
+                  filter: [
+                    "drop-shadow(0 0 0px transparent)",
+                    "drop-shadow(0 0 0px transparent)",
+                    "drop-shadow(0 0 12px hsl(var(--saffron) / 0.8))",
+                    "drop-shadow(0 0 12px hsl(var(--saffron) / 0.8))",
+                    "drop-shadow(0 0 0px transparent)"
+                  ]
                 }}
                 transition={{
-                  duration: 1.8,
+                  duration: cycleDuration,
                   repeat: Infinity,
-                  delay: petal.id * 0.15,
-                  ease: "easeInOut"
-                }}
-                style={{
-                  filter: "drop-shadow(0 0 8px hsl(var(--saffron) / 0.6))"
+                  delay: delay,
+                  ease: "easeInOut",
+                  times: [0, 0.15, 0.25, 0.35, 0.5]
                 }}
               />
             );
