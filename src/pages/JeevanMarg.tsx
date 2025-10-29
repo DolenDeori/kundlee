@@ -101,7 +101,7 @@ const JeevanMarg: React.FC = () => {
 
   // Intersection Observer to make tab non-sticky when footer is visible
   React.useEffect(() => {
-    const footer = document.querySelector('footer');
+    const footer = document.querySelector("footer");
     if (!footer) return;
 
     const observer = new IntersectionObserver(
@@ -110,7 +110,7 @@ const JeevanMarg: React.FC = () => {
       },
       {
         threshold: 0,
-        rootMargin: '-80px 0px 0px 0px'
+        rootMargin: "-80px 0px 0px 0px",
       }
     );
 
@@ -326,12 +326,14 @@ const JeevanMarg: React.FC = () => {
         {/* Sticky Mobile Price Tab */}
         <motion.div
           initial={{ y: 100, opacity: 0 }}
-          animate={{ 
-            y: 0, 
-            opacity: 1 
+          animate={{
+            y: 0,
+            opacity: 1,
           }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className={`lg:hidden ${showStickyTab ? 'fixed' : 'relative'} bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant`}
+          className={`lg:hidden ${
+            showStickyTab ? "fixed" : "relative"
+          } bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant`}
         >
           <div className="px-4 py-3">
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
@@ -378,7 +380,7 @@ const JeevanMarg: React.FC = () => {
           <div className="relative overflow-hidden">
             <div className="w-full" style={{ height: "calc(90vh - 120px)" }}>
               <iframe
-                src="https://forms.zohopublic.com/dulenchdeori564gm1/form/JeevanMarg/formperma/NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg?zf_rszfm=1"
+                src="https://forms.zohopublic.in/abhijeetchetry33gm1/form/JeevanMarg/formperma/oipdSo7wBZcK6hR1EypEdtzJgPfnMMZUlTTGIaiv954"
                 style={{
                   border: "none",
                   width: "100%",
@@ -390,8 +392,6 @@ const JeevanMarg: React.FC = () => {
                 loading="lazy"
               />
             </div>
-            <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-background/80 to-transparent pointer-events-none" />
-            <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />
           </div>
         </DialogContent>
       </Dialog>

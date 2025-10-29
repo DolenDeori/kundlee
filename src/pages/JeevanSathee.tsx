@@ -97,7 +97,7 @@ const JeevanSathee: React.FC = () => {
 
   // Intersection Observer to make tab non-sticky when footer is visible
   React.useEffect(() => {
-    const footer = document.querySelector('footer');
+    const footer = document.querySelector("footer");
     if (!footer) return;
 
     const observer = new IntersectionObserver(
@@ -106,7 +106,7 @@ const JeevanSathee: React.FC = () => {
       },
       {
         threshold: 0,
-        rootMargin: '-80px 0px 0px 0px'
+        rootMargin: "-80px 0px 0px 0px",
       }
     );
 
@@ -324,12 +324,14 @@ const JeevanSathee: React.FC = () => {
         {/* Sticky Mobile Price Tab */}
         <motion.div
           initial={{ y: 100, opacity: 0 }}
-          animate={{ 
-            y: 0, 
-            opacity: 1 
+          animate={{
+            y: 0,
+            opacity: 1,
           }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className={`lg:hidden ${showStickyTab ? 'fixed' : 'relative'} bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant`}
+          className={`lg:hidden ${
+            showStickyTab ? "fixed" : "relative"
+          } bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant`}
         >
           <div className="px-4 py-3">
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
@@ -375,7 +377,7 @@ const JeevanSathee: React.FC = () => {
           </DialogHeader>
           <div className="relative overflow-hidden">
             <div className="w-full" style={{ height: "calc(90vh - 120px)" }}>
-              <iframe
+              {/* <iframe
                 src="https://forms.zohopublic.com/dulenchdeori564gm1/form/JeevanSathee/formperma/NIqxhNDB360d53x6gYYemCMVvuk-onbuLemdjFaG4tg?zf_rszfm=1"
                 style={{
                   border: "none",
@@ -386,7 +388,20 @@ const JeevanSathee: React.FC = () => {
                 aria-label="Jeevan Sathee Registration Form"
                 title="Jeevan Sathee Form"
                 loading="lazy"
-              />
+              /> */}
+
+              <iframe
+                src="https://forms.zohopublic.in/abhijeetchetry33gm1/form/JeevanSathee/formperma/J1pEeUT-Mj8B7kGauzcxW3ZmEIDj86ulu476g5vCqdE"
+                style={{
+                  border: "none",
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "0 0 12px 12px",
+                }}
+                aria-label="Jeevan Sathee Registration Form"
+                title="Jeevan Sathee Form"
+                loading="lazy"
+              ></iframe>
             </div>
           </div>
         </DialogContent>
