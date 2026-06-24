@@ -35,24 +35,39 @@ const ContactSection: React.FC = () => {
     feedback: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<"name" | "email" | "feedback", string>>>({});
+
+  const FIELD_LIMITS = { name: 100, email: 255, feedback: 1000 } as const;
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const limit = FIELD_LIMITS[name as keyof typeof FIELD_LIMITS];
+    const next = limit ? value.slice(0, limit) : value;
+    setFormData((prev) => ({ ...prev, [name]: next }));
+    if (errors[name as keyof typeof errors]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
+    const result = contactSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: typeof errors = {};
+      for (const issue of result.error.issues) {
+        const key = issue.path[0] as keyof typeof errors;
+        if (key && !fieldErrors[key]) fieldErrors[key] = issue.message;
+      }
+      setErrors(fieldErrors);
+      return;
+    }
+    setErrors({});
+    // TODO: send sanitized payload to backend endpoint when available.
+    // Intentionally do NOT log form data — it contains user PII.
     setIsSubmitted(true);
 
-    // Reset form after 3 seconds
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({ name: "", email: "", feedback: "" });
