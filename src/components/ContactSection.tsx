@@ -186,10 +186,17 @@ const ContactSection: React.FC = () => {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
+                        maxLength={100}
+                        autoComplete="name"
+                        aria-invalid={!!errors.name}
+                        aria-describedby={errors.name ? "name-error" : undefined}
                         className="w-full pl-10 pr-4 py-3 sm:py-4 border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200 text-sm sm:text-base"
                         placeholder="Enter your full name"
                       />
                     </div>
+                    {errors.name && (
+                      <p id="name-error" className="mt-1 text-xs text-red-600">{errors.name}</p>
+                    )}
                   </div>
 
                   {/* Email Field */}
