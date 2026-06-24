@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { z } from "zod";
 import {
   EnvelopeIcon,
   UserCircleIcon,
@@ -8,6 +9,25 @@ import {
 } from "@heroicons/react/24/outline";
 import { BsPersonCircle, BsChatLeftDots } from "react-icons/bs";
 
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "Name is required")
+    .max(100, "Name must be under 100 characters")
+    .regex(/^[\p{L}\p{M} '.\-]+$/u, "Name contains invalid characters"),
+  email: z
+    .string()
+    .trim()
+    .email("Please enter a valid email address")
+    .max(255, "Email must be under 255 characters"),
+  feedback: z
+    .string()
+    .trim()
+    .min(1, "Message is required")
+    .max(1000, "Message must be under 1000 characters"),
+});
+
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -15,24 +35,39 @@ const ContactSection: React.FC = () => {
     feedback: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<"name" | "email" | "feedback", string>>>({});
+
+  const FIELD_LIMITS = { name: 100, email: 255, feedback: 1000 } as const;
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const limit = FIELD_LIMITS[name as keyof typeof FIELD_LIMITS];
+    const next = limit ? value.slice(0, limit) : value;
+    setFormData((prev) => ({ ...prev, [name]: next }));
+    if (errors[name as keyof typeof errors]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
+    const result = contactSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: typeof errors = {};
+      for (const issue of result.error.issues) {
+        const key = issue.path[0] as keyof typeof errors;
+        if (key && !fieldErrors[key]) fieldErrors[key] = issue.message;
+      }
+      setErrors(fieldErrors);
+      return;
+    }
+    setErrors({});
+    // TODO: send sanitized payload to backend endpoint when available.
+    // Intentionally do NOT log form data — it contains user PII.
     setIsSubmitted(true);
 
-    // Reset form after 3 seconds
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({ name: "", email: "", feedback: "" });
@@ -151,10 +186,17 @@ const ContactSection: React.FC = () => {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
+                        maxLength={100}
+                        autoComplete="name"
+                        aria-invalid={!!errors.name}
+                        aria-describedby={errors.name ? "name-error" : undefined}
                         className="w-full pl-10 pr-4 py-3 sm:py-4 border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200 text-sm sm:text-base"
                         placeholder="Enter your full name"
                       />
                     </div>
+                    {errors.name && (
+                      <p id="name-error" className="mt-1 text-xs text-red-600">{errors.name}</p>
+                    )}
                   </div>
 
                   {/* Email Field */}
@@ -174,10 +216,17 @@ const ContactSection: React.FC = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
+                        maxLength={255}
+                        autoComplete="email"
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "email-error" : undefined}
                         className="w-full pl-10 pr-4 py-3 sm:py-4 border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200 text-sm sm:text-base"
                         placeholder="Enter your email address"
                       />
                     </div>
+                    {errors.email && (
+                      <p id="email-error" className="mt-1 text-xs text-red-600">{errors.email}</p>
+                    )}
                   </div>
 
                   {/* Feedback Field */}
@@ -195,9 +244,18 @@ const ContactSection: React.FC = () => {
                       onChange={handleInputChange}
                       required
                       rows={4}
+                      maxLength={1000}
+                      aria-invalid={!!errors.feedback}
+                      aria-describedby={errors.feedback ? "feedback-error" : undefined}
                       className="w-full px-4 py-3 sm:py-4 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200 resize-none text-sm sm:text-base"
                       placeholder="Tell us how we can help you ..."
                     />
+                    <div className="mt-1 flex justify-between text-xs">
+                      {errors.feedback ? (
+                        <p id="feedback-error" className="text-red-600">{errors.feedback}</p>
+                      ) : <span />}
+                      <span className="text-charcoal/50">{formData.feedback.length}/1000</span>
+                    </div>
                   </div>
 
                   {/* Submit Button */}
