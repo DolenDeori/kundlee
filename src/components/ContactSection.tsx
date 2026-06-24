@@ -216,10 +216,17 @@ const ContactSection: React.FC = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
+                        maxLength={255}
+                        autoComplete="email"
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "email-error" : undefined}
                         className="w-full pl-10 pr-4 py-3 sm:py-4 border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200 text-sm sm:text-base"
                         placeholder="Enter your email address"
                       />
                     </div>
+                    {errors.email && (
+                      <p id="email-error" className="mt-1 text-xs text-red-600">{errors.email}</p>
+                    )}
                   </div>
 
                   {/* Feedback Field */}
