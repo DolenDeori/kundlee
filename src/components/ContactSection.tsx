@@ -244,9 +244,18 @@ const ContactSection: React.FC = () => {
                       onChange={handleInputChange}
                       required
                       rows={4}
+                      maxLength={1000}
+                      aria-invalid={!!errors.feedback}
+                      aria-describedby={errors.feedback ? "feedback-error" : undefined}
                       className="w-full px-4 py-3 sm:py-4 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-saffron/20 focus:border-saffron transition-colors duration-200 resize-none text-sm sm:text-base"
                       placeholder="Tell us how we can help you ..."
                     />
+                    <div className="mt-1 flex justify-between text-xs">
+                      {errors.feedback ? (
+                        <p id="feedback-error" className="text-red-600">{errors.feedback}</p>
+                      ) : <span />}
+                      <span className="text-charcoal/50">{formData.feedback.length}/1000</span>
+                    </div>
                   </div>
 
                   {/* Submit Button */}
