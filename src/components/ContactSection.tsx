@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { z } from "zod";
 import {
   EnvelopeIcon,
   UserCircleIcon,
@@ -7,6 +8,25 @@ import {
   PaperAirplaneIcon,
 } from "@heroicons/react/24/outline";
 import { BsPersonCircle, BsChatLeftDots } from "react-icons/bs";
+
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "Name is required")
+    .max(100, "Name must be under 100 characters")
+    .regex(/^[\p{L}\p{M} '.\-]+$/u, "Name contains invalid characters"),
+  email: z
+    .string()
+    .trim()
+    .email("Please enter a valid email address")
+    .max(255, "Email must be under 255 characters"),
+  feedback: z
+    .string()
+    .trim()
+    .min(1, "Message is required")
+    .max(1000, "Message must be under 1000 characters"),
+});
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
