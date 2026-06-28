@@ -12,7 +12,7 @@ import {
 import { StarIcon as StarIconSolid } from "@heroicons/react/24/solid";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import TestimonialSection from "@/components/TestimonialSection";
+
 import { PremiumButton } from "@/components/ui/PremiumButton";
 import {
   Dialog,
@@ -20,6 +20,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+
+import jeevanMargReport from "@/assets/Jeevan-Marg-Report.png";
+import manglikDoshReport from "@/assets/Manglik-Dosh-Report.png";
+import kaalsarpaDoshReport from "@/assets/Kaalsarpa-Dosh-Report.png";
 
 /**
  * JeevanMarg - Dedicated service page for life path analysis.
@@ -35,27 +39,30 @@ const JeevanMarg: React.FC = () => {
     originalPrice: "₹800",
     deliveryTime: "72 hours",
     included: [
-      "Career & Business Guidance",
-      "Financial & Wealth Predictions",
+      "Life Purpose & Dharma Analysis",
+      "Career & Finance Predictions",
       "Health & Wellness Guidance",
-      "Astrological Remedies",
-      "Strengths, Weaknesses & Future Opportunities",
-      "10-Year Yearly Predictions",
+      "Education & Higher Studies Prospects",
+      "Spiritual Growth Roadmap",
+      "12-Month Cosmic Forecast",
     ],
     reports: [
       {
         label: "MAIN PDF",
-        title: "Jeevan Marg — Life Path Report",
+        title: "Jeevan Marg",
+        img: jeevanMargReport,
         tone: "main" as const,
       },
       {
         label: "FREE BONUS",
-        title: "Janam Kundlee — Birth Chart",
+        title: "Mangalik Dosh Report",
+        img: manglikDoshReport,
         tone: "free" as const,
       },
       {
         label: "FREE BONUS",
-        title: "Career Kundali — Destiny Path",
+        title: "Kaalsarpa Dosh Report",
+        img: kaalsarpaDoshReport,
         tone: "free" as const,
       },
     ],
@@ -93,7 +100,13 @@ const JeevanMarg: React.FC = () => {
         />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative overflow-hidden">
+        {/* Aurora gradient — top, behind navigation */}
+        <div
+          className="aurora-gradient top-0 left-0 right-0 h-full sm:h-full"
+          aria-hidden="true"
+        />
+
         <Navigation />
 
         {/* Main Content */}
@@ -108,7 +121,7 @@ const JeevanMarg: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="bg-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-border/20 shadow-elegant"
+                  className="bg-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-primary/20 shadow-sm"
                 >
                   {/* Best Value Badge */}
                   <div className="inline-flex items-center gap-2 bg-gradient-saffron rounded-full px-3 py-1.5 mb-3 sm:mb-4 shadow-xs">
@@ -126,7 +139,7 @@ const JeevanMarg: React.FC = () => {
                   {/* What's Included — minimal bullets */}
                   <div className="mb-6 sm:mb-8">
                     <h2 className="font-inter font-semibold text-xs sm:text-sm uppercase tracking-wider text-saffron mb-3">
-                      What's Included
+                      What's Will you Get
                     </h2>
                     <ul className="space-y-2">
                       {serviceDetails.included.map((item, i) => (
@@ -139,44 +152,67 @@ const JeevanMarg: React.FC = () => {
                       ))}
                     </ul>
                   </div>
+                </motion.div>
 
-                  {/* 3 Report Cards */}
-                  <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-5 sm:mb-6">
+                {/* What's Included in this Combo — separate section (mobile-first) */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="mt-5 sm:mt-6"
+                >
+                  <h2 className="font-larken text-base sm:text-xs md:text-xl text-foreground text-center uppercase tracking-wide mb-3 sm:mb-4">
+                    What's Included in this Combo
+                  </h2>
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3">
                     {serviceDetails.reports.map((r, i) => (
-                      <div key={i} className="flex flex-col items-center">
+                      <div
+                        key={i}
+                        className={`flex flex-col items-center bg-card rounded-xl sm:rounded-2xl p-2 sm:p-3 border ${r.tone === "main" ? "border-saffron/20" : "border-teal/20"} shadow-sm`}
+                      >
                         <div
-                          className={`w-full mb-1.5 sm:mb-2 px-2 py-1 rounded-full text-center text-[9px] sm:text-[10px] font-semibold uppercase tracking-wide ${
+                          className={`mb-1.5 sm:mb-2 px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold uppercase tracking-wide ${
                             r.tone === "main"
                               ? "bg-saffron text-white"
-                              : "bg-teal/15 text-teal"
+                              : "bg-teal text-white"
                           }`}
                         >
-                          {r.label}
+                          {r.label === "MAIN PDF" ? "PAID" : "FREE"}
                         </div>
-                        <div className="aspect-[3/4] w-full rounded-lg sm:rounded-xl bg-gradient-to-br from-muted to-muted/60 border border-border/40 flex items-center justify-center p-2 shadow-sm">
-                          <span className="font-larken text-[10px] sm:text-xs text-center text-muted-foreground leading-tight">
-                            {r.title}
-                          </span>
+                        <div className="aspect-[3/4] w-full rounded-md sm:rounded-lg bg-gradient-to-br from-muted to-muted/60 border border-border/40 flex items-center justify-center shadow-sm mb-2">
+                          <img className="rounded" src={r.img} />
                         </div>
+                        <span className="font-inter text-[10px] sm:text-xs font-semibold text-center text-foreground leading-snug">
+                          {r.title}
+                        </span>
                       </div>
                     ))}
                   </div>
+                </motion.div>
 
-                  {/* Delivery Info Row */}
-                  <div className="flex flex-wrap items-center justify-around gap-3 pt-4 sm:pt-5 border-t border-border/30">
-                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-foreground/80">
-                      <DocumentTextIcon className="w-4 h-4 text-saffron" />
-                      <span className="font-inter font-medium">3 PDF</span>
+                {/* Deliverables Box — separate */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.15 }}
+                  className="mt-4 sm:mt-5 bg-card rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-primary/20 shadow-sm"
+                >
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                    <div className="flex flex-col items-center gap-1.5 text-center">
+                      <DocumentTextIcon className="w-5 h-5 text-saffron" />
+                      <span className="font-inter font-semibold text-[11px] sm:text-xs text-foreground leading-tight">
+                        3 PDF Reports
+                      </span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-foreground/80">
-                      <GiftIcon className="w-4 h-4 text-teal" />
-                      <span className="font-inter font-medium">
+                    <div className="flex flex-col items-center gap-1.5 text-center">
+                      <GiftIcon className="w-5 h-5 text-teal" />
+                      <span className="font-inter font-semibold text-[11px] sm:text-xs text-foreground leading-tight">
                         2 Free Reports
                       </span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-foreground/80">
-                      <ChatBubbleLeftRightIcon className="w-4 h-4 text-saffron" />
-                      <span className="font-inter font-medium">
+                    <div className="flex flex-col items-center gap-1.5 text-center">
+                      <ChatBubbleLeftRightIcon className="w-5 h-5 text-saffron" />
+                      <span className="font-inter font-semibold text-[11px] sm:text-xs text-foreground leading-tight">
                         WhatsApp Delivery
                       </span>
                     </div>
@@ -190,7 +226,7 @@ const JeevanMarg: React.FC = () => {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="hidden lg:block lg:sticky lg:top-24 bg-card rounded-3xl p-6 lg:p-8 border border-border/20 shadow-elegant"
+                  className="hidden lg:block lg:sticky lg:top-24 bg-card rounded-3xl p-6 lg:p-8 border border-primary/20"
                 >
                   <div className="mb-6">
                     <div className="bg-gradient-saffron rounded-full px-4 py-2 flex items-center gap-2 shadow-xs w-fit mb-6">
@@ -228,7 +264,7 @@ const JeevanMarg: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckIcon className="w-4 h-4 text-teal flex-shrink-0" />
-                      <span>WhatsApp Delivery</span>
+                      <span>Vedic Certified Analysis</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckIcon className="w-4 h-4 text-teal flex-shrink-0" />
@@ -241,10 +277,20 @@ const JeevanMarg: React.FC = () => {
           </div>
         </section>
 
-        {/* Testimonials — same swiper as homepage */}
-        <TestimonialSection />
-
-        <Footer />
+        <div className="w-full overflow-x-hidden relative">
+          <div
+            className="aurora-gradient top-0 left-0 right-0 h-[420px] sm:h-[520px]"
+            aria-hidden="true"
+          />
+        </div>
+        {/* Aurora gradient — bottom, behind footer area */}
+        <div className="relative">
+          {/* <div
+            className="aurora-gradient bottom-0 left-0 right-0 h-[420px] sm:h-[520px]"
+            aria-hidden="true"
+          /> */}
+          <Footer />
+        </div>
 
         {/* Sticky Mobile Price Tab */}
         <motion.div

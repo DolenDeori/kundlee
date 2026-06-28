@@ -102,7 +102,8 @@
       hsl(var(--teal) / 0.08),
       hsl(var(--saffron) / 0.05)
     );
-    --gradient-cosmic: radial-gradient(
+    --gradient-cosmic:
+      radial-gradient(
         ellipse 800px 600px at 50% 0%,
         hsl(var(--saffron) / 0.1),
         transparent
@@ -155,7 +156,9 @@
 
   body {
     @apply bg-background text-foreground font-inter antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 
   h1,
@@ -187,7 +190,8 @@
 
   /* Enhanced Sunray Pattern */
   .sunray-pattern {
-    background-image: radial-gradient(
+    background-image:
+      radial-gradient(
         circle at center,
         transparent 25%,
         hsl(var(--saffron) / 0.04) 26%,
@@ -358,7 +362,9 @@
   }
 
   .service-card:hover {
-    box-shadow: var(--shadow-elegant), 0 0 0 1px hsl(var(--saffron) / 0.1);
+    box-shadow:
+      var(--shadow-elegant),
+      0 0 0 1px hsl(var(--saffron) / 0.1);
   }
 
   /* Responsive Typography */
@@ -445,7 +451,9 @@
   );
   opacity: 0;
   transform: translateX(-40%) skewX(-20deg);
-  transition: opacity 0.2s, transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    opacity 0.2s,
+    transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2;
   mix-blend-mode: lighten;
 }
@@ -472,4 +480,63 @@
   background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23grain)'/%3E%3C/svg%3E");
   background-size: 120px 120px;
   background-repeat: repeat;
+}
+
+/* Aurora gradient — soft drifting pink/purple/peach background */
+.aurora-gradient {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+  opacity: 0.55;
+  background:
+    radial-gradient(
+      40% 50% at 20% 30%,
+      rgba(255, 182, 193, 0.441),
+      transparent 70%
+    ),
+    radial-gradient(
+      45% 55% at 75% 40%,
+      rgba(124, 255, 194, 0.703),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 50% at 50% 75%,
+      rgba(122, 188, 255, 0.496),
+      transparent 70%
+    ),
+    radial-gradient(
+      35% 40% at 85% 80%,
+      rgba(253, 255, 200, 0.593),
+      transparent 70%
+    );
+  background-size: 200% 200%;
+  animation: aurora-drift 5s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift {
+  0% {
+    background-position:
+      0% 0%,
+      100% 0%,
+      50% 100%,
+      100% 100%;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    background-position:
+      30% 40%,
+      60% 30%,
+      40% 60%,
+      70% 70%;
+    transform: translate3d(-2%, 1%, 0) scale(1.05);
+  }
+  100% {
+    background-position:
+      100% 100%,
+      0% 100%,
+      60% 0%,
+      0% 0%;
+    transform: translate3d(2%, -1%, 0) scale(1.02);
+  }
 }
