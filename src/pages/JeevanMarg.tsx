@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import {
-  MapIcon,
   CheckIcon,
-  StarIcon as StarOutline,
-  ClockIcon,
   ArrowRightIcon,
   ShieldCheckIcon,
+  DocumentTextIcon,
+  GiftIcon,
+  ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/outline";
 import { StarIcon as StarIconSolid } from "@heroicons/react/24/solid";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import TestimonialSection from "@/components/TestimonialSection";
 import { PremiumButton } from "@/components/ui/PremiumButton";
 import {
   Dialog,
@@ -19,103 +20,62 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import jeevamargHero from "@/assets/jeevan-marg-hero.jpg";
 
 /**
- * JeevanMarg - Dedicated service page for life path analysis
- * Features comprehensive service details and integrated booking form
+ * JeevanMarg - Dedicated service page for life path analysis.
+ * Compact layout: combo title + included points + 3 report cards + delivery info.
  */
 const JeevanMarg: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [showStickyTab, setShowStickyTab] = useState(true);
 
   const serviceDetails = {
-    title: "Jeevan Marg",
-    tagline: "Navigate your Dharmic Path",
-    description:
-      "Your complete life path report providing deep insights into career, purpose, and spiritual direction.",
-    longDescription:
-      "Embark on a journey of self-discovery with our comprehensive Jeevan Marg report. Rooted in ancient Vedic traditions, this analysis reveals your dharmic path, innate talents, and the cosmic influences shaping your destiny. Make informed decisions about your career, relationships, and spiritual growth.",
+    title: "Jeevan Marg Report + Janam Kundlee + Career Kundali",
     price: "₹499",
     originalPrice: "₹800",
     deliveryTime: "72 hours",
-    rating: 4.9,
-    reviews: 203,
-    highlights: [
-      "Life Purpose & Dharma Analysis",
-      "Career Destiny Insights",
-      "Spiritual Evolution Roadmap",
-      "12-Month Cosmic Forecast",
+    included: [
+      "Career & Business Guidance",
+      "Financial & Wealth Predictions",
+      "Health & Wellness Guidance",
+      "Astrological Remedies",
+      "Strengths, Weaknesses & Future Opportunities",
+      "10-Year Yearly Predictions",
     ],
-    detailedOfferings: [
+    reports: [
       {
-        title: "Life Purpose & Dharma Analysis",
-        description:
-          "Discover your soul's purpose and the path you're meant to walk in this lifetime",
+        label: "MAIN PDF",
+        title: "Jeevan Marg — Life Path Report",
+        tone: "main" as const,
       },
       {
-        title: "Career & Finance Predictions",
-        description:
-          "Detailed insights into your professional journey and financial prospects",
+        label: "FREE BONUS",
+        title: "Janam Kundlee — Birth Chart",
+        tone: "free" as const,
       },
       {
-        title: "Health & Wellness Guidance",
-        description:
-          "Astrological health insights and preventive care recommendations",
-      },
-      {
-        title: "Spiritual Growth Roadmap",
-        description:
-          "Personalized guidance for your spiritual evolution and inner development",
-      },
-      {
-        title: "Yearly Forecast",
-        description: "Comprehensive predictions for the next 12 months",
+        label: "FREE BONUS",
+        title: "Career Kundali — Destiny Path",
+        tone: "free" as const,
       },
     ],
-    testimonial: {
-      text: "My Jeevan Marg report gave me the clarity I needed to make important life decisions. The predictions have been remarkably accurate.",
-      author: "Rahul Sharma",
-      location: "Delhi",
-    },
   };
 
   const discountPercentage = Math.round(
     ((parseInt(serviceDetails.originalPrice.slice(1)) -
       parseInt(serviceDetails.price.slice(1))) /
       parseInt(serviceDetails.originalPrice.slice(1))) *
-      100
+      100,
   );
 
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => {
-      const filled = i < Math.floor(rating);
-      return (
-        <StarIconSolid
-          key={i}
-          className={`w-4 h-4 ${filled ? "text-yellow-500" : "text-gray-300"}`}
-        />
-      );
-    });
-  };
-
-  // Intersection Observer to make tab non-sticky when footer is visible
   React.useEffect(() => {
     const footer = document.querySelector("footer");
     if (!footer) return;
-
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowStickyTab(!entry.isIntersecting);
-      },
-      {
-        threshold: 0,
-        rootMargin: "-80px 0px 0px 0px",
-      }
+      ([entry]) => setShowStickyTab(!entry.isIntersecting),
+      { threshold: 0, rootMargin: "-80px 0px 0px 0px" },
     );
-
     observer.observe(footer);
-
     return () => observer.disconnect();
   }, []);
 
@@ -125,152 +85,112 @@ const JeevanMarg: React.FC = () => {
         <title>Jeevan Marg - Life Path Analysis | Kundlee</title>
         <meta
           name="description"
-          content="Discover your life's purpose through Vedic astrology. Comprehensive analysis of career, dharma, and spiritual path with 12-month cosmic forecast."
+          content="Discover your life's purpose through Vedic astrology. Combo: Jeevan Marg + Janam Kundlee + Career Kundali — 3 PDF reports delivered on WhatsApp."
         />
         <meta
           name="keywords"
-          content="life path analysis, vedic astrology, career guidance, dharma analysis, spiritual path, life purpose"
+          content="life path analysis, vedic astrology, career guidance, dharma analysis, janam kundlee, career kundali"
         />
       </Helmet>
 
       <div className="min-h-screen bg-background">
         <Navigation />
 
-        {/* Hero Section */}
-        <section className="relative pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 overflow-hidden bg-teal">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="max-w-3xl mx-auto text-center text-white"
-            >
-              <div className="inline-flex items-center justify-center mb-4 sm:mb-6">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/20">
-                  <MapIcon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                </div>
-              </div>
-              <h1 className="font-larken text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-3 sm:mb-4">
-                {serviceDetails.title}
-              </h1>
-              <p className="font-inter text-base sm:text-lg md:text-xl text-saffron-light font-medium mb-2 sm:mb-3 uppercase tracking-wide">
-                {serviceDetails.tagline}
-              </p>
-              <p className="font-inter text-sm sm:text-base md:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-                {serviceDetails.description}
-              </p>
-
-              {/* Rating */}
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-                <div className="flex items-center gap-1">
-                  {renderStars(serviceDetails.rating)}
-                </div>
-                <span className="font-inter text-xs sm:text-sm text-white/80">
-                  {serviceDetails.rating} • {serviceDetails.reviews} reviews
-                </span>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-white/80">
-                  <ClockIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span>{serviceDetails.deliveryTime}</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
         {/* Main Content */}
-        <section className="py-20 relative">
+        <section className="pt-24 sm:pt-28 pb-12 sm:pb-16 relative">
           <div className="absolute inset-0 bg-gradient-cosmic opacity-40" />
 
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-12">
-              {/* Left Column - Details */}
-              <div className="lg:col-span-2 space-y-12">
-                {/* About Section */}
+            <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-8 lg:gap-12">
+              {/* Left Column - Combined About + Included + Reports */}
+              <div className="lg:col-span-2">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="bg-card rounded-3xl p-8 border border-border/20 shadow-elegant"
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-border/20 shadow-elegant"
                 >
-                  <h2 className="font-larken text-3xl mb-6 uppercase tracking-wide">
-                    About This Service
-                  </h2>
-                  <p className="font-inter text-foreground/80 text-lg leading-relaxed">
-                    {serviceDetails.longDescription}
-                  </p>
-                </motion.div>
+                  {/* Best Value Badge */}
+                  <div className="inline-flex items-center gap-2 bg-gradient-saffron rounded-full px-3 py-1.5 mb-3 sm:mb-4 shadow-xs">
+                    <StarIconSolid className="w-3.5 h-3.5 text-white" />
+                    <span className="font-inter text-[11px] sm:text-xs font-medium text-white uppercase tracking-wide">
+                      Best Value Combo
+                    </span>
+                  </div>
 
-                {/* What's Included */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="bg-card rounded-3xl p-8 border border-border/20 shadow-elegant"
-                >
-                  <h2 className="font-larken text-3xl mb-8 uppercase tracking-wide">
-                    What's Included
-                  </h2>
-                  <div className="space-y-4">
-                    {serviceDetails.detailedOfferings.map((offering, index) => (
-                      <div
-                        key={index}
-                        className="flex gap-4 p-6 rounded-2xl border bg-muted/30 border-border/50 hover:border-teal/30 transition-all duration-300"
-                      >
-                        <div className="flex-shrink-0 mt-1">
-                          <div className="w-6 h-6 rounded-full flex items-center justify-center bg-teal">
-                            <CheckIcon className="w-3 h-3 text-white" />
-                          </div>
+                  {/* Combo Heading */}
+                  <h1 className="font-larken text-xl sm:text-2xl md:text-3xl lg:text-4xl text-foreground uppercase tracking-wide leading-tight mb-4 sm:mb-6">
+                    {serviceDetails.title}
+                  </h1>
+
+                  {/* What's Included — minimal bullets */}
+                  <div className="mb-6 sm:mb-8">
+                    <h2 className="font-inter font-semibold text-xs sm:text-sm uppercase tracking-wider text-saffron mb-3">
+                      What's Included
+                    </h2>
+                    <ul className="space-y-2">
+                      {serviceDetails.included.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2.5">
+                          <span className="flex-shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full bg-teal" />
+                          <span className="font-inter text-xs sm:text-sm text-foreground/85 leading-snug">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* 3 Report Cards */}
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-5 sm:mb-6">
+                    {serviceDetails.reports.map((r, i) => (
+                      <div key={i} className="flex flex-col items-center">
+                        <div
+                          className={`w-full mb-1.5 sm:mb-2 px-2 py-1 rounded-full text-center text-[9px] sm:text-[10px] font-semibold uppercase tracking-wide ${
+                            r.tone === "main"
+                              ? "bg-saffron text-white"
+                              : "bg-teal/15 text-teal"
+                          }`}
+                        >
+                          {r.label}
                         </div>
-                        <div className="flex-1">
-                          <h4 className="font-inter font-semibold text-foreground mb-2">
-                            {offering.title}
-                          </h4>
-                          <p className="font-inter text-sm text-muted-foreground leading-relaxed">
-                            {offering.description}
-                          </p>
+                        <div className="aspect-[3/4] w-full rounded-lg sm:rounded-xl bg-gradient-to-br from-muted to-muted/60 border border-border/40 flex items-center justify-center p-2 shadow-sm">
+                          <span className="font-larken text-[10px] sm:text-xs text-center text-muted-foreground leading-tight">
+                            {r.title}
+                          </span>
                         </div>
                       </div>
                     ))}
                   </div>
-                </motion.div>
 
-                {/* Testimonial */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="bg-gradient-to-r from-saffron/5 to-teal/5 border border-border/50 rounded-3xl p-8"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-gradient-teal rounded-full flex items-center justify-center shadow-lg">
-                        <StarIconSolid className="w-6 h-6 text-white" />
-                      </div>
+                  {/* Delivery Info Row */}
+                  <div className="flex flex-wrap items-center justify-around gap-3 pt-4 sm:pt-5 border-t border-border/30">
+                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-foreground/80">
+                      <DocumentTextIcon className="w-4 h-4 text-saffron" />
+                      <span className="font-inter font-medium">3 PDF</span>
                     </div>
-                    <div className="flex-1">
-                      <p className="font-inter text-foreground/90 italic mb-3 text-lg leading-relaxed">
-                        "{serviceDetails.testimonial.text}"
-                      </p>
-                      <div className="font-inter text-sm">
-                        <span className="font-semibold text-foreground">
-                          {serviceDetails.testimonial.author}
-                        </span>
-                        <span className="text-muted-foreground ml-2">
-                          • {serviceDetails.testimonial.location}
-                        </span>
-                      </div>
+                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-foreground/80">
+                      <GiftIcon className="w-4 h-4 text-teal" />
+                      <span className="font-inter font-medium">
+                        2 Free Reports
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-foreground/80">
+                      <ChatBubbleLeftRightIcon className="w-4 h-4 text-saffron" />
+                      <span className="font-inter font-medium">
+                        WhatsApp Delivery
+                      </span>
                     </div>
                   </div>
                 </motion.div>
               </div>
 
-              {/* Right Column - Sticky Booking Card */}
+              {/* Right Column - Sticky Booking Card (desktop) */}
               <div className="lg:col-span-1">
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="lg:sticky lg:top-24 bg-card rounded-3xl p-8 border border-border/20 shadow-elegant"
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="hidden lg:block lg:sticky lg:top-24 bg-card rounded-3xl p-6 lg:p-8 border border-border/20 shadow-elegant"
                 >
                   <div className="mb-6">
                     <div className="bg-gradient-saffron rounded-full px-4 py-2 flex items-center gap-2 shadow-xs w-fit mb-6">
@@ -308,7 +228,7 @@ const JeevanMarg: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckIcon className="w-4 h-4 text-teal flex-shrink-0" />
-                      <span>Vedic Certified Analysis</span>
+                      <span>WhatsApp Delivery</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckIcon className="w-4 h-4 text-teal flex-shrink-0" />
@@ -321,15 +241,15 @@ const JeevanMarg: React.FC = () => {
           </div>
         </section>
 
+        {/* Testimonials — same swiper as homepage */}
+        <TestimonialSection />
+
         <Footer />
 
         {/* Sticky Mobile Price Tab */}
         <motion.div
           initial={{ y: 100, opacity: 0 }}
-          animate={{
-            y: 0,
-            opacity: 1,
-          }}
+          animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           className={`lg:hidden ${
             showStickyTab ? "fixed" : "relative"
@@ -349,9 +269,8 @@ const JeevanMarg: React.FC = () => {
                     {discountPercentage}% OFF
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <ClockIcon className="w-3 h-3 flex-shrink-0" />
-                  <span>{serviceDetails.deliveryTime}</span>
+                <div className="font-inter text-[11px] text-muted-foreground">
+                  1 Paid + 2 Free • WhatsApp Delivery
                 </div>
               </div>
               <PremiumButton
@@ -374,7 +293,7 @@ const JeevanMarg: React.FC = () => {
               <div className="w-8 h-8 bg-saffron rounded-full flex items-center justify-center">
                 <StarIconSolid className="w-4 h-4 text-white" />
               </div>
-              {serviceDetails.title} - Registration Form
+              Jeevan Marg - Registration Form
             </DialogTitle>
           </DialogHeader>
           <div className="relative overflow-hidden">
