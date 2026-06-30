@@ -8,6 +8,7 @@ import {
   DocumentTextIcon,
   GiftIcon,
   ChatBubbleLeftRightIcon,
+  LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import { StarIcon as StarIconSolid } from "@heroicons/react/24/solid";
 import Navigation from "@/components/Navigation";
@@ -31,7 +32,6 @@ import kaalsarpaDoshReport from "@/assets/Kaalsarpa-Dosh-Report.png";
  */
 const JeevanMarg: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [showStickyTab, setShowStickyTab] = useState(true);
 
   const serviceDetails = {
     title: "Jeevan Marg Report + Janam Kundlee + Career Kundali",
@@ -74,17 +74,6 @@ const JeevanMarg: React.FC = () => {
       parseInt(serviceDetails.originalPrice.slice(1))) *
       100,
   );
-
-  React.useEffect(() => {
-    const footer = document.querySelector("footer");
-    if (!footer) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowStickyTab(!entry.isIntersecting),
-      { threshold: 0, rootMargin: "-80px 0px 0px 0px" },
-    );
-    observer.observe(footer);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <>
@@ -151,6 +140,28 @@ const JeevanMarg: React.FC = () => {
                         </li>
                       ))}
                     </ul>
+                  </div>
+
+                  {/* Price block — mobile only, matches reference */}
+                  <div className="lg:hidden -mx-4 sm:-mx-6 -mb-4 sm:-mb-6 mt-2 px-4 sm:px-6 py-4 sm:py-5 rounded-b-2xl sm:rounded-b-3xl bg-gradient-to-br from-saffron/10 via-saffron/5 to-teal/10 border-t border-primary/10">
+                    <div className="flex items-center justify-between gap-3 flex-wrap">
+                      <div className="flex items-baseline gap-2">
+                        <span className="font-larken text-4xl sm:text-5xl font-bold text-foreground leading-none">
+                          {serviceDetails.price}
+                        </span>
+                        <span className="font-inter text-base sm:text-lg text-muted-foreground line-through">
+                          {serviceDetails.originalPrice}
+                        </span>
+                      </div>
+                      <div className="flex flex-col items-end gap-1.5">
+                        <span className="bg-saffron text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-sm">
+                          Save {discountPercentage}%
+                        </span>
+                        <span className="bg-teal/10 text-teal border border-teal/30 text-[10px] font-semibold px-2.5 py-0.5 rounded-full">
+                          1 Paid + 2 Free
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
 
@@ -285,48 +296,32 @@ const JeevanMarg: React.FC = () => {
         </div>
         {/* Aurora gradient — bottom, behind footer area */}
         <div className="relative">
-          {/* <div
-            className="aurora-gradient bottom-0 left-0 right-0 h-[420px] sm:h-[520px]"
-            aria-hidden="true"
-          /> */}
           <Footer />
+          {/* Mobile spacer so sticky CTA never covers footer content */}
+          <div aria-hidden className="lg:hidden h-28 bg-charcoal" />
         </div>
 
-        {/* Sticky Mobile Price Tab */}
+        {/* Sticky Mobile CTA */}
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className={`lg:hidden ${
-            showStickyTab ? "fixed" : "relative"
-          } bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant`}
+          className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant"
         >
-          <div className="px-4 py-3">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-baseline gap-2 flex-wrap mb-1">
-                  <span className="font-larken text-2xl font-bold text-foreground">
-                    {serviceDetails.price}
-                  </span>
-                  <span className="font-inter text-sm text-muted-foreground line-through">
-                    {serviceDetails.originalPrice}
-                  </span>
-                  <span className="bg-saffron text-white text-[10px] font-medium px-2 py-0.5 rounded-full uppercase">
-                    {discountPercentage}% OFF
-                  </span>
-                </div>
-                <div className="font-inter text-[11px] text-muted-foreground">
-                  1 Paid + 2 Free • WhatsApp Delivery
-                </div>
-              </div>
-              <PremiumButton
-                onClick={() => setIsFormOpen(true)}
-                label="Get Report"
-                icon={<ArrowRightIcon className="w-4 h-4" />}
-                variant="saffron"
-                className="w-full sm:w-auto sm:flex-shrink-0"
-              />
+          <div className="px-4 py-3 text-center">
+            <div className="font-larken text-base font-semibold text-foreground uppercase tracking-wide mb-0.5">
+              Get Your Report Now
             </div>
+            <div className="font-inter text-[11px] text-muted-foreground mb-2.5">
+              1 Paid + 2 Free • WhatsApp Delivery
+            </div>
+            <PremiumButton
+              onClick={() => setIsFormOpen(true)}
+              label={`Unlock at ${serviceDetails.price}`}
+              icon={<LockClosedIcon className="w-4 h-4" />}
+              variant="saffron"
+              className="w-full"
+            />
           </div>
         </motion.div>
       </div>
