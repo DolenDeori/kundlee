@@ -1,15 +1,17 @@
 import KundleeHome from "@/components/KundleeHome";
+import SEOHead from "@/components/SEOHead";
 
 /**
- * Index Page
- * 
- * Main entry point for the application.
- * Renders the KundleeHome component which contains all sections.
- * 
- * @returns {JSX.Element} The index page component
+ * Homepage. Targets keyword cluster: "vedic astrology reports",
+ * "modern vedic astrology", "personalized kundli reports".
  */
 const Index = () => {
-  return <KundleeHome />;
+  return (
+    <>
+      <SEOHead path="/" />
+      <KundleeHome />
+    </>
+  );
 };
 
 export default Index;

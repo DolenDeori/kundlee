@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/SEOHead";
+import {
+  buildBreadcrumbJsonLd,
+  buildFaqJsonLd,
+  buildServiceJsonLd,
+} from "@/seo/pageMeta";
 import {
   CheckIcon,
   ArrowRightIcon,
@@ -77,24 +82,56 @@ const JeevanMarg: React.FC = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Jeevan Marg - Life Path Analysis | Kundlee</title>
-        <meta
-          name="description"
-          content="Discover your life's purpose through Vedic astrology. Combo: Jeevan Marg + Janam Kundlee + Career Kundali — 3 PDF reports delivered on WhatsApp."
-        />
-        <meta
-          name="keywords"
-          content="life path analysis, vedic astrology, career guidance, dharma analysis, janam kundlee, career kundali"
-        />
-      </Helmet>
+      <SEOHead
+        path="/jeevan-marg"
+        jsonLd={[
+          buildServiceJsonLd({
+            name: serviceDetails.title,
+            description:
+              "Vedic life-path analysis covering dharma, career, health, education, and a 12-month cosmic forecast. Includes Janam Kundlee and Career Kundali as PDF reports.",
+            path: "/jeevan-marg",
+            price: serviceDetails.price.replace(/[^0-9]/g, ""),
+          }),
+          buildFaqJsonLd([
+            {
+              question: "What is a Jeevan Marg report?",
+              answer:
+                "Jeevan Marg is a personalized Vedic life-path report analysing your dharma, career direction, education, health, and spiritual growth based on your birth chart.",
+            },
+            {
+              question: "How is this different from a free online kundli?",
+              answer:
+                "Free kundlis generate raw planetary data. Jeevan Marg interprets that data in plain language, tying planetary positions to concrete life decisions you're navigating right now.",
+            },
+            {
+              question: "What do I receive in the combo?",
+              answer:
+                "You receive three PDF reports on WhatsApp: the main Jeevan Marg life-path report, plus a Janam Kundlee and a Career Kundali as complimentary bonuses.",
+            },
+            {
+              question: "How long does delivery take?",
+              answer:
+                "Reports are delivered on WhatsApp within 72 hours of receiving your accurate birth details (date, time, and place of birth).",
+            },
+            {
+              question: "What birth details do I need to provide?",
+              answer:
+                "Your exact date of birth, time of birth (as precise as possible), and place of birth. Accurate birth time is essential for a meaningful Vedic reading.",
+            },
+          ]),
+          buildBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Jeevan Marg", path: "/jeevan-marg" },
+          ]),
+        ]}
+      />
 
-      <div className="min-h-screen bg-background relative overflow-hidden">
+      <div className="min-h-screen bg-background relative">
         {/* Aurora gradient — top, behind navigation */}
-        <div
-          className="aurora-gradient top-0 left-0 right-0 h-full sm:h-full"
+        {/* <div
+          className="aurora-gradient top-0 left-0 right-0 h-full sm:h-full w-full"
           aria-hidden="true"
-        />
+        /> */}
 
         <Navigation />
 

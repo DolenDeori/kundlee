@@ -1,57 +1,78 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import { DEFAULT_OG_IMAGE, SITE_NAME, getPageMeta } from "@/seo/pageMeta";
 
 interface SEOHeadProps {
+  /** Path to look up in pageMeta. If omitted, fields must be provided explicitly. */
+  path?: string;
   title?: string;
   description?: string;
-  keywords?: string;
   canonical?: string;
   ogType?: string;
   ogImage?: string;
   twitterCard?: string;
-  jsonLd?: object;
+  noindex?: boolean;
+  /** One or more JSON-LD objects to inject on this page. */
+  jsonLd?: object | object[];
 }
 
+/**
+ * SEOHead — per-route <head> tags via react-helmet-async.
+ *
+ * When `path` is provided it hydrates defaults from `src/seo/pageMeta.ts`,
+ * so callers only need to pass overrides. Absolute URLs are used for
+ * canonical / og:url / og:image so that social scrapers (which don't
+ * execute JS) resolve them correctly.
+ */
 const SEOHead: React.FC<SEOHeadProps> = ({
-  title = "Kundlee - Premium Vedic Astrology Reports | Relationship & Career Guidance",
-  description = "Get deeply researched, personalized Vedic astrology reports for relationship compatibility and career guidance. Navigate life's most important decisions with confidence through traditional wisdom and modern clarity.",
-  keywords = "vedic astrology reports, relationship compatibility astrology, career astrology guidance, jeevan sathee, jeevan marg, kundli analysis, astrological consultation, vedic horoscope, birth chart analysis, astrological guidance India",
-  canonical = "https://kundlee.com",
-  ogType = "website",
-  ogImage = "/og-image-kundlee.jpg",
+  path,
+  title,
+  description,
+  canonical,
+  ogType,
+  ogImage,
   twitterCard = "summary_large_image",
-  jsonLd = null,
+  noindex,
+  jsonLd,
 }) => {
+  const meta = path ? getPageMeta(path) : undefined;
+
+  const finalTitle = title ?? meta?.title ?? SITE_NAME;
+  const finalDescription = description ?? meta?.description ?? "";
+  const finalCanonical = canonical ?? meta?.canonical;
+  const finalOgType = ogType ?? meta?.ogType ?? "website";
+  const finalOgImage = ogImage ?? meta?.ogImage ?? DEFAULT_OG_IMAGE;
+  const finalNoindex = noindex ?? meta?.noindex ?? false;
+
+  const jsonLdArr = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+
   return (
     <Helmet>
-      {/* Primary Meta Tags */}
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
-      
-      {/* Canonical URL */}
-      <link rel="canonical" href={canonical} />
-      
+      <title>{finalTitle}</title>
+      <meta name="description" content={finalDescription} />
+      {finalNoindex && <meta name="robots" content="noindex, follow" />}
+
+      {finalCanonical && <link rel="canonical" href={finalCanonical} />}
+
       {/* Open Graph */}
-      <meta property="og:type" content={ogType} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={ogImage} />
-      <meta property="og:url" content={canonical} />
-      <meta property="og:site_name" content="Kundlee" />
-      
+      <meta property="og:type" content={finalOgType} />
+      <meta property="og:site_name" content={SITE_NAME} />
+      <meta property="og:title" content={finalTitle} />
+      <meta property="og:description" content={finalDescription} />
+      <meta property="og:image" content={finalOgImage} />
+      {finalCanonical && <meta property="og:url" content={finalCanonical} />}
+
       {/* Twitter */}
       <meta name="twitter:card" content={twitterCard} />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
-      
-      {/* JSON-LD Structured Data */}
-      {jsonLd && (
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
+      <meta name="twitter:title" content={finalTitle} />
+      <meta name="twitter:description" content={finalDescription} />
+      <meta name="twitter:image" content={finalOgImage} />
+
+      {jsonLdArr.map((obj, i) => (
+        <script key={i} type="application/ld+json">
+          {JSON.stringify(obj)}
         </script>
-      )}
+      ))}
     </Helmet>
   );
 };

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/SEOHead";
+import {
+  buildBreadcrumbJsonLd,
+  buildFaqJsonLd,
+  buildServiceJsonLd,
+} from "@/seo/pageMeta";
 import {
   HeartIcon,
   CheckIcon,
@@ -8,6 +13,7 @@ import {
   ClockIcon,
   ArrowRightIcon,
   ShieldCheckIcon,
+  LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import { StarIcon as StarIconSolid } from "@heroicons/react/24/solid";
 import Navigation from "@/components/Navigation";
@@ -27,7 +33,6 @@ import jeevansatheeHero from "@/assets/jeevan-sathee-hero.jpg";
  */
 const JeevanSathee: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [showStickyTab, setShowStickyTab] = useState(true);
 
   const serviceDetails = {
     title: "Jeevan Sathee",
@@ -80,7 +85,7 @@ const JeevanSathee: React.FC = () => {
     ((parseInt(serviceDetails.originalPrice.slice(1)) -
       parseInt(serviceDetails.price.slice(1))) /
       parseInt(serviceDetails.originalPrice.slice(1))) *
-      100
+      100,
   );
 
   const renderStars = (rating: number) => {
@@ -95,41 +100,51 @@ const JeevanSathee: React.FC = () => {
     });
   };
 
-  // Intersection Observer to make tab non-sticky when footer is visible
-  React.useEffect(() => {
-    const footer = document.querySelector("footer");
-    if (!footer) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowStickyTab(!entry.isIntersecting);
-      },
-      {
-        threshold: 0,
-        rootMargin: "-80px 0px 0px 0px",
-      }
-    );
-
-    observer.observe(footer);
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <>
-      <Helmet>
-        <title>
-          Jeevan Sathee - Relationship Compatibility Analysis | Kundlee
-        </title>
-        <meta
-          name="description"
-          content="Discover your sacred bond through Vedic astrology. Comprehensive relationship compatibility analysis with insights into karmic patterns and auspicious timing."
-        />
-        <meta
-          name="keywords"
-          content="relationship compatibility, vedic astrology, marriage compatibility, relationship analysis, karmic bond"
-        />
-      </Helmet>
+      <SEOHead
+        path="/jeevan-sathee"
+        jsonLd={[
+          buildServiceJsonLd({
+            name: "Jeevan Sathee — Vedic Compatibility Report",
+            description:
+              "In-depth Vedic compatibility analysis covering karmic bond, harmony guidance, and auspicious timing for couples.",
+            path: "/jeevan-sathee",
+            price: serviceDetails.price.replace(/[^0-9]/g, ""),
+          }),
+          buildFaqJsonLd([
+            {
+              question: "What is a Jeevan Sathee report?",
+              answer:
+                "Jeevan Sathee is a Vedic compatibility report that analyses two birth charts together to reveal karmic bonds, harmony patterns, and guidance for a lasting partnership.",
+            },
+            {
+              question: "How is this different from free kundli matching?",
+              answer:
+                "Free tools give you a numeric guna-milan score. Jeevan Sathee interprets the underlying planetary dynamics in plain language, with practical guidance instead of just numbers.",
+            },
+            {
+              question: "What details do we need to provide?",
+              answer:
+                "Both partners' exact date, time, and place of birth. Accurate birth times are essential for a meaningful compatibility reading.",
+            },
+            {
+              question: "How is the report delivered?",
+              answer:
+                "Your Jeevan Sathee report is delivered as a PDF on WhatsApp within 48 hours of receiving both partners' birth details.",
+            },
+            {
+              question: "Is this only for people considering marriage?",
+              answer:
+                "No. Jeevan Sathee is useful at any stage of a relationship — from early compatibility questions to long-term partners seeking deeper understanding.",
+            },
+          ]),
+          buildBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Jeevan Sathee", path: "/jeevan-sathee" },
+          ]),
+        ]}
+      />
 
       <div className="min-h-screen bg-background">
         <Navigation />
@@ -320,46 +335,31 @@ const JeevanSathee: React.FC = () => {
         </section>
 
         <Footer />
+        {/* Mobile spacer so sticky CTA never covers footer content */}
+        <div aria-hidden className="lg:hidden h-28 bg-charcoal" />
 
-        {/* Sticky Mobile Price Tab */}
+        {/* Sticky Mobile CTA */}
         <motion.div
           initial={{ y: 100, opacity: 0 }}
-          animate={{
-            y: 0,
-            opacity: 1,
-          }}
+          animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className={`lg:hidden ${
-            showStickyTab ? "fixed" : "relative"
-          } bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant`}
+          className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-card border-t border-border/20 shadow-elegant"
         >
-          <div className="px-4 py-3">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-baseline gap-2 flex-wrap mb-1">
-                  <span className="font-larken text-2xl font-bold text-foreground">
-                    {serviceDetails.price}
-                  </span>
-                  <span className="font-inter text-sm text-muted-foreground line-through">
-                    {serviceDetails.originalPrice}
-                  </span>
-                  <span className="bg-saffron text-white text-[10px] font-medium px-2 py-0.5 rounded-full uppercase">
-                    {discountPercentage}% OFF
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <ClockIcon className="w-3 h-3 flex-shrink-0" />
-                  <span>{serviceDetails.deliveryTime}</span>
-                </div>
-              </div>
-              <PremiumButton
-                onClick={() => setIsFormOpen(true)}
-                label="Get Report"
-                icon={<ArrowRightIcon className="w-4 h-4" />}
-                variant="teal"
-                className="w-full sm:w-auto sm:flex-shrink-0"
-              />
+          <div className="px-4 py-3 text-center">
+            <div className="font-larken text-base font-semibold text-foreground uppercase tracking-wide mb-0.5">
+              Get Your Report Now
             </div>
+            <div className="flex items-center justify-center gap-1.5 font-inter text-[11px] text-muted-foreground mb-2.5">
+              <ClockIcon className="w-3 h-3" />
+              <span>Delivered in {serviceDetails.deliveryTime}</span>
+            </div>
+            <PremiumButton
+              onClick={() => setIsFormOpen(true)}
+              label={`Unlock at ${serviceDetails.price}`}
+              icon={<LockClosedIcon className="w-4 h-4" />}
+              variant="teal"
+              className="w-full"
+            />
           </div>
         </motion.div>
       </div>
